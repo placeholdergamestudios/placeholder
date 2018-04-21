@@ -2,6 +2,7 @@
   <library name="lwjgl">
     <CLASSES>
       <root url="jar://D:/PlaceholderLibraries/lwjgl/jar/lwjgl.jar!/" />
+      <root url="jar://D:/PlaceholderLibraries/lwjgl/natives/lwjgl-natives-windows.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

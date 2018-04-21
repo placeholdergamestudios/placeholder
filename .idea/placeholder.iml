@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager" inherit-compiler-output="true">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8" inherit-compiler-output="true">
     <exclude-output />
-    <content url="file://$MODULE_DIR$" />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/org.l33tlabs.twl.pngdecoder/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/jbox2d/jbox2d-library/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Textures" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/shaders" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/options" type="java-resource" />
+      <excludeFolder url="file://$MODULE_DIR$/jbox2d/jbox2d-library/src/main/java/org/jbox2d/gwtemul/org/jbox2d/common" />
+    </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="java" level="project" />
     <orderEntry type="library" name="joml-1.9.0" level="project" />
-    <orderEntry type="library" name="PNGDecoder" level="project" />
     <orderEntry type="library" name="lwjgl-glfw" level="project" />
     <orderEntry type="library" name="lwjgl-opengl" level="project" />
     <orderEntry type="library" name="lwjgl" level="project" />
