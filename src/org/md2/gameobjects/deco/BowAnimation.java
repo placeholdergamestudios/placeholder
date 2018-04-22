@@ -30,6 +30,7 @@ public class BowAnimation extends DecoObject
 	public void performTick()
 	{
 		liveTime++;
+		user.modMovement(0.55f);
 		if(!(Game.getGame().getMechanicManager().getWorldManager().getPlayer().getInventory().isIteminHotbar(usedItem)))
         {
             liveTime = -1;
@@ -53,7 +54,6 @@ public class BowAnimation extends DecoObject
 		else if(liveTime > drawingTime/2){
 			this.setTexture(usedItem.getAnimationTextures()[0]);
 		}
-		
 			
 		Vec2 mousePos = GraphicRendererV2.getMousePos();
 		mousePos.normalize();
