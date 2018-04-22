@@ -51,7 +51,7 @@ public class SwungSword extends Entity
 	
 	public float getRenderAngle()
 	{
-		return getAngle()-0.25F*(float)Math.PI; //rotation for the texture as its
+		return getAngle()-0.25F*(float)Math.PI;
 	}
 	
 	public Vec2 getRenderSize()
