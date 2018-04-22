@@ -5,6 +5,7 @@ import org.md2.gameobjects.DecoObject;
 import org.md2.gameobjects.entity.Arrow;
 import org.md2.gameobjects.entity.living.LivingEntity;
 import org.md2.gameobjects.item.BowItem;
+import org.md2.gameobjects.item.WoodenBow;
 import org.md2.main.Game;
 import org.md2.main.GraphicRendererV2;
 
@@ -29,8 +30,13 @@ public class BowAnimation extends DecoObject
 	public void performTick()
 	{
 		liveTime++;
+		if(!(Game.getGame().getMechanicManager().getWorldManager().getPlayer().getInventory().isIteminHotbar(usedItem)))
+        {
+            liveTime = -1;
+        }
 		if(liveTime == -1){
 			this.removeFromWorld();
+            usedItem.preparationFinished = false;
 			usedItem.setCurrentlyInUse(false);
 			user.setCurrentlyUsing(null);
 			return;

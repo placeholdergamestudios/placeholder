@@ -2,4 +2,5 @@
 Schwert Kollision funktioniert nicht richtig / Dummys brauchen verschieden viele Hits
 https://youtu.be/iB01Iviw0NI
 22.04.2018
-Bogen Animation bleibt, wenn der Bogen gespannt ist & aus der Hotbar genommen wird 
+Bogen Animation bleibt, wenn der Bogen gespannt ist & aus der Hotbar genommen wird
+EDIT: Fixed 22.04.2018 -Ben
