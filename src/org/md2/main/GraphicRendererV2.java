@@ -38,18 +38,18 @@ import org.md2.worldmanagement.Inventory;
 public class GraphicRendererV2 extends Thread
 {
     
-    public static int fps = 30; // Frames per second
+    private static int fps = 30; // Frames per second
     public static int tpf = 1000/fps; //Time per Frame in ms
     
-    public static final int zNear = +10;
-    public static final int zFar = -10;
+    private static final int zNear = +10;
+    private static final int zFar = -10;
     
-    public static Vector2i resolution;
-    public boolean wasResized;
+    private static Vector2i resolution;
+    private boolean wasResized;
     
     private GLFWErrorCallback errorCallback;
     
-    public static Vector2f mousePosition;
+    private static Vector2f mousePosition;
     
     private long window;
     private ShaderProgram shaderProgram;
@@ -95,7 +95,7 @@ public class GraphicRendererV2 extends Thread
          
     }
     
-    public void render()
+    private void render()
     {
     	if (wasResized) {
 			GL11.glViewport(0, 0, resolution.x, resolution.y);
@@ -119,7 +119,7 @@ public class GraphicRendererV2 extends Thread
         
     }
 
-	public void renderInGame()
+	private void renderInGame()
     {
 		
 		shaderProgram.bind();
@@ -200,7 +200,7 @@ public class GraphicRendererV2 extends Thread
 		}
 	}
 	
-	public Vector4f getItemStackCounterTrans(Vector4f itemPos)
+	private Vector4f getItemStackCounterTrans(Vector4f itemPos)
 	{
 		Vector4f slotTrans = new Vector4f(itemPos);
 		float f = slotTrans.w/3F;
@@ -289,21 +289,21 @@ public class GraphicRendererV2 extends Thread
         shaderProgram.unbind();
 	}
     
-    public Matrix4f getTransformationMatrix(Vector2f offset, float rotation, float scale) 
+    private Matrix4f getTransformationMatrix(Vector2f offset, float rotation, float scale)
     {
     	Matrix4f transformationMatrix = new Matrix4f();
     	transformationMatrix.identity().translate(new Vector3f(offset.x, offset.y, 0)).rotateZ(rotation).scale(scale, scale, 0);
         return transformationMatrix;
     }
     
-    public Matrix4f getTransformationMatrix(Vector2f offset, float rotation, float scaleX, float scaleY) 
+    private Matrix4f getTransformationMatrix(Vector2f offset, float rotation, float scaleX, float scaleY)
     {
     	Matrix4f transformationMatrix = new Matrix4f();
     	transformationMatrix.identity().translate(new Vector3f(offset.x, offset.y, 0)).rotateZ(rotation).scale(scaleX, scaleY, 0);
         return transformationMatrix;
     }
     
-    public Matrix4f getTransformationMatrix(Vector4f matrix) 
+    private Matrix4f getTransformationMatrix(Vector4f matrix)
     {
     	Matrix4f transformationMatrix = new Matrix4f();
     	transformationMatrix.identity().translate(new Vector3f(matrix.x, matrix.y, 0)).rotateZ(matrix.z).scale(matrix.w);
@@ -327,7 +327,7 @@ public class GraphicRendererV2 extends Thread
     	}
 	}
     
-    public void createTOs()
+    private void createTOs()
     {
     	TOs = new HashMap<Texture, TextureObject>();
     	for(Texture t: Texture.values()){
@@ -336,7 +336,7 @@ public class GraphicRendererV2 extends Thread
     	}
     }
     
-    public void createFontChars()
+    private void createFontChars()
     {
     	fontChars = new HashMap<Character, TextureObject>();
     	String charString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
@@ -349,14 +349,14 @@ public class GraphicRendererV2 extends Thread
     	fontChars.put(' ', new TextureObject("Fonts/NormalFont/space"));
     }
     
-    public void cleanupTOs()
+    private void cleanupTOs()
     {
     	for(Texture t: Texture.values()){
     		TOs.get(t).cleanup();
     	}
     }
     
-    public void cleanupVAOs() 
+    private void cleanupVAOs()
     {
         for(VAOType vt: VAOType.values()){
         	VAOs.get(vt).cleanUp();
@@ -364,7 +364,7 @@ public class GraphicRendererV2 extends Thread
         }  
     }
     
-    public void renderRectObject(VertexArrayObject vao, TextureObject to, Matrix4f transMatrix)
+    private void renderRectObject(VertexArrayObject vao, TextureObject to, Matrix4f transMatrix)
     {
     	shaderProgram.setUniform("transformationMatrix", transMatrix);
     	shaderProgram.setUniform("texture_sampler", 0);

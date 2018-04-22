@@ -205,12 +205,11 @@ public class Inventory
 	public boolean isIteminHotbar(Item i)
 	{
 		boolean r = false;
-		Item [] htbr = getHotbar();
 		for(Item item : getHotbar())
 		{
 			if(item != null)
 			{
-				if(item.getClass() == i.getClass())
+				if(item.equals(i))
 				{
 					r = true;
 				}
