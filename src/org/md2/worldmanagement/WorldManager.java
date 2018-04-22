@@ -1,6 +1,5 @@
 package org.md2.worldmanagement;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 
 import org.jbox2d.callbacks.ContactImpulse;
@@ -14,13 +13,11 @@ import org.md2.gameobjects.DecoObject;
 import org.md2.gameobjects.GameObject;
 import org.md2.gameobjects.WorldObject;
 import org.md2.gameobjects.entity.living.Player;
-import org.md2.gameobjects.item.BoomerangItem;
 import org.md2.gameobjects.item.Shortsword;
 import org.md2.gameobjects.item.WoodenBoomerang;
 import org.md2.gameobjects.item.WoodenBow;
 import org.md2.gameobjects.structure.Structure;
 import org.md2.main.Game;
-import org.md2.main.GraphicRendererV2;
 import org.md2.main.MechanicManager;
 /**
  * Beschreiben Sie hier die Klasse World.
@@ -56,15 +53,10 @@ public class WorldManager implements ContactListener
     			it1.remove();
     		}
     	}
-    	Iterator<DecoObject> it2 = decoObjects.iterator();
-    	while(it2.hasNext()){
-    		DecoObject o = it2.next();
-    		if(o.willBeRemoved()){
-    			it2.remove();
-    		}
-    	}
-    	
-    	for(WorldObject w : worldObjects)
+
+		decoObjects.removeIf((DecoObject d) -> d.willBeRemoved());
+
+		for(WorldObject w : worldObjects)
     		w.performTick();
     	for(DecoObject d : decoObjects)
     		d.performTick();
@@ -113,21 +105,6 @@ public class WorldManager implements ContactListener
     	player.pickUpItem(new WoodenBow());
     }
     
-    public ArrayList<GameObject> getAllObjects()
-    {
-    	ArrayList<GameObject>ret = new ArrayList<GameObject>();
-    	ret.addAll(decoObjects);
-    	ret.addAll(worldObjects);
-    	return ret;
-    }
-    
-    public ArrayList<GameObject> getGameObjects(float centerX, float centerY, float xRenderRange, float yRenderRange)
-    {
-    	ArrayList<GameObject> objectsInRect = getObjectsInRect(centerX, centerY, xRenderRange, yRenderRange);
-    	return objectsInRect;
-    	
-    }
-    
     public boolean isPositionBlocked(Vec2 coords)
     {
     	for(WorldObject o : worldObjects){
@@ -137,40 +114,9 @@ public class WorldManager implements ContactListener
     	}
     	return false;
     }
-    
-    public ArrayList<GameObject> getObjectsInRect(float centerX, float centerY, float xBounds, float yBounds)
-    {
-    	ArrayList<GameObject> objects = getAllObjects();
-    	ArrayList<GameObject> ret = new ArrayList<GameObject>();
-    	ArrayList<GameObject> d3 = new ArrayList<GameObject>();
-    	for(GameObject o: objects){
-    		if(vec2InsideRect(centerX, centerY, xBounds, yBounds, o.getPosition().x, o.getPosition().y)){
-    			if(o.getRenderType() == GameObject.RENDER_TYPE_FLAT){
-    				ret.add(o);
-    			}
-    			else if (o.getRenderType() == GameObject.RENDER_TYPE_3D) {
-    				d3.add(o);
-    			}
-            }
-    	}
-    	Tools.sortByRenderPrio(ret);
-    	Tools.sortByYValue(d3);
-    	ret.addAll(d3);
-        return ret;
-    }
 
 	@Override
 	public void beginContact(Contact contact) 
-	{	
-		WorldObject a = (WorldObject) contact.getFixtureA().getBody().getUserData();
-		WorldObject b = (WorldObject) contact.getFixtureB().getBody().getUserData();
-		if(a.willBeRemoved() || b.willBeRemoved())
-			return;
-		a.onCollision(b);
-		b.onCollision(a);
-	}
-	
-	public void sensorContact(Contact contact)
 	{
 		WorldObject a = (WorldObject) contact.getFixtureA().getBody().getUserData();
 		WorldObject b = (WorldObject) contact.getFixtureB().getBody().getUserData();
@@ -195,18 +141,40 @@ public class WorldManager implements ContactListener
 		
 	}
 
-    
-    public static boolean vec2InsideRect(float rectX, float rectY, float rectHalfWidth, float rectHalfHeight, float Vec2x, float Vec2y)
+    private static boolean vec2InsideRect(float rectX, float rectY, float rectHalfWidth, float rectHalfHeight, float Vec2x, float Vec2y)
     {
-        if(Vec2x >= rectX-rectHalfWidth && Vec2x <= rectX+rectHalfWidth &&
-           Vec2y >= rectY-rectHalfHeight && Vec2y <= rectY+rectHalfHeight)
-        {
-            return true;
-        }
-        return false;
+        return(Vec2x >= rectX-rectHalfWidth && Vec2x <= rectX+rectHalfWidth &&
+           Vec2y >= rectY-rectHalfHeight && Vec2y <= rectY+rectHalfHeight);
     }
 
-	
-	
+	private ArrayList<GameObject> getAllObjects()
+	{
+		ArrayList<GameObject>ret = new ArrayList<GameObject>();
+		ret.addAll(decoObjects);
+		ret.addAll(worldObjects);
+		return ret;
+	}
+
+	public ArrayList<GameObject> getGameObjects(float centerX, float centerY, float xRenderRange, float yRenderRange)
+	{
+		ArrayList<GameObject> objects = getAllObjects();
+		ArrayList<GameObject> ret = new ArrayList<GameObject>();
+		ArrayList<GameObject> d3 = new ArrayList<GameObject>();
+		for(GameObject o: objects){
+			if(vec2InsideRect(centerX, centerY, xRenderRange, yRenderRange, o.getPosition().x, o.getPosition().y)){
+				if(o.getRenderType() == GameObject.RENDER_TYPE_FLAT){
+					ret.add(o);
+				}
+				else if (o.getRenderType() == GameObject.RENDER_TYPE_3D) {
+					d3.add(o);
+				}
+			}
+		}
+		Tools.sortByRenderPrio(ret);
+		Tools.sortByYValue(d3);
+		ret.addAll(d3);
+		return ret;
+
+	}
 
 }

@@ -1,6 +1,7 @@
 package org.md2.gameobjects.structure;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.dynamics.FixtureDef;
+import org.md2.common.RenderPrio;
 import org.md2.common.Texture;
 import org.md2.gameobjects.WorldObject;
 import org.md2.gameobjects.entity.living.LivingEntity;
@@ -12,6 +13,7 @@ public class Glue extends Structure
 	public Glue() 
 	{
 		super(new Texture[]{Texture.GLUE});
+		renderPriorisation = RenderPrio.FLAT;
 	}
 	
 	@Override

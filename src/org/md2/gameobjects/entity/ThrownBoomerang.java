@@ -2,12 +2,9 @@ package org.md2.gameobjects.entity;
 
 import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.FixtureDef;
-import org.md2.common.Texture;
 import org.md2.gameobjects.WorldObject;
 import org.md2.gameobjects.entity.living.LivingEntity;
-import org.md2.gameobjects.item.BoomerangItem;
 import org.md2.gameobjects.item.Item;
 import org.md2.main.GraphicRendererV2;
 
@@ -71,6 +68,11 @@ public class ThrownBoomerang extends Entity
 		}
 
 			
+	}
+
+	public float getRenderAngle()
+	{
+		return getAngle()-0.25F*(float)Math.PI;
 	}
 	
 	public FixtureDef getFixtureDef()
