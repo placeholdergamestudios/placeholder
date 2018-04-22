@@ -6,7 +6,7 @@ public class WoodenBow extends BowItem
 {
 	public WoodenBow()
 	{
-		super(new Texture[]{Texture.WOODENBOW}, new Texture[]{Texture.WOODENBOW1, Texture.WOODENBOW2}, Texture.SHORTSWORD, 2);
+		super(new Texture[]{Texture.WOODENBOW}, new Texture[]{Texture.WOODENBOW1, Texture.WOODENBOW2}, Texture.ARROW, 2);
 	}
 	
 	protected void initVars()

@@ -10,7 +10,7 @@ public enum Texture {
 	PLAYERRIGHTW1("PlayerRightW1"), PLAYERRIGHTW2("PlayerRightW2"), PLAYERRIGHTW3("PlayerRightW3"), PLAYERRIGHTW4("PlayerRightW4"),
 	PLAYERLEFTW1("PlayerLeftW1"), PLAYERLEFTW2("PlayerLeftW2"), PLAYERLEFTW3("PlayerLeftW3"), PLAYERLEFTW4("PlayerLeftW4"),
 	NORMALSOIL("NormalSoil"), HEALTHBAR("Healthbar"), LIVEBAR("LiveBar"), 
-	ESCAPE_MENUE("ESC"), INVENTORY("InvBackground"), INVENTORY_SLOT("InvSlot"), INVENTORY_CURSOR("InvCursor"), CURSOR("Cursor");
+	ESCAPE_MENUE("ESC"), INVENTORY("InvBackground"), INVENTORY_SLOT("InvSlot"), INVENTORY_CURSOR("InvCursor"), CURSOR("Cursor"), ARROW("arrow");
 	
 	private final String textureName;
 	
