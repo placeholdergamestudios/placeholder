@@ -37,9 +37,10 @@ public class SoundManager {
     {
         Clip clip = null;
         InputStream in = SoundManager.class.getResourceAsStream("/" + s.getSoundName() + ".wav");
+        InputStream bufferedIn = new BufferedInputStream(in);
         try
         {
-            audioIn = AudioSystem.getAudioInputStream(in);
+            audioIn = AudioSystem.getAudioInputStream(bufferedIn);
             clip = AudioSystem.getClip();
         }
         catch (UnsupportedAudioFileException e) {
