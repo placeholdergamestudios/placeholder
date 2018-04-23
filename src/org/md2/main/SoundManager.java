@@ -19,6 +19,11 @@ public class SoundManager {
         createSounds();
     }
 
+    private boolean isPlaying(Clip c)
+    {
+        return c.getFramePosition() < c.getFrameLength();
+    }
+
     private void createSounds()
     {
         clips = new HashMap<Sound, Clip>();
