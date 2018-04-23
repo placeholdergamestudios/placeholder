@@ -9,6 +9,7 @@
       <sourceFolder url="file://$MODULE_DIR$/Textures" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/shaders" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/options" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/sounds" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/jbox2d/jbox2d-library/src/main/java/org/jbox2d/gwtemul/org/jbox2d/common" />
     </content>
     <orderEntry type="inheritedJdk" />
