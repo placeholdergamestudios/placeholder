@@ -24,27 +24,14 @@ public class SoundManager {
         clips = new HashMap<Sound, Clip>();
         for(Sound s: Sound.values())
         {
-            Clip clip = null;
-            InputStream in = SoundManager.class.getResourceAsStream("/" + s + ".wav");
-            try
-            {
-                audioIn = AudioSystem.getAudioInputStream(in);
-                clip = AudioSystem.getClip();
-            }
-            catch (UnsupportedAudioFileException e) {
-                e.printStackTrace();
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-            clips.put(s, clip);
+            loadSound(s);
         }
     }
 
     private void loadSound(Sound s)
     {
         Clip clip = null;
-        InputStream in = SoundManager.class.getResourceAsStream("/" + s + ".wav");
+        InputStream in = SoundManager.class.getResourceAsStream("/" + s.getSoundName() + ".wav");
         try
         {
             audioIn = AudioSystem.getAudioInputStream(in);
@@ -56,22 +43,21 @@ public class SoundManager {
         catch (Exception e) {
             e.printStackTrace();
         }
+        try {
+            clip.open(audioIn);
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         clips.put(s, clip);
     }
 
     private boolean playClip(Clip c)
     {
+        c.setFramePosition(0);
         if(c != null)
         {
-            try {
-                c.open(audioIn);
-            } catch (LineUnavailableException e) {
-                e.printStackTrace();
-                return false;
-            } catch (IOException e) {
-                e.printStackTrace();
-                return false;
-            }
             c.start();
             return true;
         }
