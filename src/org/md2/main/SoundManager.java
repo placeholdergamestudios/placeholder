@@ -3,23 +3,48 @@ package org.md2.main;
 import org.md2.common.Sound;
 
 import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.io.File;
 import javax.sound.sampled.*;
+import java.util.HashMap;
 public class SoundManager {
     private AudioInputStream audioIn;
+    private HashMap<Sound, Clip> clips;
 
     public boolean playSound(Sound sound)
     {
-        return playClip(loadSound(sound));
+        return playClip(clips.get(sound));
     }
 
-    private Clip loadSound(Sound sound)
+    public SoundManager()
+    {
+        createSounds();
+    }
+
+    private void createSounds()
+    {
+        clips = new HashMap<Sound, Clip>();
+        for(Sound s: Sound.values())
+        {
+            Clip clip = null;
+            InputStream in = SoundManager.class.getResourceAsStream("/" + s + ".wav");
+            try
+            {
+                audioIn = AudioSystem.getAudioInputStream(in);
+                clip = AudioSystem.getClip();
+            }
+            catch (UnsupportedAudioFileException e) {
+                e.printStackTrace();
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+            clips.put(s, clip);
+        }
+    }
+
+    private void loadSound(Sound s)
     {
         Clip clip = null;
-        InputStream in = SoundManager.class.getResourceAsStream("/" + sound + ".wav");
-
+        InputStream in = SoundManager.class.getResourceAsStream("/" + s + ".wav");
         try
         {
             audioIn = AudioSystem.getAudioInputStream(in);
@@ -31,7 +56,7 @@ public class SoundManager {
         catch (Exception e) {
             e.printStackTrace();
         }
-        return clip;
+        clips.put(s, clip);
     }
 
     private boolean playClip(Clip c)
