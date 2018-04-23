@@ -22,6 +22,7 @@ public class Game
     private KeyboardInput ki;
     private GraphicRendererV2 gr;
     private MechanicManager mm;
+    private SoundManager sm;
     private static Game game;
     
     private static boolean threadsLocked;
@@ -43,6 +44,7 @@ public class Game
         gr = new GraphicRendererV2();
         ki = new KeyboardInput();
         mm = new MechanicManager();
+        sm = new SoundManager();
         gr.setInput(ki);
         setRunning(true); 
         mm.start();
@@ -97,6 +99,8 @@ public class Game
     {
         return mm;
     }
+
+    public SoundManager getSoundManager() {return sm;}
 
     public static Game getGame()
     {
