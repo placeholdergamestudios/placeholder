@@ -18,24 +18,17 @@ public class SoundManager {
     private Clip loadSound(Sound sound)
     {
         Clip clip = null;
-        URL url = null;
-        url = this.getClass().getClassLoader().getResource("/" + sound + ".wav");
+        InputStream in = SoundManager.class.getResourceAsStream("/" + sound + ".wav");
 
         try
         {
-            AudioInputStream audIn = AudioSystem.getAudioInputStream(url);
+            audioIn = AudioSystem.getAudioInputStream(in);
+            clip = AudioSystem.getClip();
         }
         catch (UnsupportedAudioFileException e) {
             e.printStackTrace();
         }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        try
-        {
-            clip = AudioSystem.getClip();
-        }
-        catch (LineUnavailableException e) {
+        catch (Exception e) {
             e.printStackTrace();
         }
         return clip;
