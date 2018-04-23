@@ -423,7 +423,7 @@ public class GraphicRendererV2 extends Thread
     	GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_FORWARD_COMPAT, GLFW.GLFW_TRUE);
     	
     	
-    	window = GLFW.glfwCreateWindow(resolution.x, resolution.y, "_Amrius_OPENGL_UWotM8", MemoryUtil.NULL, MemoryUtil.NULL);
+    	window = GLFW.glfwCreateWindow(resolution.x, resolution.y, "Placeholder Game Studios - Placeholder", MemoryUtil.NULL, MemoryUtil.NULL);
     	if (window == MemoryUtil.NULL) {
     		System.out.println("Failed to create the GLFW window");
     		GLFW.glfwTerminate();
