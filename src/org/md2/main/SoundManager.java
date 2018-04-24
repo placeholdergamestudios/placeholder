@@ -61,16 +61,31 @@ public class SoundManager {
 
     private boolean playClip(Clip c)
     {
+        return playClip(c,1.0f);
+    }
+
+    private boolean playClip(Clip c, float volume)
+    {
         c.setFramePosition(0);
         if(c != null)
         {
-            c.start();
+            if(isPlaying(c))
+            {
+                setVolume(c,volume);
+                c.start();
+            }
+
             return true;
         }
         else
-        {
             return false;
-        }
+    }
+
+    public void setVolume(Clip c, float volume) {
+        if (volume < 0f || volume > 1f)
+            throw new IllegalArgumentException("Volume not valid: " + volume);
+        FloatControl gainControl = (FloatControl) c.getControl(FloatControl.Type.MASTER_GAIN);
+        gainControl.setValue(20f * (float) Math.log10(volume));
     }
 
 }
