@@ -23,9 +23,14 @@ public class Shadow extends DecoObject
 	
 	public void performTick()
 	{
-		this.setTransform(user.getPosition(), user.getRenderAngle());
+		this.setTransform(user.getPosition(), user.getAngle());
 	}
-	
+
+	@Override
+	public float getRenderAngle() {
+		return this.getAngle();
+	}
+
 	public Vec2 getRenderSize()
 	{
 		return user.getSize();

@@ -26,7 +26,7 @@ public class SwungSword extends Entity
 		renderType = RENDER_TYPE_3D;
 		this.user = user;
 		this.usedItem = usedItem;
-		this.size = new Vec2(usedItem.getSwordLength(), 0.2F);
+		this.size = new Vec2(usedItem.getSwordLength(), usedItem.getSwordLength()/4);
 		setDeltaY(0.25F*user.getHeight());
 		liveTime = 0;
 	}
