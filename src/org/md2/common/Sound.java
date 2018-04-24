@@ -1,7 +1,7 @@
 package org.md2.common;
 
 public enum Sound {
-    AUA("aua");
+    AUA("aua"), WALK("walk");
 
     private final String soundName;
 

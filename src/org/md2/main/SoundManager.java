@@ -1,21 +1,29 @@
 package org.md2.main;
 
+import org.jbox2d.dynamics.World;
 import org.md2.common.Sound;
+import org.md2.gameobjects.WorldObject;
+import org.md2.gameobjects.entity.Entity;
 import org.md2.gameobjects.entity.living.Player;
 
 import java.io.*;
 import javax.sound.sampled.*;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.ArrayList;
 
 public class SoundManager {
     private AudioInputStream audioIn;
     private HashMap<Sound, Clip> clips;
-    private HashSet<Clip> toplay;
+    private HashSet<Soundentry> toplay;
 
     public boolean playSound(Sound sound)
     {
         return playClip(clips.get(sound));
+    }
+    public boolean playSound(Sound sound, float volume)
+    {
+        return playClip(clips.get(sound), volume);
     }
 
     public SoundManager()
@@ -23,6 +31,15 @@ public class SoundManager {
         createSounds();
     }
 
+    public void tick(ArrayList<WorldObject> worldObjects)
+    {
+        addEntitysounds(worldObjects);
+        for(Soundentry s: toplay)
+        {
+            executeClip(s.getClip(),s.getVolume());
+        }
+        toplay.clear();
+    }
     private boolean isPlaying(Clip c)
     {
         return c.isRunning();
@@ -35,22 +52,26 @@ public class SoundManager {
         {
             loadSound(s);
         }
-        toplay = new HashSet<Clip>();
+        toplay = new HashSet<Soundentry>();
     }
 
-    public boolean playClip(Clip c)
+    private boolean playClip(Clip c)
     {
-        toplay.add(c);
+        return playClip(c, 1.0f);
+    }
+
+    private boolean playClip(Clip c, Float volume)
+    {
+        toplay.add(new Soundentry(c, volume));
         return true;
     }
 
-    public void tick()
+    private void addEntitysounds(ArrayList<WorldObject> worldObjects)
     {
-        for(Clip c: toplay)
-        {
-            executeClip(c);
-        }
-        toplay.clear();
+        for(WorldObject wo: worldObjects)
+            if (wo instanceof Entity) {
+                if (((Entity) wo).isMoving()) playSound(Sound.WALK, 0.05f);
+            }
     }
 
     private void loadSound(Sound s)
@@ -81,10 +102,10 @@ public class SoundManager {
 
     private boolean executeClip(Clip c)
     {
-        return playClip(c,1.0f);
+        return executeClip(c,1.0f);
     }
 
-    private boolean playClip(Clip c, float volume)
+    private boolean executeClip(Clip c, float volume)
     {
         if(c != null)
         {
@@ -101,11 +122,37 @@ public class SoundManager {
             return false;
     }
 
-    public void setVolume(Clip c, float volume) {
+    private void setVolume(Clip c, float volume) {
         if (volume < 0f || volume > 1f)
             throw new IllegalArgumentException("Volume not valid: " + volume);
         FloatControl gainControl = (FloatControl) c.getControl(FloatControl.Type.MASTER_GAIN);
         gainControl.setValue(20f * (float) Math.log10(volume));
+    }
+
+    private class Soundentry{
+        private Clip clip;
+        private float volume;
+
+        public Soundentry(Clip clip, float volume)
+        {
+            this.clip = clip;
+            this.volume = volume;
+        }
+
+        public Clip getClip()
+        {
+            return clip;
+        }
+
+        public float getVolume()
+        {
+            return volume;
+        }
+
+        public void setVolume(float volume)
+        {
+            this.volume = volume;
+        }
     }
 
 }
