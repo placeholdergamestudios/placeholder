@@ -10,6 +10,7 @@ import org.md2.gameobjects.entity.ThrownBoomerang;
 import org.md2.gameobjects.entity.living.LivingEntity;
 import org.md2.main.Game;
 import org.md2.main.GraphicRendererV2;
+import org.md2.main.SoundManager;
 
 public abstract class SwordItem extends Item
 {
@@ -33,6 +34,7 @@ public abstract class SwordItem extends Item
 		Vec2 entityPos = user.getPosition().add(mousePos.mul(0.5F+0.5F*swordLength));
 		WorldObject wo = new SwungSword(user, this);
 		Game.getGame().getMechanicManager().getWorldManager().spawnObjectAt(wo, entityPos);
+		Game.getGame().getSoundManager().playSoundID(SoundManager.SOUNDSWORDSLASH);
 		setCurrentlyInUse(true);
 		return super.onUse(user);
 	}
