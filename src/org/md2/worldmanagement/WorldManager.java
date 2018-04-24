@@ -12,6 +12,7 @@ import org.md2.common.Tools;
 import org.md2.gameobjects.DecoObject;
 import org.md2.gameobjects.GameObject;
 import org.md2.gameobjects.WorldObject;
+import org.md2.gameobjects.entity.Entity;
 import org.md2.gameobjects.entity.living.Player;
 import org.md2.gameobjects.item.Shortsword;
 import org.md2.gameobjects.item.WoodenBoomerang;
@@ -82,6 +83,11 @@ public class WorldManager implements ContactListener
     public void spawnObjectAt(WorldObject o, Vec2 coords, float angle)
     {
     	Level.deployObjectAt(world, o, coords, angle);
+    	if(o instanceof Entity)
+		{
+			Entity e = (Entity)o;
+			spawnDecorationAt(e.initShadow());
+		}
     	worldObjects.add(o);
     }
     

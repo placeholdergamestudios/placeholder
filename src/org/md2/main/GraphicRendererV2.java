@@ -331,7 +331,6 @@ public class GraphicRendererV2 extends Thread
     {
     	TOs = new HashMap<Texture, TextureObject>();
     	for(Texture t: Texture.values()){
-    		System.out.println(t.getTextureName());
     		TextureObject to = new TextureObject(t.getTextureName());
     		TOs.put(t, to);
     	}

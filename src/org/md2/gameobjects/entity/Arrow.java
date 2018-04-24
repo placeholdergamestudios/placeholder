@@ -25,6 +25,7 @@ public class Arrow extends Entity
 		renderType = RENDER_TYPE_3D;
 		hitObject = null;
 		postHitCounter = 0;
+		size = new Vec2(1F, 0.4F);
 		this.user = user;
 		this.usedBow = usedBow;
 		setDeltaY(0.25F*user.getHeight());
@@ -77,7 +78,7 @@ public class Arrow extends Entity
 	public FixtureDef getFixtureDef()
     {
 		PolygonShape cs = new PolygonShape();
-    	cs.setAsBox(0.5F, 0.1F); 
+    	cs.setAsBox(size.x/2, size.y/2);
 
 
     	FixtureDef fd = new FixtureDef();
