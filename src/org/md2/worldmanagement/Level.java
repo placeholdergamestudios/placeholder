@@ -134,8 +134,8 @@ public abstract class Level
             	}
             	else{
             		WorldObject newWorldObject = (WorldObject)Tools.getNewInstance(standardWall);
-            		newWorldObject.setTexture(calcTexture(x, y, mapArray));
-                	deployObjectAt(w, newWorldObject, new Vec2(x,y));
+					deployObjectAt(w, newWorldObject, new Vec2(x,y));
+            		calcTexture(x, y, mapArray, newWorldObject);
             		structures.add(newWorldObject);
             	}
             }
@@ -143,20 +143,53 @@ public abstract class Level
 		return structures;
 	}
 	
-	private Texture calcTexture(int x, int y, boolean[][] mapArray) 
+	private void calcTexture(int x, int y, boolean[][] mapArray, WorldObject o)
 	{
-//		if(x < mapArray.length-1 && x > 0){
-//			if(mapArray[x+1][y] && mapArray[x-1][y])
-//				return Texture.STONE_B;
-//			else if(!mapArray[x+1][y] && !mapArray[x-1][y])
-//				return Texture.STONE;
-//			else if(!mapArray[x+1][y] && mapArray[x-1][y])
-//				return Texture.STONE_L;
-//			else if(mapArray[x+1][y] && !mapArray[x-1][y])
-//				return Texture.STONE_R;
-//		}
-//		
-		return Texture.STONE;
+		boolean xp = true, xm = true, yp =true , ym = true;
+		try {
+			xp = !mapArray[x + 1][y];
+			xm = !mapArray[x - 1][y];
+		}
+		catch(Exception e){};
+		try {
+			yp = !mapArray[x][y+1];
+			ym = !mapArray[x][y-1];
+		}
+		catch(Exception e){};
+
+		if(xp && xm && yp && ym)
+			o.setTexture(Texture.STONE);
+		else if(!xp && xm && yp && ym){
+			o.setTexture(Texture.STONE_SIDE);
+		}
+		else if(xp && !xm && yp && ym){
+			o.setTexture(Texture.STONE_SIDE);
+			o.setTransform(o.getPosition(), (float)Math.PI);
+		}
+		else if(xp && xm && !yp && ym){
+			o.setTexture(Texture.STONE_SIDE);
+			o.setTransform(o.getPosition(), (float)Math.PI*0.5F);
+		}
+		else if(xp && xm && yp && !ym){
+			o.setTexture(Texture.STONE_SIDE);
+			o.setTransform(o.getPosition(), (float)Math.PI*1.5F);
+		}
+		else if(!xp && xm && !yp && ym){
+			o.setTexture(Texture.STONE_CORNER);
+			o.setTransform(o.getPosition(), (float)Math.PI*0.5F);
+		}
+		else if(xp && !xm && yp && !ym){
+			o.setTexture(Texture.STONE_CORNER);
+			o.setTransform(o.getPosition(), (float)Math.PI*1.5F);
+		}
+		else if(xp && !xm && !yp && ym){
+			o.setTexture(Texture.STONE_CORNER);
+			o.setTransform(o.getPosition(), (float)Math.PI);
+		}
+		else if(!xp && xm && yp && !ym){
+			o.setTexture(Texture.STONE_CORNER);
+		}
+
 	}
 
 	protected ArrayList<WorldObject> generateItems(World w)

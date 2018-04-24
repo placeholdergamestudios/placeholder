@@ -25,8 +25,14 @@ public class Stone extends Structure
         super(new Texture[]{Texture.STONE});
         //setDeltaY(0.25F);
     }
-	
-//	protected void initRenderType()
+
+	@Override
+	public float getRenderAngle()
+	{
+		return super.getAngle();
+	}
+
+	//	protected void initRenderType()
 //	{
 //		renderType = RENDER_TYPE_3D;
 //	}

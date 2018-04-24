@@ -27,7 +27,7 @@ public class NormalLevel extends Level
 		int minRoom = 3;
     	int maxRoom = 7;
     	int roomFrequency = 10;
-        int size = 50;
+        int size = 25;
         Random rdm = new Random();
         ArrayList<Vec2> connectionVec2s = new ArrayList<Vec2>();
         boolean[][] map = new boolean[size][size];
@@ -49,7 +49,16 @@ public class NormalLevel extends Level
             }
         }
         generateConnections(connectionVec2s, map);
-        return map;
+        boolean [][] ret = new boolean[size * 2][size * 2];
+        for (int x = 0; x < map.length ; x++) {
+            for (int y = 0; y < map[0].length; y++) {
+                ret[2*x][2*y] = map[x][y];
+                ret[2*x+1][2*y] = map[x][y];
+                ret[2*x][2*y+1] = map[x][y];
+                ret[2*x+1][2*y+1] = map[x][y];
+            }
+        }
+        return ret;
 	}
 	
 	public void generateConnections(ArrayList<Vec2> connectionVec2s, boolean[][]map)
