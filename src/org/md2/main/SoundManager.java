@@ -20,6 +20,7 @@ public class SoundManager {
     public static final int SOUNDBOWEQUIP = 2;
     public static final int SOUNDBOWTENSION = 3;
     public static final int SOUNDBOWRELEASE = 4;
+    public static final int SOUNDAUA = 5;
 
 
 
@@ -46,9 +47,10 @@ public class SoundManager {
             case SOUNDBOWEQUIP:{playSound(Sound.BOWEQUIP, 0.3f);break;}
             case SOUNDBOWTENSION:{playSound(Sound.BOWTENSION, 0.3f);break;}
             case SOUNDBOWRELEASE:{playSound(Sound.BOWRELEASE, 0.3f);break;}
+            case SOUNDAUA:{playSound(Sound.AUA, 0.5f);break;}
         }
     }
-    
+
     private boolean playSound(Sound sound) {return playClip(clips.get(sound));}
 
     private boolean playSound(Sound sound, float volume) {return playClip(clips.get(sound), volume); }

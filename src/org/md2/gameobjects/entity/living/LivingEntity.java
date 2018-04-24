@@ -10,6 +10,7 @@ import org.md2.gameobjects.deco.Shadow;
 import org.md2.gameobjects.entity.Entity;
 import org.md2.gameobjects.item.Item;
 import org.md2.main.Game;
+import org.md2.main.SoundManager;
 import org.md2.worldmanagement.Inventory;
 
 
@@ -81,7 +82,7 @@ public abstract class LivingEntity extends Entity
 		health = health - i;
 		if(health <= 0)
 			this.removeFromWorld();
-		Game.getGame().getSoundManager().playSound(Sound.AUA);
+		Game.getGame().getSoundManager().playSoundID(SoundManager.SOUNDAUA);
 			
 	}
     
