@@ -16,15 +16,12 @@ public class SoundManager {
     private AudioInputStream audioIn;
     private HashMap<Sound, Clip> clips;
     private HashSet<Soundentry> toplay;
+    public static final int SOUNDWALK = 1;
+    public static final int SOUNDBOWEQUIP = 2;
+    public static final int SOUNDBOWTENSION = 3;
+    public static final int SOUNDBOWRELEASE = 4;
 
-    public boolean playSound(Sound sound)
-    {
-        return playClip(clips.get(sound));
-    }
-    public boolean playSound(Sound sound, float volume)
-    {
-        return playClip(clips.get(sound), volume);
-    }
+
 
     public SoundManager()
     {
@@ -40,6 +37,22 @@ public class SoundManager {
         }
         toplay.clear();
     }
+
+    public void playSoundID(int i)
+    {
+        switch(i)
+        {
+            case SOUNDWALK:{playSound(Sound.WALK, 0.05f);break;}
+            case SOUNDBOWEQUIP:{playSound(Sound.BOWEQUIP, 0.3f);break;}
+            case SOUNDBOWTENSION:{playSound(Sound.BOWTENSION, 0.3f);break;}
+            case SOUNDBOWRELEASE:{playSound(Sound.BOWRELEASE, 0.3f);break;}
+        }
+    }
+    
+    private boolean playSound(Sound sound) {return playClip(clips.get(sound));}
+
+    private boolean playSound(Sound sound, float volume) {return playClip(clips.get(sound), volume); }
+
     private boolean isPlaying(Clip c)
     {
         return c.isRunning();
@@ -72,7 +85,7 @@ public class SoundManager {
             if (wo instanceof Entity) {
                 if (((Entity) wo).isMoving())
                     if (((Entity) wo).getwalkingSound() != null)
-                        playSound(Sound.WALK, 0.05f);
+                        playSoundID(SOUNDWALK);
             }
     }
 

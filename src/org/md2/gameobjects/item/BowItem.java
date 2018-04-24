@@ -11,6 +11,7 @@ import org.md2.gameobjects.entity.Arrow;
 import org.md2.gameobjects.entity.living.LivingEntity;
 import org.md2.main.Game;
 import org.md2.main.GraphicRendererV2;
+import org.md2.main.SoundManager;
 
 public abstract class BowItem extends Item
 {
@@ -40,7 +41,7 @@ public abstract class BowItem extends Item
 		if(preparationFinished){
 			preparationFinished = false;
 			Game.getGame().getMechanicManager().getWorldManager().spawnObjectAt(new Arrow(user, this), pos, (float)Math.atan2(mousePos.y, mousePos.x));
-			Game.getGame().getSoundManager().playSound(Sound.BOWRELEASE, 0.3f);
+			Game.getGame().getSoundManager().playSoundID(SoundManager.SOUNDBOWRELEASE);
 			return super.onUse(user);
 		}
 		
@@ -48,7 +49,7 @@ public abstract class BowItem extends Item
 		deco.setTransform(pos, (float)Math.atan2(mousePos.y, mousePos.x));
 		Game.getGame().getMechanicManager().getWorldManager().spawnDecorationAt(deco);
 		setCurrentlyInUse(true);
-		Game.getGame().getSoundManager().playSound(Sound.BOWTENSION, 0.3f);
+		Game.getGame().getSoundManager().playSoundID(SoundManager.SOUNDBOWTENSION);
 		return super.onUse(user);
 	}
 	
