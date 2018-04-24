@@ -1,13 +1,17 @@
 package org.md2.main;
 
 import org.md2.common.Sound;
+import org.md2.gameobjects.entity.living.Player;
 
 import java.io.*;
 import javax.sound.sampled.*;
 import java.util.HashMap;
+import java.util.HashSet;
+
 public class SoundManager {
     private AudioInputStream audioIn;
     private HashMap<Sound, Clip> clips;
+    private HashSet<Clip> toplay;
 
     public boolean playSound(Sound sound)
     {
@@ -21,7 +25,7 @@ public class SoundManager {
 
     private boolean isPlaying(Clip c)
     {
-        return c.getFramePosition() < c.getFrameLength();
+        return c.isRunning();
     }
 
     private void createSounds()
@@ -31,6 +35,22 @@ public class SoundManager {
         {
             loadSound(s);
         }
+        toplay = new HashSet<Clip>();
+    }
+
+    public boolean playClip(Clip c)
+    {
+        toplay.add(c);
+        return true;
+    }
+
+    public void tick()
+    {
+        for(Clip c: toplay)
+        {
+            executeClip(c);
+        }
+        toplay.clear();
     }
 
     private void loadSound(Sound s)
@@ -59,18 +79,18 @@ public class SoundManager {
         clips.put(s, clip);
     }
 
-    private boolean playClip(Clip c)
+    private boolean executeClip(Clip c)
     {
         return playClip(c,1.0f);
     }
 
     private boolean playClip(Clip c, float volume)
     {
-        c.setFramePosition(0);
         if(c != null)
         {
-            if(isPlaying(c))
+            if(!isPlaying(c))
             {
+                c.setFramePosition(0);
                 setVolume(c,volume);
                 c.start();
             }
