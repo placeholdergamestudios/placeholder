@@ -17,6 +17,7 @@ public abstract class BoomerangItem extends Item
 	public BoomerangItem(Texture[] texture)
 	{
 		super(texture, 1, true);
+		size = new Vec2(0.8F, 0.8F);
 	}
 
 	@Override
@@ -38,7 +39,7 @@ public abstract class BoomerangItem extends Item
 	public FixtureDef getFixtureDef()
     {
     	PolygonShape cs = new PolygonShape();
-    	cs.setAsBox(0.5f, 0.5f);  
+    	cs.setAsBox(size.x/2, size.y/2);
 
     	FixtureDef fd = new FixtureDef();
     	fd.shape = cs;
