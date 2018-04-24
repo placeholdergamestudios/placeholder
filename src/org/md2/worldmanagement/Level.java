@@ -145,20 +145,38 @@ public abstract class Level
 	
 	private void calcTexture(int x, int y, boolean[][] mapArray, WorldObject o)
 	{
-		boolean xp = true, xm = true, yp =true , ym = true;
-		try {
-			xp = !mapArray[x + 1][y];
-			xm = !mapArray[x - 1][y];
-		}
-		catch(Exception e){};
-		try {
-			yp = !mapArray[x][y+1];
-			ym = !mapArray[x][y-1];
-		}
-		catch(Exception e){};
-
-		if(xp && xm && yp && ym)
+		if(x == 0 || y == 0 || x == mapArray.length-1 ||  y == mapArray[0].length-1) {
 			o.setTexture(Texture.STONE);
+			return;
+		}
+		boolean xp, xm, yp, ym, xpyp, xmym, xpym, xmyp;
+		xp = !mapArray[x + 1][y];
+		xm = !mapArray[x - 1][y];
+		yp = !mapArray[x][y+1];
+		ym = !mapArray[x][y-1];
+		xpyp = mapArray[x + 1][y+1];
+		xmym = mapArray[x - 1][y-1];
+		xpym = mapArray[x + 1][y-1];
+		xmyp = mapArray[x - 1][y+1];
+
+		if(xp && xm && yp && ym) {
+			if(xpyp) {
+				o.setTexture(Texture.STONE_INVCORNER);
+				o.setTransform(o.getPosition(), (float) Math.PI * 0.5F);
+			}
+			else if(xmym){
+				o.setTexture(Texture.STONE_INVCORNER);
+				o.setTransform(o.getPosition(), (float) Math.PI * 1.5F);
+			}
+			else if(xpym){
+				o.setTexture(Texture.STONE_INVCORNER);
+			}
+			else if(xmyp){
+				o.setTexture(Texture.STONE_INVCORNER);
+				o.setTransform(o.getPosition(), (float) Math.PI);
+			}
+			else{o.setTexture(Texture.STONE);}
+		}
 		else if(!xp && xm && yp && ym){
 			o.setTexture(Texture.STONE_SIDE);
 		}

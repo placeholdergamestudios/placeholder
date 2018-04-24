@@ -1,7 +1,7 @@
 package org.md2.common;
 
 public enum Texture {
-	STONE("Wall"), STONE_SIDE("WallSide"), STONE_2SIDE("Wall2Sides"), STONE_4SIDE("Wall4Sides"), STONE_CORNER("WallCorner"),
+	STONE("Wall"), STONE_SIDE("WallSide"), STONE_CORNER("WallCorner"), STONE_INVCORNER("WallInvCorner"),
 	APPLE("Apple"), HERB("Kraut"), GLUE("Glue"), BOOMERANG("Boomerang"), SHADOW("shadow"),
 	DUMMY("Dummy"), SHORTSWORD("shortsword"), WOODENBOW("holzbogen"), WOODENBOW1("holzbogen1"), WOODENBOW2("holzbogen2"),
 	PLAYERFRONT("PlayerFront"), PLAYERBACK("PlayerBack"), PLAYERLEFT("PlayerLeft"), PLAYERRIGHT("PlayerRight"),
