@@ -42,6 +42,7 @@ public class MechanicManager extends Thread
         	getUserAction();
             if(Game.getGame().getMenue() == Game.M_INGAME){
                 worldManager.tick();
+                Game.getGame().getSoundManager().tick(worldManager.getallworldObjects());
             }
             double timeDif = System.currentTimeMillis() - timeBefore;
             if(tickTime - (int)timeDif > 0){

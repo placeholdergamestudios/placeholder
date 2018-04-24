@@ -155,6 +155,11 @@ public class WorldManager implements ContactListener
 		return ret;
 	}
 
+	public ArrayList<WorldObject> getallworldObjects()
+	{
+		return worldObjects;
+	}
+
 	public ArrayList<GameObject> getGameObjects(float centerX, float centerY, float xRenderRange, float yRenderRange)
 	{
 		ArrayList<GameObject> objects = getAllObjects();
