@@ -7,6 +7,7 @@ import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import org.md2.common.RenderPrio;
+import org.md2.common.Sound;
 import org.md2.common.Texture;
 import org.md2.common.VAOType;
 import org.md2.gameobjects.item.Item;
@@ -64,9 +65,11 @@ public class Player extends LivingEntity
 				Texture.PLAYERRIGHT, Texture.PLAYERRIGHTW1, Texture.PLAYERRIGHTW2, Texture.PLAYERRIGHTW3,
 				Texture.PLAYERLEFT, Texture.PLAYERLEFTW1, Texture.PLAYERLEFTW2, Texture.PLAYERLEFTW3};
 	}
-	
 
-    
-    
+	@Override
+	public Sound getwalkingSound()
+	{
+		return Sound.WALK;
+	}
     
 }

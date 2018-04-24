@@ -70,7 +70,9 @@ public class SoundManager {
     {
         for(WorldObject wo: worldObjects)
             if (wo instanceof Entity) {
-                if (((Entity) wo).isMoving()) playSound(Sound.WALK, 0.05f);
+                if (((Entity) wo).isMoving())
+                    if (((Entity) wo).getwalkingSound() != null)
+                        playSound(Sound.WALK, 0.05f);
             }
     }
 

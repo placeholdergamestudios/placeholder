@@ -3,6 +3,7 @@ package org.md2.gameobjects.item;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.FixtureDef;
+import org.md2.common.Sound;
 import org.md2.common.Texture;
 import org.md2.gameobjects.deco.BowAnimation;
 import org.md2.gameobjects.DecoObject;
@@ -39,6 +40,7 @@ public abstract class BowItem extends Item
 		if(preparationFinished){
 			preparationFinished = false;
 			Game.getGame().getMechanicManager().getWorldManager().spawnObjectAt(new Arrow(user, this), pos, (float)Math.atan2(mousePos.y, mousePos.x));
+			Game.getGame().getSoundManager().playSound(Sound.BOWRELEASE, 0.3f);
 			return super.onUse(user);
 		}
 		
@@ -46,6 +48,7 @@ public abstract class BowItem extends Item
 		deco.setTransform(pos, (float)Math.atan2(mousePos.y, mousePos.x));
 		Game.getGame().getMechanicManager().getWorldManager().spawnDecorationAt(deco);
 		setCurrentlyInUse(true);
+		Game.getGame().getSoundManager().playSound(Sound.BOWTENSION, 0.3f);
 		return super.onUse(user);
 	}
 	
