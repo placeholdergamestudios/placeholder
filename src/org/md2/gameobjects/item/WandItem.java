@@ -8,9 +8,7 @@ import org.md2.gameobjects.WorldObject;
 import org.md2.gameobjects.entity.Wand;
 import org.md2.gameobjects.entity.living.LivingEntity;
 import org.md2.gameobjects.item.parts.CompositeItem;
-import org.md2.gameobjects.item.parts.wand.WandCap;
-import org.md2.gameobjects.item.parts.wand.WandHandle;
-import org.md2.gameobjects.item.parts.wand.WandOrb;
+import org.md2.gameobjects.item.parts.WeaponPart;
 import org.md2.main.Game;
 import org.md2.main.GraphicRendererV2;
 
@@ -19,9 +17,9 @@ public abstract class WandItem extends CompositeItem {
     protected float wandLength;
     protected float castingSpeed;
 
-    public WandItem(Texture[] texture, float length, float castingSpeed, WandCap wandcap, WandHandle wandhandle, WandOrb wandorb)
+    public WandItem(float length, float castingSpeed, WeaponPart wandcap, WeaponPart wandhandle, WeaponPart wandorb)
     {
-        super(texture, wandcap, wandorb, wandhandle);
+        super(wandcap, wandorb, wandhandle);
         this.wandLength = length;
         this.castingSpeed = castingSpeed;
     }

@@ -1,18 +1,18 @@
 package org.md2.gameobjects.item.parts.wand;
 
 import org.md2.common.Texture;
+import org.md2.gameobjects.item.parts.WeaponPart;
 
-public class BronzeCap extends WandCap{
+public class BronzeCap implements WeaponPart {
 
-    public BronzeCap()
-    {
-        super(new Texture[]{Texture.BRONZECAP});
+
+    @Override
+    public Texture getTexture() {
+        return Texture.BRONZECAP;
     }
 
-    protected void initVars()
-    {
-        varOnAttack = 0;
-        varOnUse = 0;
-        varOnThrow = 2;
+    @Override
+    public void onUse() {
+
     }
 }

@@ -9,9 +9,9 @@ public abstract class CompositeItem extends Item {
     protected WeaponPart part2;
     protected WeaponPart part3;
 
-    public CompositeItem(Texture [] texture, WeaponPart part1, WeaponPart part2, WeaponPart part3)
+    public CompositeItem(WeaponPart part1, WeaponPart part2, WeaponPart part3)
     {
-        super(texture, 1, true);
+        super(new Texture[]{part1.getTexture(), part2.getTexture(), part3.getTexture()}, 1, true);
         this.part1 = part1;
         this.part2 = part2;
         this.part3 = part3;

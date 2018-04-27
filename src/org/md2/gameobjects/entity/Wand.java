@@ -12,6 +12,7 @@ public class Wand extends Entity
     private LivingEntity user;
     private WandItem usedItem;
     private int liveTime;
+    private Vec2 usingDirection;
 
     public Wand(LivingEntity user, WandItem usedItem)
     {
@@ -19,7 +20,7 @@ public class Wand extends Entity
         renderType = RENDER_TYPE_3D;
         this.user = user;
         this.usedItem = usedItem;
-        this.size = new Vec2(usedItem.getWandLength(), usedItem.getWandLength()/4);
+        this.size = new Vec2(usedItem.getWandLength(), usedItem.getWandLength()/2);
         setDeltaY(0.25f*user.getHeight());
         liveTime = 0;
     }
@@ -34,6 +35,7 @@ public class Wand extends Entity
             user.setCurrentlyUsing(null);
             return;
         }
+        this.setTransform(user.getPosition().add(usingDirection.mul(0.5F+0.5F*usedItem.getWandLength())), this.getAngle());
 
     }
 
@@ -48,22 +50,20 @@ public class Wand extends Entity
     {
         Vec2 userPos = user.getPosition();
         Vec2 thisPos = this.body.getPosition();
-        Vec2 dif = userPos.sub(thisPos);
+        Vec2 dif = thisPos.sub(userPos);
         dif.normalize();
-        this.setTransform(this.body.getPosition(), (float)Math.atan2(-dif.y, -dif.x));
-        this.user.setCurrentlyUsing(dif.negate());
+        usingDirection = dif;
+        this.setTransform(this.body.getPosition(), (float)Math.atan2(dif.y, dif.x));
+        this.user.setCurrentlyUsing(dif);
     }
 
     public FixtureDef getFixtureDef()
     {
         PolygonShape cs = new PolygonShape();
-        cs.setAsBox(0.5f, 0.5f);
+        cs.setAsBox(0.0f, 0.0f);
 
         FixtureDef fd = new FixtureDef();
         fd.shape = cs;
-        fd.density = 0.0f;
-        fd.friction = 0.0f;
-        fd.restitution = 0.0f;
         fd.setSensor(true);
         return fd;
     }

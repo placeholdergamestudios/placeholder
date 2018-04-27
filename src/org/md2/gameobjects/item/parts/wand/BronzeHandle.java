@@ -1,19 +1,17 @@
 package org.md2.gameobjects.item.parts.wand;
 
 import org.md2.common.Texture;
+import org.md2.gameobjects.item.parts.WeaponPart;
 
-public class BronzeHandle extends WandHandle{
+public class BronzeHandle implements WeaponPart {
 
-    public BronzeHandle()
-    {
-        super(new Texture[]{Texture.BRONZEHANDLE});
-        initVars();
+    @Override
+    public Texture getTexture() {
+        return Texture.BRONZEHANDLE;
     }
 
-    protected void initVars()
-    {
-        varOnAttack = 2;
-        varOnUse = 0;
-        varOnThrow = 0;
+    @Override
+    public void onUse() {
+
     }
 }
