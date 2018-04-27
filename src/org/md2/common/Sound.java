@@ -2,7 +2,7 @@ package org.md2.common;
 
 public enum Sound {
     AUA("aua"), WALK("walk"), BOWEQUIP("bowequip"), BOWTENSION("bowtension"), BOWRELEASE("bowrelease"),
-    SWORDSLASH("swordslash");
+    SWORDSLASH("swordslash"), MUSIC("music");
 
     private final String soundName;
 

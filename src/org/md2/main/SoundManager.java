@@ -22,6 +22,7 @@ public class SoundManager {
     public static final int SOUNDBOWRELEASE = 4;
     public static final int SOUNDAUA = 5;
     public static final int SOUNDSWORDSLASH = 6;
+    public static final int SOUNDMUSIC = 7;
 
 
 
@@ -33,6 +34,7 @@ public class SoundManager {
     public void tick(ArrayList<WorldObject> worldObjects)
     {
         addEntitysounds(worldObjects);
+        playSoundID(SOUNDMUSIC);
         for(Soundentry s: toplay)
         {
             executeClip(s.getClip(),s.getVolume());
@@ -45,11 +47,12 @@ public class SoundManager {
         switch(i)
         {
             case SOUNDWALK:{playSound(Sound.WALK, 0.05f);break;}
-            case SOUNDBOWEQUIP:{playSound(Sound.BOWEQUIP, 0.3f);break;}
-            case SOUNDBOWTENSION:{playSound(Sound.BOWTENSION, 0.3f);break;}
-            case SOUNDBOWRELEASE:{playSound(Sound.BOWRELEASE, 0.3f);break;}
-            case SOUNDAUA:{playSound(Sound.AUA, 0.5f);break;}
-            case SOUNDSWORDSLASH:{playSound(Sound.SWORDSLASH, 0.3f);break;}
+            case SOUNDBOWEQUIP:{playSound(Sound.BOWEQUIP, 0.2f);break;}
+            case SOUNDBOWTENSION:{playSound(Sound.BOWTENSION, 0.2f);break;}
+            case SOUNDBOWRELEASE:{playSound(Sound.BOWRELEASE, 0.2f);break;}
+            case SOUNDAUA:{playSound(Sound.AUA, 0.3f);break;}
+            case SOUNDSWORDSLASH:{playSound(Sound.SWORDSLASH, 0.2f);break;}
+            case SOUNDMUSIC:{playSound(Sound.MUSIC, 0.05f);break;}
         }
     }
 
