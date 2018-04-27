@@ -5,8 +5,8 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.FixtureDef;
 import org.md2.common.Texture;
 import org.md2.gameobjects.WorldObject;
+import org.md2.gameobjects.entity.Wand;
 import org.md2.gameobjects.entity.living.LivingEntity;
-import org.md2.gameobjects.entity.living.Wand;
 import org.md2.gameobjects.item.parts.CompositeItem;
 import org.md2.gameobjects.item.parts.wand.WandCap;
 import org.md2.gameobjects.item.parts.wand.WandHandle;
@@ -34,8 +34,8 @@ public abstract class WandItem extends CompositeItem {
         Vec2 mousePos = GraphicRendererV2.getMousePos();
         mousePos.normalize();
         Vec2 entityPos = user.getPosition().add(mousePos.mul(0.5F+0.5F*wandLength));
-        //WorldObject wo = new Wand(user, this);
-        //Game.getGame().getMechanicManager().getWorldManager().spawnObjectAt(wo, entityPos);
+        WorldObject wo = new Wand(user, this);
+        Game.getGame().getMechanicManager().getWorldManager().spawnObjectAt(wo, entityPos);
         setCurrentlyInUse(true);
         return super.onUse(user);
     }

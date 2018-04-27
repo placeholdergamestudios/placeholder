@@ -1,12 +1,10 @@
-package org.md2.gameobjects.entity.living;
+package org.md2.gameobjects.entity;
 
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.FixtureDef;
-import org.md2.gameobjects.entity.Entity;
+import org.md2.gameobjects.entity.living.LivingEntity;
 import org.md2.gameobjects.item.WandItem;
-import org.md2.main.GraphicRendererV2;
 
 public class Wand extends Entity
 {
@@ -29,7 +27,7 @@ public class Wand extends Entity
     public void performTick()
     {
         liveTime ++;
-        if(!(liveTime < 1000))
+        if(!(liveTime < 30))
         {
             this.removeFromWorld();
             usedItem.setCurrentlyInUse(false);
@@ -59,7 +57,7 @@ public class Wand extends Entity
     public FixtureDef getFixtureDef()
     {
         PolygonShape cs = new PolygonShape();
-        cs.setAsBox(size.x/2, size.y/2);
+        cs.setAsBox(0.5f, 0.5f);
 
         FixtureDef fd = new FixtureDef();
         fd.shape = cs;
