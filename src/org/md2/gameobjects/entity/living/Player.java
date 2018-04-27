@@ -1,17 +1,10 @@
 package org.md2.gameobjects.entity.living;
-import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.collision.shapes.PolygonShape;
-import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.BodyDef;
-import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import org.md2.common.RenderPrio;
 import org.md2.common.Sound;
 import org.md2.common.Texture;
-import org.md2.common.VAOType;
-import org.md2.gameobjects.item.Item;
-
 
 /**
  * Beschreiben Sie hier die Klasse Player.
@@ -50,10 +43,6 @@ public class Player extends LivingEntity
 
 	public void setShouldRotate(int shouldMoveX) {
 		this.shouldMoveX = -shouldMoveX;
-	}
-
-	public void setShouldAttack(int shouldAttack) {
-		this.shouldAttack = shouldAttack;
 	}
 
 

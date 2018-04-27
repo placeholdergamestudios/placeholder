@@ -55,11 +55,18 @@ public class Arrow extends WeaponEntity
 		}
 		
 	}
-	
+
+	@Override
 	public void afterDeploySetup()
 	{
 		super.afterDeploySetup();
 		this.body.setLinearVelocity(initialDirectionVec2.mul(usedItem.getWeaponSpeed()*5));
+	}
+
+	@Override
+	public float getRenderAngle()
+	{
+		return super.getRenderAngle()+initialDirection;
 	}
 
 	@Override

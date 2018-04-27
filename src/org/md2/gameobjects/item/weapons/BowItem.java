@@ -39,7 +39,7 @@ public abstract class BowItem extends WeaponItem
 		Vec2 pos = user.getPosition().add(mousePos.mul(0.5F));
 		if(preparationFinished){
 			preparationFinished = false;
-			Game.getGame().getMechanicManager().getWorldManager().spawnObjectAt(new Arrow(user, this), pos, (float)Math.atan2(mousePos.y, mousePos.x));
+			Game.getGame().getMechanicManager().getWorldManager().spawnObjectAt(new Arrow(user, this), pos);
 			Game.getGame().getSoundManager().playSoundID(SoundManager.SOUNDBOWRELEASE);
 			return true;
 		}

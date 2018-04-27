@@ -35,6 +35,13 @@ public class Wand extends WeaponEntity
 
     public Vec2 getRenderSize(){return super.getRenderSize().mul(usedItem.getWeaponSize());}
 
+    @Override
+    public void afterDeploySetup()
+    {
+        super.afterDeploySetup();
+        this.setTransform(this.body.getPosition(), initialDirection);
+    }
+
     public FixtureDef getFixtureDef()
     {
         PolygonShape cs = new PolygonShape();

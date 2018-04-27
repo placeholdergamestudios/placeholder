@@ -2,7 +2,6 @@ package org.md2.gameobjects.entity;
 
 import org.jbox2d.common.Vec2;
 import org.md2.gameobjects.entity.living.LivingEntity;
-import org.md2.gameobjects.item.Item;
 import org.md2.gameobjects.item.WeaponItem;
 
 public abstract class WeaponEntity extends Entity
@@ -30,7 +29,6 @@ public abstract class WeaponEntity extends Entity
         initialDistance = dif.normalize();
         initialDirectionVec2 = dif;
         initialDirection = (float)Math.atan2(dif.y, dif.x);
-        this.setTransform(this.body.getPosition(), initialDirection);
         this.user.setCurrentlyUsing(dif);
     }
 
