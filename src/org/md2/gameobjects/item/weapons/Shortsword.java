@@ -1,9 +1,6 @@
-package org.md2.gameobjects.item;
+package org.md2.gameobjects.item.weapons;
 
-import org.jbox2d.collision.shapes.PolygonShape;
-import org.jbox2d.dynamics.FixtureDef;
 import org.md2.common.Texture;
-import org.md2.common.VAOType;
 
 public class Shortsword extends SwordItem
 {

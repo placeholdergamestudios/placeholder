@@ -17,6 +17,10 @@ import org.md2.gameobjects.entity.living.LivingEntity;
  */
 public abstract class Item extends WorldObject
 {
+    public static final int USAGE_TYPE_1 = 1;
+    public static final int USAGE_TYPE_2 = 2;
+    public static final int USAGE_TYPE_3 = 3;
+
 	protected boolean currentlyInUse;
 	protected final int maxStackSize;
 	protected final boolean reuseable;
@@ -67,23 +71,37 @@ public abstract class Item extends WorldObject
     	else 
     		return currentStackSize+"";
     }
-    
-    public boolean onUse(LivingEntity user)
+
+    public boolean onUse(LivingEntity user, int usageType)
     {
-    	return use(user);
-    }
-    
-    public boolean onAttack(LivingEntity user)
-    {
-    	return use(user);
-    }
-    
-    public boolean onThrow(LivingEntity user)
-    {
-    	return use(user);
+        boolean wasActuallyUsed = false;
+        switch(usageType) {
+            case USAGE_TYPE_1:
+                wasActuallyUsed = onPrimaryUse(user);
+            case USAGE_TYPE_2:
+                wasActuallyUsed = onSecondaryUse(user);
+            case USAGE_TYPE_3:
+                wasActuallyUsed = onTertiaryUse(user);
+        }
+        if(wasActuallyUsed)
+            return decreaseStackSize();
+        return false;
+
     }
 
-    private boolean use(LivingEntity user)
+    public abstract boolean onPrimaryUse(LivingEntity user);
+    
+    public boolean onSecondaryUse(LivingEntity user)
+    {
+        return onPrimaryUse(user);
+    }
+    
+    public boolean onTertiaryUse(LivingEntity user)
+    {
+        return onPrimaryUse(user);
+    }
+
+    private boolean decreaseStackSize()
     {
     	if(!this.reuseable)
     	{
@@ -127,10 +145,9 @@ public abstract class Item extends WorldObject
 		currentlyInUse = b;
 	}
     
-    public BodyDef getBodyDef(float xpos, float ypos)
+    public BodyDef getBodyDef()
     {
     	BodyDef bd = new BodyDef();
-    	bd.position.set(xpos, ypos);  
     	bd.type = BodyType.STATIC;
     	
     	return bd;

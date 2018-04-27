@@ -97,11 +97,11 @@ public abstract class LivingEntity extends Entity
     		i.removeFromWorld();
     }
     
-    public void useItem(Item i)
+    public void useItem(Item i, int usageType)
     {
     	if(i == null)
     		return;
-    	if(i.onUse(this))
+    	if(i.onUse(this, usageType))
     		inventory.removeItem(i);
     }
 
@@ -181,12 +181,12 @@ public abstract class LivingEntity extends Entity
 		                   
 	}
 	
-	public void useHotbarItem(int index) 
+	public void useHotbarItem(int index, int usageType)
 	{
 		
 		Item i = inventory.getHotbarItem(index);
 		if(i != null)
-			useItem(i);
+			useItem(i, usageType);
 			
 	}
 	

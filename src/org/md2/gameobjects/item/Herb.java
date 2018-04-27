@@ -35,11 +35,9 @@ public class Herb extends Item
     }
 	
 
-	public boolean onUse(LivingEntity user) 
+	public boolean onPrimaryUse(LivingEntity user)
 	{
-		if(user.heal(this.varOnUse))
-    		return super.onUse(user);
-    	return false;
+		return user.heal(this.varOnUse);
 	}
 
 }

@@ -1,6 +1,5 @@
 package org.md2.worldmanagement;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -13,14 +12,11 @@ import org.md2.gameobjects.DecoObject;
 import org.md2.gameobjects.WorldObject;
 import org.md2.gameobjects.entity.Entity;
 import org.md2.gameobjects.entity.living.Dummy;
-import org.md2.gameobjects.entity.living.LivingEntity;
 import org.md2.gameobjects.entity.living.Player;
 import org.md2.gameobjects.item.Apple;
 import org.md2.gameobjects.item.Herb;
-import org.md2.gameobjects.item.Shortsword;
 import org.md2.gameobjects.structure.Glue;
 import org.md2.gameobjects.structure.Multistructure;
-import org.md2.gameobjects.structure.Structure;
 
 
 public abstract class Level 

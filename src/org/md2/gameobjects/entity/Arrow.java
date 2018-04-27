@@ -1,20 +1,16 @@
 package org.md2.gameobjects.entity;
 
-import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.FixtureDef;
 import org.md2.common.Texture;
 import org.md2.gameobjects.WorldObject;
 import org.md2.gameobjects.entity.living.LivingEntity;
-import org.md2.gameobjects.item.BowItem;
-import org.md2.main.GraphicRendererV2;
+import org.md2.gameobjects.item.weapons.BowItem;
 
-public class Arrow extends Entity
+public class Arrow extends WeaponEntity
 {
 
-	private LivingEntity user;
-	private BowItem usedBow;
 	
 	private int postHitCounter;
 	private WorldObject hitObject;
@@ -22,14 +18,11 @@ public class Arrow extends Entity
 	
 	public Arrow(LivingEntity user, BowItem usedBow) 
 	{
-		super(new Texture[]{usedBow.getArrowTexture()});
-		renderType = RENDER_TYPE_3D;
+		super(user, usedBow);
+		this.setTextures(new Texture[]{usedBow.getArrowTexture()});
 		hitObject = null;
 		postHitCounter = 0;
 		size = new Vec2(0.6F, 0.4F);
-		this.user = user;
-		this.usedBow = usedBow;
-		setDeltaY(0.25F*user.getHeight());
 	}
 	
 	
@@ -46,13 +39,8 @@ public class Arrow extends Entity
 		hittingVec = hitObject.getPosition().sub(this.getPosition());
 		this.body.setLinearVelocity(new Vec2());
 		if(o instanceof LivingEntity){
-			((LivingEntity)hitObject).damage(usedBow.getVarOnThrow());
+			((LivingEntity)hitObject).damage(usedItem.getVarOnThrow());
 		}	
-	}
-	
-	public float getRenderAngle()
-	{
-		return getAngle()-0.25F*(float)Math.PI;
 	}
 	
 	public void performTick()
@@ -70,9 +58,8 @@ public class Arrow extends Entity
 	
 	public void afterDeploySetup()
 	{
-		Vec2 dir = this.getPosition().sub(user.getPosition());
-		dir.normalize();
-		this.body.setLinearVelocity(dir.mul(10));
+		super.afterDeploySetup();
+		this.body.setLinearVelocity(initialDirectionVec2.mul(usedItem.getWeaponSpeed()*5));
 	}
 
 	@Override

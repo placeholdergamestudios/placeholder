@@ -91,13 +91,13 @@ public class MechanicManager extends Thread
                 
             }
             if(KeyboardInput.isPressed(KeyboardInput.ACTION_QUICKUSE1)){
-                player.useHotbarItem(0);
+                player.useHotbarItem(0, Item.USAGE_TYPE_1);
             }
             if(KeyboardInput.isPressed(KeyboardInput.ACTION_QUICKUSE2)){
-                player.useHotbarItem(1);
+                player.useHotbarItem(1, Item.USAGE_TYPE_1);
             }
             if(KeyboardInput.isPressed(KeyboardInput.ACTION_QUICKUSE3)){
-                player.useHotbarItem(2);
+                player.useHotbarItem(2, Item.USAGE_TYPE_1);
             }
         }
         else if(Game.getGame().getMenue() == Game.M_INVENTORY){
@@ -118,7 +118,7 @@ public class MechanicManager extends Thread
             	//inv.moveCursor(1, 0);
             }
             if(KeyboardInput.isPressed(KeyboardInput.ACTION_ENTER)){
-            	player.useItem(inv.getCursorItem());
+            	player.useItem(inv.getCursorItem(), Item.USAGE_TYPE_1);
             }
             if(KeyboardInput.isPressed(KeyboardInput.ACTION_BACK) || KeyboardInput.isPressed(KeyboardInput.ACTION_DELETE)){
             	inv.setMousePickUp(null);

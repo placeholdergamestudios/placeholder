@@ -6,23 +6,19 @@ import org.jbox2d.dynamics.FixtureDef;
 import org.md2.gameobjects.WorldObject;
 import org.md2.gameobjects.entity.living.LivingEntity;
 import org.md2.gameobjects.item.Item;
+import org.md2.gameobjects.item.WeaponItem;
 import org.md2.main.GraphicRendererV2;
 
-public class ThrownBoomerang extends Entity
+public class ThrownBoomerang extends WeaponEntity
 {
-	private LivingEntity user;
-	private Item usedItem;
+
 	private int collisionCounter;
 	
 	
-	public ThrownBoomerang(LivingEntity user, Item usedItem) 
+	public ThrownBoomerang(LivingEntity user, WeaponItem usedItem)
 	{
-		super(usedItem.getTextures().clone());
-		renderType = RENDER_TYPE_3D;
-		this.user = user;
-		this.usedItem = usedItem;
+		super(user, usedItem);
 		this.size = new Vec2(usedItem.getSize().x , usedItem.getSize().y/2);
-		setDeltaY(0.25F*user.getHeight());
 		collisionCounter = 0;
 	}
 	
@@ -33,7 +29,7 @@ public class ThrownBoomerang extends Entity
 		Vec2 dif = userPos.sub(thisPos);
 		if(collisionCounter > 10){
 			dif.normalize();
-			dif.mulLocal(15);
+			dif.mulLocal(usedItem.getWeaponSpeed());
 			this.body.setLinearVelocity(dif);
 			return;
 			
@@ -44,12 +40,9 @@ public class ThrownBoomerang extends Entity
 	
 	public void afterDeploySetup()
 	{
-		Vec2 mousePos = GraphicRendererV2.getMousePos();
-		mousePos.normalize();
-		mousePos = mousePos.mul(15);
-		this.body.setLinearVelocity(mousePos);
+		super.afterDeploySetup();
+		this.body.setLinearVelocity(initialDirectionVec2.mul(usedItem.getWeaponSpeed()));
 		this.body.setAngularVelocity(10);
-		this.user.setCurrentlyUsing(mousePos);
 	}
 	
 	public void onCollision(WorldObject o)
@@ -70,11 +63,6 @@ public class ThrownBoomerang extends Entity
 		}
 
 			
-	}
-
-	public float getRenderAngle()
-	{
-		return getAngle()-0.25F*(float)Math.PI;
 	}
 	
 	public FixtureDef getFixtureDef()

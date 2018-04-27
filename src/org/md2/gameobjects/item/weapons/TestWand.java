@@ -1,7 +1,5 @@
-package org.md2.gameobjects.item;
+package org.md2.gameobjects.item.weapons;
 
-import org.md2.common.Texture;
-import org.md2.gameobjects.item.WandItem;
 import org.md2.gameobjects.item.parts.wand.BronzeCap;
 import org.md2.gameobjects.item.parts.wand.BronzeHandle;
 import org.md2.gameobjects.item.parts.wand.CrystalOrb;

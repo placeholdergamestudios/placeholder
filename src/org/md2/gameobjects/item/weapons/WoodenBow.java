@@ -1,6 +1,7 @@
-package org.md2.gameobjects.item;
+package org.md2.gameobjects.item.weapons;
 
 import org.md2.common.Texture;
+import org.md2.gameobjects.item.weapons.BowItem;
 
 public class WoodenBow extends BowItem
 {

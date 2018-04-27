@@ -1,17 +1,18 @@
-package org.md2.gameobjects.item.parts;
+package org.md2.gameobjects.item;
 
 import org.md2.common.Texture;
 import org.md2.gameobjects.item.Item;
+import org.md2.gameobjects.item.parts.WeaponPart;
 
-public abstract class CompositeItem extends Item {
+public abstract class CompositeWeapon extends WeaponItem {
 
     protected WeaponPart part1;
     protected WeaponPart part2;
     protected WeaponPart part3;
 
-    public CompositeItem(WeaponPart part1, WeaponPart part2, WeaponPart part3)
+    public CompositeWeapon(WeaponPart part1, WeaponPart part2, WeaponPart part3, float weaponSize, float weaponSpeed)
     {
-        super(new Texture[]{part1.getTexture(), part2.getTexture(), part3.getTexture()}, 1, true);
+        super(new Texture[]{part1.getTexture(), part2.getTexture(), part3.getTexture()}, weaponSize, weaponSpeed);
         this.part1 = part1;
         this.part2 = part2;
         this.part3 = part3;
