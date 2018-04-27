@@ -5,10 +5,8 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.FixtureDef;
 import org.md2.common.Texture;
 import org.md2.gameobjects.WorldObject;
-import org.md2.gameobjects.entity.Entity;
 import org.md2.gameobjects.entity.ThrownBoomerang;
 import org.md2.gameobjects.entity.living.LivingEntity;
-import org.md2.gameobjects.item.Item;
 import org.md2.gameobjects.item.WeaponItem;
 import org.md2.main.Game;
 import org.md2.main.GraphicRendererV2;
@@ -29,7 +27,7 @@ public abstract class BoomerangItem extends WeaponItem
 			return false;
 		Vec2 mousePos = GraphicRendererV2.getMousePos();
 		mousePos.normalize();
-		Vec2 entityPos = user.getPosition().add(mousePos.mul(0.5F+0.5F*weaponSize));
+		Vec2 entityPos = user.getPosition().add(mousePos.mul(0.5F+0.5F*this.getWeaponSize()));
 		if(Game.getGame().getMechanicManager().getWorldManager().isPositionBlocked(entityPos))
 			return false;
 		WorldObject wo = new ThrownBoomerang(user, this);

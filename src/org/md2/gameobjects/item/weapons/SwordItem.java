@@ -29,7 +29,7 @@ public abstract class SwordItem extends WeaponItem
 			return false;
 		Vec2 mousePos = GraphicRendererV2.getMousePos();
 		mousePos.normalize();
-		Vec2 entityPos = user.getPosition().add(mousePos.mul(0.5F+0.5F*weaponSize));
+		Vec2 entityPos = user.getPosition().add(mousePos.mul(0.5F+0.5F*this.getWeaponSize()));
 		WorldObject wo = new SwungSword(user, this);
 		Game.getGame().getMechanicManager().getWorldManager().spawnObjectAt(wo, entityPos);
 		Game.getGame().getSoundManager().playSoundID(SoundManager.SOUNDSWORDSLASH);

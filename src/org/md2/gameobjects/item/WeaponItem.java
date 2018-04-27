@@ -4,8 +4,8 @@ import org.md2.common.Texture;
 
 public abstract class WeaponItem extends Item
 {
-    protected float weaponSize;
-    protected float weaponSpeed;
+    private float weaponSize;
+    private float weaponSpeed;
 
     public WeaponItem(Texture[] textures, float weaponSize, float weaponSpeed)
     {
