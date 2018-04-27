@@ -11,17 +11,14 @@ import org.md2.gameobjects.item.weapons.BowItem;
 public class Arrow extends WeaponEntity
 {
 
-	
-	private int postHitCounter;
+
 	private WorldObject hitObject;
-	private Vec2 hittingVec;
 	
 	public Arrow(LivingEntity user, BowItem usedBow) 
 	{
 		super(user, usedBow);
 		this.setTextures(new Texture[]{usedBow.getArrowTexture()});
 		hitObject = null;
-		postHitCounter = 0;
 		size = new Vec2(0.6F, 0.4F);
 	}
 	
@@ -36,7 +33,6 @@ public class Arrow extends WeaponEntity
 		if(o.isSensor())
 			return;
 		hitObject = o;
-		hittingVec = hitObject.getPosition().sub(this.getPosition());
 		this.body.setLinearVelocity(new Vec2());
 		if(o instanceof LivingEntity){
 			((LivingEntity)hitObject).damage(usedItem.getVarOnThrow());
@@ -46,14 +42,8 @@ public class Arrow extends WeaponEntity
 	public void performTick()
 	{
 		if(hitObject != null){
-			postHitCounter++;
-			if(postHitCounter > 5){
 				this.removeFromWorld();
-				return;
-			}
-			this.setTransform(hitObject.getPosition().sub(hittingVec), this.body.getAngle());
 		}
-		
 	}
 
 	@Override

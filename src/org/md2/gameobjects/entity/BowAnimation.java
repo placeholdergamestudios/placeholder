@@ -20,6 +20,7 @@ public class BowAnimation extends WeaponEntity
 		size = new Vec2(0.8F, 0.4F);
 		liveTime = 0;
 		drawingTime = (int) (60/usedItem.getWeaponSpeed());
+		shadow.setStatic();
 	}
 	
 	public void performTick()
