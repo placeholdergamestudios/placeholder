@@ -50,7 +50,7 @@ public class Arrow extends WeaponEntity
 	public void afterDeploySetup()
 	{
 		super.afterDeploySetup();
-		this.body.setLinearVelocity(initialDirectionVec2.mul(usedItem.getWeaponSpeed()*5));
+		this.body.setLinearVelocity(initialDirectionVec2.mul(20/usedItem.getWeaponSpeed()));
 	}
 
 	@Override
