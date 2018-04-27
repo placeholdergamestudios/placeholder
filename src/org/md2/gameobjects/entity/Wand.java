@@ -39,7 +39,7 @@ public class Wand extends Entity
 
     public float getRenderAngle()
     {
-        return user.getAngle();
+        return super.getAngle() + -0.25F*(float)Math.PI;
     }
 
     public Vec2 getRenderSize(){return super.getRenderSize().mul(usedItem.getWandLength());}
@@ -50,7 +50,7 @@ public class Wand extends Entity
         Vec2 thisPos = this.body.getPosition();
         Vec2 dif = userPos.sub(thisPos);
         dif.normalize();
-        this.setTransform(this.body.getPosition(), getRenderAngle());
+        this.setTransform(this.body.getPosition(), (float)Math.atan2(-dif.y, -dif.x));
         this.user.setCurrentlyUsing(dif.negate());
     }
 

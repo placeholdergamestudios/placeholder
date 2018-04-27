@@ -21,7 +21,7 @@ public class ThrownBoomerang extends Entity
 		renderType = RENDER_TYPE_3D;
 		this.user = user;
 		this.usedItem = usedItem;
-		this.size = usedItem.getSize();
+		this.size = new Vec2(usedItem.getSize().x , usedItem.getSize().y/2);
 		setDeltaY(0.25F*user.getHeight());
 		collisionCounter = 0;
 	}
@@ -82,7 +82,7 @@ public class ThrownBoomerang extends Entity
     	
 
     	CircleShape cs = new CircleShape();
-    	cs.m_radius = size.x/2;
+		cs.m_radius = size.x/2;
 
     	FixtureDef fd = new FixtureDef();
     	fd.shape = cs;

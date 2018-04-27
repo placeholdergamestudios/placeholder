@@ -5,11 +5,11 @@ import org.md2.gameobjects.item.Item;
 
 public abstract class CompositeItem extends Item {
 
-    protected Weaponpart part1;
-    protected Weaponpart part2;
-    protected Weaponpart part3;
+    protected WeaponPart part1;
+    protected WeaponPart part2;
+    protected WeaponPart part3;
 
-    public CompositeItem(Texture [] texture, Weaponpart part1, Weaponpart part2, Weaponpart part3)
+    public CompositeItem(Texture [] texture, WeaponPart part1, WeaponPart part2, WeaponPart part3)
     {
         super(texture, 1, true);
         this.part1 = part1;
@@ -17,7 +17,7 @@ public abstract class CompositeItem extends Item {
         this.part3 = part3;
     }
 
-    public Weaponpart getPart1(){return part1;}
-    public Weaponpart getPart2(){return part2;}
-    public Weaponpart getPart3(){return part3;}
+    public WeaponPart getPart1(){return part1;}
+    public WeaponPart getPart2(){return part2;}
+    public WeaponPart getPart3(){return part3;}
 }

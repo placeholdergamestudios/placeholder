@@ -17,7 +17,7 @@ import org.md2.gameobjects.entity.living.Player;
 import org.md2.gameobjects.item.Shortsword;
 import org.md2.gameobjects.item.WoodenBoomerang;
 import org.md2.gameobjects.item.WoodenBow;
-import org.md2.gameobjects.item.parts.wand.TestWand;
+import org.md2.gameobjects.item.TestWand;
 import org.md2.gameobjects.structure.Structure;
 import org.md2.main.Game;
 import org.md2.main.MechanicManager;

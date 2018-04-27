@@ -1,5 +1,6 @@
 package org.md2.gameobjects.entity;
 
+import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.FixtureDef;
@@ -25,7 +26,7 @@ public class Arrow extends Entity
 		renderType = RENDER_TYPE_3D;
 		hitObject = null;
 		postHitCounter = 0;
-		size = new Vec2(1F, 0.4F);
+		size = new Vec2(0.6F, 0.4F);
 		this.user = user;
 		this.usedBow = usedBow;
 		setDeltaY(0.25F*user.getHeight());
@@ -78,10 +79,10 @@ public class Arrow extends Entity
 	public FixtureDef getFixtureDef()
     {
 		PolygonShape cs = new PolygonShape();
-    	cs.setAsBox(size.x/2, size.y/2);
+		cs.setAsBox(size.x/2, size.y/2);
 
 
-    	FixtureDef fd = new FixtureDef();
+		FixtureDef fd = new FixtureDef();
     	fd.shape = cs;
     	fd.density = 0.0f;
     	fd.friction = 0.0f;        

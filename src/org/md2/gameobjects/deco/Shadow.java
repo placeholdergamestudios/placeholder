@@ -23,7 +23,7 @@ public class Shadow extends DecoObject
 	
 	public void performTick()
 	{
-		this.setTransform(user.getPosition(), user.getAngle());
+		this.setTransform(user.getPosition(), 0);
 	}
 
 	@Override

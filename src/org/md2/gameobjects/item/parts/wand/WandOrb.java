@@ -3,9 +3,9 @@ package org.md2.gameobjects.item.parts.wand;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.dynamics.FixtureDef;
 import org.md2.common.Texture;
-import org.md2.gameobjects.item.parts.Weaponpart;
+import org.md2.gameobjects.item.parts.WeaponPart;
 
-public abstract class WandOrb extends Weaponpart {
+public abstract class WandOrb extends WeaponPart {
 
     public WandOrb(Texture[] texture)
     {
