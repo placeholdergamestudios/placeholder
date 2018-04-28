@@ -28,7 +28,7 @@ public class BowAnimation extends WeaponEntity
 		BowItem bowItem = (BowItem) usedItem;
 		liveTime++;
 		user.modMovement(0.55f);
-		if(!(Game.getGame().getMechanicManager().getWorldManager().getPlayer().getInventory().isIteminHotbar(usedItem)))
+		if(!(Game.getGame().getMechanicManager().getWorldManager().getPlayer().getInventory().isItemInHotbar(usedItem)))
         {
             liveTime = -1;
         }

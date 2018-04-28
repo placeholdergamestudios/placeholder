@@ -24,8 +24,8 @@ public class NormalLevel extends Level
 
 	@Override
 	public boolean[][] generateNewMapArray() {
-		int minRoom = 3;
-    	int maxRoom = 7;
+		int minRoom = 2;
+    	int maxRoom = 4;
     	int roomFrequency = 10;
         int size = 25;
         Random rdm = new Random();
@@ -49,7 +49,7 @@ public class NormalLevel extends Level
             }
         }
         generateConnections(connectionVec2s, map);
-        boolean [][] ret = new boolean[size * 2][size * 2];
+        boolean [][] ret = new boolean[map.length * 2][map[0].length * 2];
         for (int x = 0; x < map.length ; x++) {
             for (int y = 0; y < map[0].length; y++) {
                 ret[2*x][2*y] = map[x][y];

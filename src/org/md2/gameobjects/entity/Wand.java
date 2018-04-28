@@ -22,7 +22,7 @@ public class Wand extends WeaponEntity
     public void performTick()
     {
         liveTime ++;
-        if(!(liveTime < usedItem.getWeaponSpeed()*100))
+        if(!(liveTime < 100/usedItem.getWeaponSpeed()))
         {
             this.removeFromWorld();
             usedItem.setCurrentlyInUse(false);

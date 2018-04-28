@@ -4,10 +4,8 @@ import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.FixtureDef;
 import org.md2.gameobjects.WorldObject;
-import org.md2.gameobjects.entity.Fireball;
 import org.md2.gameobjects.entity.Wand;
 import org.md2.gameobjects.entity.living.LivingEntity;
-
 import org.md2.gameobjects.item.CompositeWeapon;
 import org.md2.gameobjects.item.parts.WeaponPart;
 import org.md2.main.Game;
@@ -32,7 +30,7 @@ public abstract class WandItem extends CompositeWeapon {
         Vec2 entityPos = user.getPosition().add(mousePos.mul(0.5F+0.5F*this.getWeaponSize()));
         WorldObject wo = new Wand(user, this);
         Game.getGame().getMechanicManager().getWorldManager().spawnObjectAt(wo, entityPos);
-        Game.getGame().getMechanicManager().getWorldManager().spawnObjectAt(new Fireball(user, this), entityPos);
+        this.getPart2().onUse(user, this);
         setCurrentlyInUse(true);
         return true;
     }
