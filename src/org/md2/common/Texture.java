@@ -11,7 +11,7 @@ public enum Texture {
 	PLAYERLEFTW1("PlayerLeftW1"), PLAYERLEFTW2("PlayerLeftW2"), PLAYERLEFTW3("PlayerLeftW3"), PLAYERLEFTW4("PlayerLeftW4"),
 	NORMALSOIL("NormalSoil"), HEALTHBAR("Healthbar"), LIVEBAR("LiveBar"), 
 	ESCAPE_MENUE("ESC"), INVENTORY("InvBackground"), INVENTORY_SLOT("InvSlot"), INVENTORY_CURSOR("InvCursor"), CURSOR("Cursor"),
-	ARROW("Pfeil"), BRONZECAP("BronzeCap"), CRYSTALORB("CrystalOrb"), BRONZEHANDLE("BronzeHandle");
+	ARROW("Pfeil"), BRONZECAP("BronzeCap"), CRYSTALORB("CrystalOrb"), BRONZEHANDLE("BronzeHandle"), FIREBALL("Fireball");
 	
 	private final String textureName;
 	
