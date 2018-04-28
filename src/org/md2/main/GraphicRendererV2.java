@@ -1,5 +1,7 @@
 package org.md2.main;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -76,9 +78,7 @@ public class GraphicRendererV2 extends Thread
     	createVAOs();
     	createTOs();
     	createFontChars();
-        //glfwSetCursor(window, GLFW.glfwCreateCursor(0, 0, 0));
     }
-    
     
     public void run()
     {
@@ -115,6 +115,7 @@ public class GraphicRendererV2 extends Thread
         else if(Game.getGame().getMenue() == Game.M_INVENTORY){
         	renderInGame();
         	renderInventory();
+        	renderCursor();
         }
         
     }
@@ -214,7 +215,7 @@ public class GraphicRendererV2 extends Thread
 	private void renderHUD() 
 	{
 		renderHealthbar();
-		//renderCursor();
+		renderCursor();
 		renderHotbar();
 		
 	}
@@ -245,7 +246,7 @@ public class GraphicRendererV2 extends Thread
 	{
 		shaderProgram.bind();
 		shaderProgram.setUniform("projectionMatrix", new Matrix4f().ortho(-renderDistance.x, renderDistance.x, -renderDistance.y, renderDistance.y, zNear, zFar));
-		Matrix4f matrix = getTransformationMatrix(mousePosition, 0, 1);
+		Matrix4f matrix = getTransformationMatrix(mousePosition, 0, 2);
 		TextureObject to = TOs.get(Texture.CURSOR);
 		VertexArrayObject vao = VAOs.get(VAOType.CURSOR);
 		renderRectObject(vao, to, matrix);
@@ -429,7 +430,7 @@ public class GraphicRendererV2 extends Thread
     		GLFW.glfwTerminate();
     	    throw new RuntimeException("Failed to create the GLFW window");
     	}
-    	
+		GLFW.glfwSetInputMode(window, GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_HIDDEN);
     	@SuppressWarnings("unused")
 		GLFWWindowFocusCallback windowFocusCallback;
     	GLFW.glfwSetWindowFocusCallback(window, windowFocusCallback = new GLFWWindowFocusCallback() {
@@ -498,6 +499,7 @@ public class GraphicRendererV2 extends Thread
     	cleanupVAOs();
     	cleanupTOs();
     	shaderProgram.cleanup();
+    	GLFW.glfwSetInputMode(window, GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_NORMAL);
     	GLFW.glfwDestroyWindow(window);
     	Callbacks.glfwFreeCallbacks(window);
     	GLFW.glfwTerminate();
