@@ -96,7 +96,10 @@ public abstract class LivingEntity extends Entity
     public void pickUpItem(Item i)
     {
     	if(inventory.add(i))
-    		i.removeFromWorld();
+		{
+			i.removeFromWorld();
+			Game.getGame().getSoundManager().playSoundID(SoundManager.SOUNDPICKUP);
+		}
     }
     
     public void useItem(Item i, int usageType)

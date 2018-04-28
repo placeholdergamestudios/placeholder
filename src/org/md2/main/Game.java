@@ -41,10 +41,10 @@ public class Game
     private void init()
     {
         menue = M_INGAME;
+        sm = new SoundManager();
         gr = new GraphicRendererV2();
         ki = new KeyboardInput();
         mm = new MechanicManager();
-        sm = new SoundManager();
         gr.setInput(ki);
         setRunning(true); 
         mm.start();

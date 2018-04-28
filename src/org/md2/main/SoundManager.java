@@ -25,6 +25,7 @@ public class SoundManager {
     public static final int SOUNDMUSIC = 7;
     public static final int SOUNDFIREBALL = 8;
     public static final int SOUNDBOOMERANG = 9;
+    public static final int SOUNDPICKUP = 10;
 
 
 
@@ -57,6 +58,7 @@ public class SoundManager {
             case SOUNDMUSIC:{playSound(Sound.MUSIC, 0.05f);break;}
             case SOUNDFIREBALL:{playSound(Sound.FIREBALL, 0.2f);break;}
             case SOUNDBOOMERANG:{playSound(Sound.BOOMERANG, 0.2f);break;}
+            case SOUNDPICKUP:{playSound(Sound.PICKUP, 0.2f);break;}
         }
     }
 
