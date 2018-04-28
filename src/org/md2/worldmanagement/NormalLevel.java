@@ -33,16 +33,14 @@ public class NormalLevel extends Level
         boolean[][] map = new boolean[size][size];
 
         for (int x = 1; x < map.length ; x++) // '1' so that a room wont be generated directly at the map border
-        { 
-            for (int y = 1; y < map[0].length; y++)
-            {
+        {
+            for (int y = 1; y < map[0].length; y++) {
                 if (false == map[x][y]) // tests if there is already a room at this position
                 {
-                    if (rdm.nextInt(roomFrequency) == 0)
-                    {
-                        int roomSize = rdm.nextInt(maxRoom-minRoom) + minRoom;
-                        if(generateRoom(x, y, roomSize , map)){ //tries to generate a room at the given position
-                            connectionVec2s.add(new Vec2(rdm.nextInt(roomSize) + x , rdm.nextInt(roomSize) + y)); // random position in the room, from where a connection to another one will be build
+                    if (rdm.nextInt(roomFrequency) == 0) {
+                        int roomSize = rdm.nextInt(maxRoom - minRoom) + minRoom;
+                        if (generateRoom(x, y, roomSize, map)) { //tries to generate a room at the given position
+                            connectionVec2s.add(new Vec2(rdm.nextInt(roomSize) + x, rdm.nextInt(roomSize) + y)); // random position in the room, from where a connection to another one will be build
                         }
                     }
                 }
