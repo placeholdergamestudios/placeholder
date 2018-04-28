@@ -23,6 +23,7 @@ public class Game
     private GraphicRendererV2 gr;
     private MechanicManager mm;
     private SoundManager sm;
+    private SaveManager svm;
     private static Game game;
     
     private static boolean threadsLocked;
@@ -45,6 +46,9 @@ public class Game
         gr = new GraphicRendererV2();
         ki = new KeyboardInput();
         mm = new MechanicManager();
+        svm = new SaveManager();
+        //svm.save("test");
+        svm.load("test");
         gr.setInput(ki);
         setRunning(true); 
         mm.start();
