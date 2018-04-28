@@ -7,19 +7,15 @@ import org.md2.common.Damage;
 import org.md2.common.Texture;
 import org.md2.gameobjects.WorldObject;
 import org.md2.gameobjects.entity.living.LivingEntity;
+import org.md2.gameobjects.item.WeaponItem;
 import org.md2.gameobjects.item.weapons.BowItem;
 
-public class Arrow extends WeaponEntity
+public class Arrow extends Missile
 {
-
-
-	private WorldObject hitObject;
 	
-	public Arrow(LivingEntity user, BowItem usedBow) 
+	public Arrow(LivingEntity user, WeaponItem usedItem, Texture[] textures)
 	{
-		super(user, usedBow);
-		this.setTextures(new Texture[]{usedBow.getArrowTexture()});
-		hitObject = null;
+		super(user, usedItem, textures);
 		size = new Vec2(0.6F, 0.4F);
 	}
 	
@@ -39,42 +35,4 @@ public class Arrow extends WeaponEntity
 			new Damage(Damage.DAMAGETHRUST, usedItem.getVarOnThrow(), user, (LivingEntity)hitObject);
 		}
 	}
-	
-	public void performTick()
-	{
-		if(hitObject != null){
-				this.removeFromWorld();
-		}
-	}
-
-	@Override
-	public void afterDeploySetup()
-	{
-		super.afterDeploySetup();
-		this.body.setLinearVelocity(initialDirectionVec2.mul(20/usedItem.getWeaponSpeed()));
-	}
-
-	@Override
-	public float getRenderAngle()
-	{
-		return super.getRenderAngle()+initialDirection;
-	}
-
-	@Override
-	public FixtureDef getFixtureDef()
-    {
-		PolygonShape cs = new PolygonShape();
-		cs.setAsBox(size.x/2, size.y/2);
-
-
-		FixtureDef fd = new FixtureDef();
-    	fd.shape = cs;
-    	fd.density = 0.0f;
-    	fd.friction = 0.0f;        
-    	fd.restitution = 0.0f;
-    	fd.setSensor(true);
-    	return fd;
-    }
-	
-	
 }

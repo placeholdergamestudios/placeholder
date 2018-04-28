@@ -24,8 +24,8 @@ public class NormalLevel extends Level
 
 	@Override
 	public boolean[][] generateNewMapArray() {
-		int minRoom = 3;
-    	int maxRoom = 7;
+		int minRoom = 2;
+    	int maxRoom = 4;
     	int roomFrequency = 10;
         int size = 25;
         Random rdm = new Random();
@@ -33,23 +33,21 @@ public class NormalLevel extends Level
         boolean[][] map = new boolean[size][size];
 
         for (int x = 1; x < map.length ; x++) // '1' so that a room wont be generated directly at the map border
-        { 
-            for (int y = 1; y < map[0].length; y++)
-            {
+        {
+            for (int y = 1; y < map[0].length; y++) {
                 if (false == map[x][y]) // tests if there is already a room at this position
                 {
-                    if (rdm.nextInt(roomFrequency) == 0)
-                    {
-                        int roomSize = rdm.nextInt(maxRoom-minRoom) + minRoom;
-                        if(generateRoom(x, y, roomSize , map)){ //tries to generate a room at the given position
-                            connectionVec2s.add(new Vec2(rdm.nextInt(roomSize) + x , rdm.nextInt(roomSize) + y)); // random position in the room, from where a connection to another one will be build
+                    if (rdm.nextInt(roomFrequency) == 0) {
+                        int roomSize = rdm.nextInt(maxRoom - minRoom) + minRoom;
+                        if (generateRoom(x, y, roomSize, map)) { //tries to generate a room at the given position
+                            connectionVec2s.add(new Vec2(rdm.nextInt(roomSize) + x, rdm.nextInt(roomSize) + y)); // random position in the room, from where a connection to another one will be build
                         }
                     }
                 }
             }
         }
         generateConnections(connectionVec2s, map);
-        boolean [][] ret = new boolean[size * 2][size * 2];
+        boolean [][] ret = new boolean[map.length * 2][map[0].length * 2];
         for (int x = 0; x < map.length ; x++) {
             for (int y = 0; y < map[0].length; y++) {
                 ret[2*x][2*y] = map[x][y];

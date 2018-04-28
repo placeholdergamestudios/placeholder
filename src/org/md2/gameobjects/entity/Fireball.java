@@ -1,33 +1,21 @@
 package org.md2.gameobjects.entity;
 
-import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.FixtureDef;
 import org.md2.common.Damage;
-import org.md2.common.Sound;
 import org.md2.common.Texture;
 import org.md2.gameobjects.WorldObject;
 import org.md2.gameobjects.entity.living.LivingEntity;
-import org.md2.gameobjects.item.weapons.BowItem;
-import org.md2.gameobjects.item.weapons.WandItem;
-import org.md2.main.Game;
-import org.md2.main.SoundManager;
+import org.md2.gameobjects.item.WeaponItem;
 
-public class Fireball extends WeaponEntity
+public class Fireball extends Missile
 {
 
 
-    private WorldObject hitObject;
-
-    public Fireball(LivingEntity user, WandItem usedWand)
+    public Fireball(LivingEntity user, WeaponItem usedItem, Texture[] textures)
     {
-        super(user, usedWand);
-        this.setTextures(new Texture[]{usedWand.getPart2().getEffectTexture()});
-        hitObject = null;
+        super(user, usedItem, textures);
         size = new Vec2(0.6F, 0.4F);
     }
-
-
 
     public void onCollision(WorldObject o)
     {
@@ -44,42 +32,13 @@ public class Fireball extends WeaponEntity
         }
     }
 
-    public void performTick()
-    {
-        if(hitObject != null){
-            this.removeFromWorld();
-        }
-    }
-
-    @Override
-    public void afterDeploySetup()
-    {
-        super.afterDeploySetup();
-        Game.getGame().getSoundManager().playSoundID(SoundManager.SOUNDFIREBALL);
-        this.body.setLinearVelocity(initialDirectionVec2.mul(15/usedItem.getWeaponSpeed()));
-    }
-
     @Override
     public float getRenderAngle()
     {
-        return super.getRenderAngle()+initialDirection;
+        return 0;
     }
 
-    @Override
-    public FixtureDef getFixtureDef()
-    {
-        PolygonShape cs = new PolygonShape();
-        cs.setAsBox(size.x/2, size.y/2);
 
-
-        FixtureDef fd = new FixtureDef();
-        fd.shape = cs;
-        fd.density = 0.0f;
-        fd.friction = 0.0f;
-        fd.restitution = 0.0f;
-        fd.setSensor(true);
-        return fd;
-    }
 
 
 }

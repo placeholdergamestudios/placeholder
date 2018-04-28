@@ -113,10 +113,8 @@ public class Inventory
 		int x = Math.round(coords.x/slotRenderDistance+corner);
 		int y = Math.round(-coords.y/slotRenderDistance+corner);
 		if(!isValidPosition(x, y)){
-			//if(x != slotsPerRow || y < 0 || y >= hotbarItems){
 				x = -1;
 				y = -1;
-			//}
 		}
 		cursorX = x;
 		cursorY = y;
@@ -202,7 +200,7 @@ public class Inventory
 			}
     	}
 	}
-	public boolean isIteminHotbar(Item i)
+	public boolean isItemInHotbar(Item i)
 	{
 		boolean r = false;
 		for(Item item : getHotbar())
