@@ -483,6 +483,10 @@ public class GraphicRendererV2 extends Thread
     	//setting up openGL
         GL11.glClearColor(0.7f, 0.7f, 0.7f, 1.0f);
         GL11.glEnable(GL11.GL_BLEND);
+        //GL11.glEnable(GL11.GL_LINE_SMOOTH);
+		//GL11.glEnable(GL11.GL_POLYGON_SMOOTH);
+		//GL11.glHint( GL11.GL_LINE_SMOOTH_HINT, GL11.GL_NICEST );
+		//GL11.glHint( GL11.GL_POLYGON_SMOOTH_HINT, GL11.GL_NICEST );
         //GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         GL11.glDepthRange(zNear, zFar);

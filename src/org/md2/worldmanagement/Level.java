@@ -88,9 +88,21 @@ public abstract class Level
 	 */
 	public void generateObjects(World w, ArrayList<WorldObject> worldObjects, ArrayList<DecoObject> decoObjects)
 	{
+		ArrayList<WorldObject> list0 = generateWalls(w);
+		boolean [][] ret = new boolean[mapArray.length * 2][mapArray[0].length * 2];
+		for (int x = 0; x < mapArray.length ; x++) {
+			for (int y = 0; y < mapArray[0].length; y++) {
+				ret[2*x][2*y] = mapArray[x][y];
+				ret[2*x+1][2*y] = mapArray[x][y];
+				ret[2*x][2*y+1] = mapArray[x][y];
+				ret[2*x+1][2*y+1] = mapArray[x][y];
+			}
+		}
+		mapArray = ret;
 		ArrayList<WorldObject> list1 = generateStructures(w);
 		ArrayList<WorldObject> list2 = generateItems(w);
 		ArrayList<WorldObject> list3 = generateLivingEntities(w);
+		worldObjects.addAll(list0);
 		worldObjects.addAll(list1);
 		worldObjects.addAll(list2);
 		worldObjects.addAll(list3);
@@ -106,6 +118,26 @@ public abstract class Level
 			shadows.add(l.initShadow());
 		}
 		return shadows;
+	}
+
+	protected ArrayList<WorldObject> generateWalls(World w)
+	{
+		ArrayList<WorldObject>structures = new ArrayList<WorldObject>();
+		for (int x = 0; x < mapArray.length ; x++)
+		{
+			Multistructure ms = new Multistructure();
+			for (int y = 0; y < mapArray[0].length; y++)
+			{
+				if(mapArray[x][y] == false){
+					Vec2 actualCoords = new Vec2(x*2+0.5F, y*2+0.5F);
+					WorldObject newWorldObject = (WorldObject)Tools.getNewInstance(standardWall);
+					deployObjectAt(w, newWorldObject, actualCoords);
+					calcTexture(x, y, mapArray, newWorldObject);
+					structures.add(newWorldObject);
+				}
+			}
+		}
+		return structures;
 	}
 
 	protected ArrayList<WorldObject> generateStructures(World w)
@@ -127,12 +159,6 @@ public abstract class Level
 	                	deployObjectAt(w, newWorldObject, new Vec2(x,y));
 	                	structures.add(newWorldObject);
             		}
-            	}
-            	else{
-            		WorldObject newWorldObject = (WorldObject)Tools.getNewInstance(standardWall);
-					deployObjectAt(w, newWorldObject, new Vec2(x,y));
-            		calcTexture(x, y, mapArray, newWorldObject);
-            		structures.add(newWorldObject);
             	}
             }
         }

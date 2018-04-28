@@ -32,6 +32,12 @@ public class Stone extends Structure
 		return super.getAngle();
 	}
 
+	@Override
+	public Vec2 getRenderSize()
+	{
+		return new Vec2(2,2);
+	}
+
 	//	protected void initRenderType()
 //	{
 //		renderType = RENDER_TYPE_3D;
@@ -52,7 +58,7 @@ public class Stone extends Structure
     public FixtureDef getFixtureDef()
     {
     	PolygonShape cs = new PolygonShape();
-    	cs.setAsBox(0.5f, 0.5f);  
+    	cs.setAsBox(1f, 1f);
 
     	FixtureDef fd = new FixtureDef();
     	fd.shape = cs;
