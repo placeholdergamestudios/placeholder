@@ -246,7 +246,7 @@ public class GraphicRendererV2 extends Thread
 	{
 		shaderProgram.bind();
 		shaderProgram.setUniform("projectionMatrix", new Matrix4f().ortho(-renderDistance.x, renderDistance.x, -renderDistance.y, renderDistance.y, zNear, zFar));
-		Matrix4f matrix = getTransformationMatrix(mousePosition, 0, 2);
+		Matrix4f matrix = getTransformationMatrix(mousePosition, 0, 3);
 		TextureObject to = TOs.get(Texture.CURSOR);
 		VertexArrayObject vao = VAOs.get(VAOType.CURSOR);
 		renderRectObject(vao, to, matrix);
