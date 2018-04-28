@@ -8,6 +8,6 @@ public class TestWand extends WandItem {
 
     public TestWand()
     {
-        super(1, 2f, new BronzeCap(), new BronzeHandle(), new CrystalOrb());
+        super(1, 1.1f, new BronzeCap(), new BronzeHandle(), new CrystalOrb());
     }
 }

@@ -7,6 +7,8 @@ import org.md2.common.Damage;
 import org.md2.gameobjects.WorldObject;
 import org.md2.gameobjects.entity.living.LivingEntity;
 import org.md2.gameobjects.item.WeaponItem;
+import org.md2.main.Game;
+import org.md2.main.SoundManager;
 
 public class ThrownBoomerang extends WeaponEntity
 {
@@ -36,6 +38,7 @@ public class ThrownBoomerang extends WeaponEntity
 		}
 		this.body.applyForceToCenter(dif);
 		this.user.setCurrentlyUsing(dif.negate());
+		Game.getGame().getSoundManager().playSoundID(SoundManager.SOUNDBOOMERANG);
 	}
 	
 	public void afterDeploySetup()

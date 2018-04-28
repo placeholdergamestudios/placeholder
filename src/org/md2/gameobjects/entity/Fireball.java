@@ -4,11 +4,14 @@ import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.FixtureDef;
 import org.md2.common.Damage;
+import org.md2.common.Sound;
 import org.md2.common.Texture;
 import org.md2.gameobjects.WorldObject;
 import org.md2.gameobjects.entity.living.LivingEntity;
 import org.md2.gameobjects.item.weapons.BowItem;
 import org.md2.gameobjects.item.weapons.WandItem;
+import org.md2.main.Game;
+import org.md2.main.SoundManager;
 
 public class Fireball extends WeaponEntity
 {
@@ -52,6 +55,7 @@ public class Fireball extends WeaponEntity
     public void afterDeploySetup()
     {
         super.afterDeploySetup();
+        Game.getGame().getSoundManager().playSoundID(SoundManager.SOUNDFIREBALL);
         this.body.setLinearVelocity(initialDirectionVec2.mul(15/usedItem.getWeaponSpeed()));
     }
 

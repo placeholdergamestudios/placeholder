@@ -23,6 +23,8 @@ public class SoundManager {
     public static final int SOUNDAUA = 5;
     public static final int SOUNDSWORDSLASH = 6;
     public static final int SOUNDMUSIC = 7;
+    public static final int SOUNDFIREBALL = 8;
+    public static final int SOUNDBOOMERANG = 9;
 
 
 
@@ -53,6 +55,8 @@ public class SoundManager {
             case SOUNDAUA:{playSound(Sound.AUA, 0.3f);break;}
             case SOUNDSWORDSLASH:{playSound(Sound.SWORDSLASH, 0.2f);break;}
             case SOUNDMUSIC:{playSound(Sound.MUSIC, 0.05f);break;}
+            case SOUNDFIREBALL:{playSound(Sound.FIREBALL, 0.2f);break;}
+            case SOUNDBOOMERANG:{playSound(Sound.BOOMERANG, 0.2f);break;}
         }
     }
 
