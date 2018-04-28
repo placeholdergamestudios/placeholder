@@ -17,7 +17,7 @@ public class Player extends LivingEntity
     
     public Player()
     {
-        super(new Texture[]{Texture.PLAYERFRONT}, 100, 5);
+        super(new Texture[]{Texture.PLAYERFRONT}, 5, new Attributes(2,2,2,2));
         size = new Vec2(0.9F, 0.5F);
         renderPriorisation = RenderPrio.PLAYER;
     }

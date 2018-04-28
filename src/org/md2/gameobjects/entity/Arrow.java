@@ -3,6 +3,7 @@ package org.md2.gameobjects.entity;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.FixtureDef;
+import org.md2.common.Damage;
 import org.md2.common.Texture;
 import org.md2.gameobjects.WorldObject;
 import org.md2.gameobjects.entity.living.LivingEntity;
@@ -35,8 +36,8 @@ public class Arrow extends WeaponEntity
 		hitObject = o;
 		this.body.setLinearVelocity(new Vec2());
 		if(o instanceof LivingEntity){
-			((LivingEntity)hitObject).damage(usedItem.getVarOnThrow());
-		}	
+			new Damage(Damage.DAMAGETHRUST, usedItem.getVarOnThrow(), user, (LivingEntity)hitObject);
+		}
 	}
 	
 	public void performTick()

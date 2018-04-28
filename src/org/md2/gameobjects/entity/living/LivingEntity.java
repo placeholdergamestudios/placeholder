@@ -33,9 +33,10 @@ public abstract class LivingEntity extends Entity
     protected Inventory inventory;
     protected float maxMS;// the maximal movement speed this LE can reach under normal circumstances
     protected int health;
-    protected Vec2 currentlyUsed; //whether this LE is currently using an entity, e.g. swinging a sword 
+    protected Vec2 currentlyUsed; //whether this LE is currently using an entity, e.g. swinging a sword
+	protected Attributes attributes;
     
-    public LivingEntity(Texture[] texture, int maxHealth, float maxMS)
+    public LivingEntity(Texture[] texture, float maxMS, Attributes attributes)
     {
         super(texture);
         renderType = RENDER_TYPE_3D;
@@ -46,8 +47,9 @@ public abstract class LivingEntity extends Entity
         setDeltaY(height/2);
         
         inventory = new Inventory(25);
-        this.maxHealth = maxHealth;
-        this.health = 20;
+        this.attributes = attributes;
+        this.maxHealth = (attributes.getVitality())*8+25;
+        this.health = maxHealth;
         this.maxMS = maxMS;
         this.currentlyUsed = null;
     }
@@ -202,6 +204,7 @@ public abstract class LivingEntity extends Entity
 		return height;
 	}
 
+	public Attributes getAttributes(){return attributes;}
 
     
     

@@ -13,7 +13,7 @@ public class Dummy extends LivingEntity
 
 	public Dummy() 
 	{
-		super(new Texture[]{Texture.DUMMY}, 20, 0);
+		super(new Texture[]{Texture.DUMMY}, 0, new Attributes(1,1,2,1));
 		size = new Vec2(0.6F, 0.3F);
 	}
 	

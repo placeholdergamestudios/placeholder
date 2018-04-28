@@ -3,6 +3,7 @@ package org.md2.gameobjects.entity;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.FixtureDef;
+import org.md2.common.Damage;
 import org.md2.gameobjects.WorldObject;
 import org.md2.gameobjects.entity.living.LivingEntity;
 import org.md2.gameobjects.item.WeaponItem;
@@ -62,7 +63,7 @@ public class ThrownBoomerang extends WeaponEntity
 				user.setCurrentlyUsing(null);
 				return;
 			}
-			le.damage(usedItem.getVarOnThrow());
+			new Damage(Damage.DAMAGETHRUST, usedItem.getVarOnThrow(), user, le);
 		}
 
 			
