@@ -37,7 +37,7 @@ public class Fireball extends WeaponEntity
         hitObject = o;
         this.body.setLinearVelocity(new Vec2());
         if(o instanceof LivingEntity){
-            new Damage(Damage.DAMAGETHRUST, usedItem.getVarOnUse(), user, (LivingEntity)hitObject);
+            new Damage(Damage.DAMAGELIGHT, usedItem.getVarOnUse(), user, (LivingEntity)hitObject);
         }
     }
 
