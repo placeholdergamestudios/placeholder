@@ -12,6 +12,9 @@ public class BronzeCap implements WeaponPart {
     }
 
     @Override
+    public Texture getEffectTexture(){return null;}
+
+    @Override
     public void onUse() {
 
     }

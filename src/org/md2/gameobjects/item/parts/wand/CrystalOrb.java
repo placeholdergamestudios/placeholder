@@ -11,6 +11,9 @@ public class CrystalOrb implements WeaponPart {
     }
 
     @Override
+    public Texture getEffectTexture(){return Texture.APPLE;}
+
+    @Override
     public void onUse() {
 
     }

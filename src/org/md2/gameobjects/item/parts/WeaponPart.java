@@ -7,5 +7,7 @@ public interface WeaponPart{
 
     public Texture getTexture();
 
+    public Texture getEffectTexture();
+
     public  void onUse();
 }
