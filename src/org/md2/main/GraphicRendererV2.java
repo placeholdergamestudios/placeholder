@@ -1,7 +1,5 @@
 package org.md2.main;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -23,12 +21,12 @@ import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.system.MemoryUtil;
 import org.lwjgl.opengl.*;
-import org.md2.common.ShaderProgram;
-import org.md2.common.Texture;
-import org.md2.common.TextureObject;
+import org.md2.rendering.ShaderProgram;
+import org.md2.rendering.Texture;
+import org.md2.rendering.TextureObject;
 import org.md2.common.Tools;
-import org.md2.common.VAOType;
-import org.md2.common.VertexArrayObject;
+import org.md2.rendering.VAOType;
+import org.md2.rendering.VertexArrayObject;
 import org.md2.gameobjects.GameObject;
 import org.md2.gameobjects.WorldObject;
 import org.md2.gameobjects.entity.living.LivingEntity;

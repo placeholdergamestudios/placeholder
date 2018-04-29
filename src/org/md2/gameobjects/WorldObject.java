@@ -4,8 +4,8 @@ import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
-import org.md2.common.Texture;
-import org.md2.common.VAOType;
+import org.md2.rendering.Texture;
+import org.md2.worldmanagement.WorldManager;
 /**
  * Beschreiben Sie hier die Klasse WorldObject.
  * 
@@ -20,6 +20,7 @@ public abstract class WorldObject extends GameObject
 {
     protected Body body;
     protected Vec2 size; //the physical size of this object
+    public static WorldManager worldManager;
     
         
     

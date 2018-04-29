@@ -1,4 +1,4 @@
-package org.md2.common;
+package org.md2.rendering;
 
 import org.joml.Vector3f;
 

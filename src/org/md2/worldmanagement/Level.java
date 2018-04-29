@@ -6,7 +6,7 @@ import java.util.Random;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
-import org.md2.common.Texture;
+import org.md2.rendering.Texture;
 import org.md2.common.Tools;
 import org.md2.gameobjects.DecoObject;
 import org.md2.gameobjects.WorldObject;
@@ -107,7 +107,7 @@ public abstract class Level
 		worldObjects.addAll(list2);
 		worldObjects.addAll(list3);
 		decoObjects.addAll(generateDecoObjects());
-		decoObjects.addAll(generateShadows(list3));
+		//decoObjects.addAll(generateShadows(list3));
 	}
 	
 
@@ -115,7 +115,7 @@ public abstract class Level
 		ArrayList<DecoObject>shadows = new ArrayList<DecoObject>();
 		for(WorldObject o: es){
 			Entity l = (Entity)o;
-			shadows.add(l.initShadow());
+			//shadows.add(l.initShadow());
 		}
 		return shadows;
 	}

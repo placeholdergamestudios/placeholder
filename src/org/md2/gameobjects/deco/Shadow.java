@@ -1,12 +1,11 @@
 package org.md2.gameobjects.deco;
 
 import org.jbox2d.common.Vec2;
-import org.md2.common.RenderPrio;
-import org.md2.common.Texture;
-import org.md2.common.VAOType;
+import org.md2.rendering.RenderPrio;
+import org.md2.rendering.Texture;
+import org.md2.rendering.VAOType;
 import org.md2.gameobjects.DecoObject;
 import org.md2.gameobjects.entity.Entity;
-import org.md2.gameobjects.entity.living.LivingEntity;
 
 public class Shadow extends DecoObject
 {
@@ -25,12 +24,13 @@ public class Shadow extends DecoObject
 	
 	public void performTick()
 	{
-		this.setTransform(user.getPosition(), user.getAngle());
+		this.setTransform(user.getPosition(), 0);
 	}
 
 	@Override
-	public float getRenderAngle() {
-		return isStatic ? this.getAngle() : 0;
+	public float getRenderAngle()
+	{
+		return isStatic ? 0 : user.getAngle();
 	}
 
 	public Vec2 getRenderSize()
@@ -40,7 +40,7 @@ public class Shadow extends DecoObject
 
 	public void setStatic()
     {
-        isStatic = true;
+		isStatic = true;
     }
 	
 }

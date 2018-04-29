@@ -1,8 +1,8 @@
 package org.md2.gameobjects;
 import org.jbox2d.common.Vec2;
-import org.md2.common.RenderPrio;
-import org.md2.common.Texture;
-import org.md2.common.VAOType;
+import org.md2.rendering.RenderPrio;
+import org.md2.rendering.Texture;
+import org.md2.rendering.VAOType;
 
 
 public abstract class GameObject 

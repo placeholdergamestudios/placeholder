@@ -3,10 +3,7 @@ package org.md2.gameobjects.structure;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.FixtureDef;
-import org.md2.common.Texture;
-import org.md2.common.VAOType;
-
-
+import org.md2.rendering.Texture;
 
 
 /**

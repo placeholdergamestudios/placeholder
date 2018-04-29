@@ -19,8 +19,9 @@ public class BowAnimation extends WeaponEntity
 		super(user, usedItem);
 		size = new Vec2(0.8F, 0.4F);
 		liveTime = 0;
-		drawingTime = (int) (60/usedItem.getWeaponSpeed());
 		shadow.setStatic();
+		drawingTime = (int) (60/usedItem.getWeaponSpeed());
+
 	}
 	
 	public void performTick()
@@ -28,7 +29,7 @@ public class BowAnimation extends WeaponEntity
 		BowItem bowItem = (BowItem) usedItem;
 		liveTime++;
 		user.modMovement(0.55f);
-		if(!(Game.getGame().getMechanicManager().getWorldManager().getPlayer().getInventory().isItemInHotbar(usedItem)))
+		if(!(worldManager.getPlayer().getInventory().isItemInHotbar(usedItem)))
         {
             liveTime = -1;
         }

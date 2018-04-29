@@ -2,13 +2,12 @@ package org.md2.gameobjects.entity;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
-import org.md2.common.RenderPrio;
+import org.md2.main.Game;
+import org.md2.rendering.RenderPrio;
 import org.md2.common.Sound;
-import org.md2.common.Texture;
-import org.md2.common.VAOType;
+import org.md2.rendering.Texture;
 import org.md2.gameobjects.WorldObject;
 import org.md2.gameobjects.deco.Shadow;
-import org.md2.main.Game;
 
 /**
  * Alle beweglichen WorldObjecte
@@ -27,14 +26,8 @@ public abstract class Entity extends WorldObject
     {
     	super(texture);
     	renderPriorisation = RenderPrio.ENTITY;
-    	initShadow();
-    }
-    
-    public Shadow initShadow()
-	{
 		shadow = new Shadow(this);
-		return shadow;
-	}
+    }
     
 	public Shadow getShadow()
 	{
@@ -61,6 +54,11 @@ public abstract class Entity extends WorldObject
     	
     	return bd;
     }
+
+    public void afterDeploySetup()
+	{
+		worldManager.spawnDecorationAt(shadow);
+	}
 
     public Sound getwalkingSound()
 	{

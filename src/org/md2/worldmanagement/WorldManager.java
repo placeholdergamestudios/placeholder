@@ -39,8 +39,24 @@ public class WorldManager implements ContactListener
     {
     	world = new World(new Vec2(0, 0.0f));
     	world.setContactListener(this);
-        setNewLevel();
+    	WorldObject.worldManager = this;
+    	setup();
     }
+
+    public void setup()
+	{
+		Level lvl = new NormalLevel(1, 1, 1);
+		worldObjects = new ArrayList<>();
+		decoObjects = new ArrayList<>();
+		lvl.generateObjects(world, worldObjects, decoObjects);
+		player = new Player();
+		lvl.deployPlayer(world, player);
+		worldObjects.add(player);
+		player.pickUpItem(new WoodenBoomerang());
+		player.pickUpItem(new Shortsword());
+		player.pickUpItem(new WoodenBow());
+		player.pickUpItem(new TestWand());
+	}
 
     public void tick()
     {
@@ -84,11 +100,6 @@ public class WorldManager implements ContactListener
     public void spawnObjectAt(WorldObject o, Vec2 coords, float angle)
     {
     	Level.deployObjectAt(world, o, coords, angle);
-    	if(o instanceof Entity)
-		{
-			Entity e = (Entity)o;
-			spawnDecorationAt(e.initShadow());
-		}
     	worldObjects.add(o);
     }
     
@@ -99,18 +110,7 @@ public class WorldManager implements ContactListener
     
     private void setNewLevel()
     {
-    	Level lvl = new NormalLevel(1, 1, 1);
-    	worldObjects = new ArrayList<WorldObject>();
-    	decoObjects = new ArrayList<DecoObject>();
-    	lvl.generateObjects(world, worldObjects, decoObjects);
-    	player = new Player();
-    	lvl.deployPlayer(world, player);
-    	worldObjects.add(player);
-    	decoObjects.add(player.initShadow());
-    	player.pickUpItem(new WoodenBoomerang());
-    	player.pickUpItem(new Shortsword());
-    	player.pickUpItem(new WoodenBow());
-    	player.pickUpItem(new TestWand());
+
     }
     
     public boolean isPositionBlocked(Vec2 coords)
@@ -163,7 +163,7 @@ public class WorldManager implements ContactListener
 		return ret;
 	}
 
-	public ArrayList<WorldObject> getallworldObjects()
+	public ArrayList<WorldObject> getWorldObjects()
 	{
 		return worldObjects;
 	}

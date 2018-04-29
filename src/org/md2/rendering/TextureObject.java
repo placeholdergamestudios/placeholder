@@ -1,4 +1,4 @@
-package org.md2.common;
+package org.md2.rendering;
 
 import java.nio.ByteBuffer;
 
@@ -35,6 +35,7 @@ public class TextureObject
         	decoder = new PNGDecoder(TextureObject.class.getResourceAsStream("/" + textureName+".png"));
         }
         catch(Exception e){
+            System.out.println("The texture with name '"+textureName+"' could not be loaded. Check ENUM Texture and folder 'Texture'");
         	e.printStackTrace();
         }
 

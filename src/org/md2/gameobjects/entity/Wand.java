@@ -13,10 +13,11 @@ public class Wand extends WeaponEntity
     private int liveTime;
 
     public Wand(LivingEntity user, WeaponItem usedItem)
-        {
+    {
         super(user, usedItem);
         this.size = new Vec2(usedItem.getWeaponSize(), usedItem.getWeaponSize()/2);
         liveTime = 0;
+        shadow.setStatic();
     }
 
     public void performTick()

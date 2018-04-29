@@ -3,10 +3,9 @@ package org.md2.gameobjects.item.weapons;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.FixtureDef;
-import org.md2.common.Texture;
+import org.md2.rendering.Texture;
 import org.md2.gameobjects.WorldObject;
 import org.md2.gameobjects.entity.BowAnimation;
-import org.md2.gameobjects.DecoObject;
 import org.md2.gameobjects.entity.Arrow;
 import org.md2.gameobjects.entity.living.LivingEntity;
 import org.md2.gameobjects.item.WeaponItem;
@@ -39,13 +38,13 @@ public abstract class BowItem extends WeaponItem
 		Vec2 pos = user.getPosition().add(mousePos.mul(0.5F));
 		if(preparationFinished){
 			preparationFinished = false;
-			Game.getGame().getMechanicManager().getWorldManager().spawnObjectAt(new Arrow(user, this, new Texture[]{arrowTexture}), pos);
+			worldManager.spawnObjectAt(new Arrow(user, this, new Texture[]{arrowTexture}), pos);
 			Game.getGame().getSoundManager().playSoundID(SoundManager.SOUNDBOWRELEASE);
 			return true;
 		}
 		
 		WorldObject wo = new BowAnimation(user, this);
-		Game.getGame().getMechanicManager().getWorldManager().spawnObjectAt(wo, pos);
+		worldManager.spawnObjectAt(wo, pos);
 		setCurrentlyInUse(true);
 		Game.getGame().getSoundManager().playSoundID(SoundManager.SOUNDBOWTENSION);
 		return false;

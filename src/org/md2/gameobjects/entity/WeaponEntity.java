@@ -23,6 +23,7 @@ public abstract class WeaponEntity extends Entity
 
     public void afterDeploySetup()
     {
+        super.afterDeploySetup();
         Vec2 userPos = user.getPosition();
         Vec2 thisPos = this.body.getPosition();
         Vec2 dif = thisPos.sub(userPos);

@@ -1,6 +1,6 @@
 package org.md2.gameobjects.item.parts.wand;
 
-import org.md2.common.Texture;
+import org.md2.rendering.Texture;
 import org.md2.gameobjects.entity.living.LivingEntity;
 import org.md2.gameobjects.item.WeaponItem;
 import org.md2.gameobjects.item.parts.WeaponPart;

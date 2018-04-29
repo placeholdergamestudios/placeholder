@@ -111,21 +111,7 @@ public class Tools
 			return null;
 		
 	}
-	
-	public static Object getNewInstanceV2(Object o)
-	{
-		Class<?> c = o.getClass();
-    	Constructor<?> cons;
-    	try {
-    		cons = c.getConstructor();
-			return cons.newInstance();
-		} 
-    	catch (Exception e) {
-			e.printStackTrace();
-			return null;
-    	}
-		
-	}
+
 	
 	public static <T extends GameObject> T getNewInstance(T type)
 	{

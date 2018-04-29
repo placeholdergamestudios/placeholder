@@ -1,6 +1,6 @@
 package org.md2.gameobjects.structure;
-import org.md2.common.RenderPrio;
-import org.md2.common.Texture;
+import org.md2.rendering.RenderPrio;
+import org.md2.rendering.Texture;
 import org.md2.gameobjects.WorldObject;
 
 

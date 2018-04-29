@@ -1,7 +1,6 @@
 package org.md2.gameobjects.item;
 
-import org.md2.common.Texture;
-import org.md2.gameobjects.item.Item;
+import org.md2.rendering.Texture;
 import org.md2.gameobjects.item.parts.WeaponPart;
 
 public abstract class CompositeWeapon extends WeaponItem {

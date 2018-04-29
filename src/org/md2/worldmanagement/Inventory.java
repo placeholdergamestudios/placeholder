@@ -20,6 +20,7 @@ public class Inventory
 	private int cursorY;
 	private int slotsPerRow;
 	private Item[][] container;
+	private Item [] hotbar;
 	private Item mousePickUp;
 	
 	public Inventory(int size)
@@ -127,26 +128,6 @@ public class Inventory
 	public int getSlotsPerRow()
 	{
 		return slotsPerRow;
-	}
-	
-	private void moveCursor(int x, int y)
-	{
-		cursorX += x;
-		cursorY += y;
-		if(cursorX < 0)
-			cursorX = 0;
-		else if(cursorX >= container.length)
-			cursorX = container.length-1;
-		if(cursorY < 0)
-			cursorY = 0;
-		else if(cursorY >= container[1].length)
-			cursorY = container[1].length-1;
-	}
-	
-	public void resetCursor()
-	{
-		cursorX = 0;
-		cursorY = 0;
 	}
 
 	public void deleteCursorItem() 

@@ -1,11 +1,9 @@
 package org.md2.gameobjects.item.parts.wand;
 
 import org.jbox2d.common.Vec2;
-import org.md2.common.Texture;
 import org.md2.gameobjects.WorldObject;
+import org.md2.rendering.Texture;
 import org.md2.gameobjects.entity.Fireball;
-import org.md2.gameobjects.entity.Wand;
-import org.md2.gameobjects.entity.WeaponEntity;
 import org.md2.gameobjects.entity.living.LivingEntity;
 import org.md2.gameobjects.item.WeaponItem;
 import org.md2.gameobjects.item.parts.WeaponPart;
@@ -29,7 +27,7 @@ public class CrystalOrb implements WeaponPart {
         Vec2 mousePos = GraphicRendererV2.getMousePos();
         mousePos.normalize();
         Vec2 entityPos = user.getPosition().add(mousePos.mul(0.5F+0.5F*weapon.getWeaponSize()));
-        Game.getGame().getMechanicManager().getWorldManager().spawnObjectAt(new Fireball(user, weapon, new Texture[]{getEffectTexture()}), entityPos);
+        WorldObject.worldManager.spawnObjectAt(new Fireball(user, weapon, new Texture[]{getEffectTexture()}), entityPos);
         Game.getGame().getSoundManager().playSoundID(SoundManager.SOUNDFIREBALL);
 
     }

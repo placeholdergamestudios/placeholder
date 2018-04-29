@@ -1,12 +1,8 @@
 package org.md2.gameobjects.entity.living;
-import java.util.ArrayList;
 
 import org.jbox2d.common.Vec2;
-import org.md2.common.Sound;
-import org.md2.common.Texture;
-import org.md2.common.VAOType;
-import org.md2.gameobjects.WorldObject;
-import org.md2.gameobjects.deco.Shadow;
+import org.md2.rendering.Texture;
+import org.md2.rendering.VAOType;
 import org.md2.gameobjects.entity.Entity;
 import org.md2.gameobjects.item.Item;
 import org.md2.main.Game;

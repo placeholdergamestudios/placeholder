@@ -1,4 +1,4 @@
-package org.md2.common;
+package org.md2.rendering;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL20.*;
@@ -7,6 +7,7 @@ import static org.lwjgl.opengl.GL30.*;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
+import org.md2.common.Tools;
 
 public class VertexArrayObject 
 {

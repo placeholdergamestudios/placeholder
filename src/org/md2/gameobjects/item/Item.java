@@ -2,9 +2,8 @@ package org.md2.gameobjects.item;
 
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
-import org.md2.common.RenderPrio;
-import org.md2.common.Texture;
-import org.md2.common.VAOType;
+import org.md2.rendering.RenderPrio;
+import org.md2.rendering.Texture;
 import org.md2.gameobjects.WorldObject;
 import org.md2.gameobjects.entity.living.LivingEntity;
 

@@ -1,7 +1,6 @@
 package org.md2.gameobjects;
 import org.jbox2d.common.Vec2;
-import org.md2.common.Texture;
-import org.md2.common.VAOType;
+import org.md2.rendering.Texture;
 
 
 public abstract class DecoObject extends GameObject 

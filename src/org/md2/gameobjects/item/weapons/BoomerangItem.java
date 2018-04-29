@@ -3,7 +3,7 @@ package org.md2.gameobjects.item.weapons;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.FixtureDef;
-import org.md2.common.Texture;
+import org.md2.rendering.Texture;
 import org.md2.gameobjects.WorldObject;
 import org.md2.gameobjects.entity.ThrownBoomerang;
 import org.md2.gameobjects.entity.living.LivingEntity;
@@ -28,10 +28,10 @@ public abstract class BoomerangItem extends WeaponItem
 		Vec2 mousePos = GraphicRendererV2.getMousePos();
 		mousePos.normalize();
 		Vec2 entityPos = user.getPosition().add(mousePos.mul(0.5F+0.5F*this.getWeaponSize()));
-		if(Game.getGame().getMechanicManager().getWorldManager().isPositionBlocked(entityPos))
+		if(worldManager.isPositionBlocked(entityPos))
 			return false;
 		WorldObject wo = new ThrownBoomerang(user, this);
-		Game.getGame().getMechanicManager().getWorldManager().spawnObjectAt(wo, entityPos);
+		worldManager.spawnObjectAt(wo, entityPos);
 		setCurrentlyInUse(true);
 		return true;
 	}
