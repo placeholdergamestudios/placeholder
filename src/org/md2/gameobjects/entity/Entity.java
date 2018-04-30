@@ -1,7 +1,9 @@
 package org.md2.gameobjects.entity;
+import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
+import org.jbox2d.dynamics.FixtureDef;
 import org.md2.main.Game;
 import org.md2.rendering.RenderPrio;
 import org.md2.common.Sound;
@@ -60,7 +62,21 @@ public abstract class Entity extends WorldObject
 		worldManager.spawnDecorationAt(shadow);
 	}
 
-    public Sound getwalkingSound()
+	public FixtureDef getFixtureDef()
+	{
+		PolygonShape cs = new PolygonShape();
+		cs.setAsBox(size.x, size.y);
+
+		FixtureDef fd = new FixtureDef();
+		fd.shape = cs;
+		fd.density = 0.0f;
+		fd.friction = 0.0f;
+		fd.restitution = 0.0f;
+
+		return fd;
+	}
+
+    public Sound getWalkingSound()
 	{
 		return null;
 	}

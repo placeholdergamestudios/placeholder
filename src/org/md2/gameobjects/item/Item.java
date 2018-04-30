@@ -1,7 +1,10 @@
 package org.md2.gameobjects.item;
 
+import org.jbox2d.collision.shapes.CircleShape;
+import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
+import org.jbox2d.dynamics.FixtureDef;
 import org.md2.rendering.RenderPrio;
 import org.md2.rendering.Texture;
 import org.md2.gameobjects.WorldObject;
@@ -150,5 +153,22 @@ public abstract class Item extends WorldObject
     	bd.type = BodyType.STATIC;
     	
     	return bd;
+    }
+
+    public FixtureDef getFixtureDef()
+    {
+
+        PolygonShape cs = new PolygonShape();
+        cs.setAsBox(size.x, size.y);
+
+        FixtureDef fd = new FixtureDef();
+        fd.shape = cs;
+        fd.density = 0.0f;
+        fd.friction = 0.0f;
+        fd.restitution = 0.0f;
+        fd.setSensor(true);
+
+        return fd;
+
     }
 }

@@ -44,15 +44,7 @@ public abstract class Missile extends WeaponEntity
     @Override
     public FixtureDef getFixtureDef()
     {
-        PolygonShape cs = new PolygonShape();
-        cs.setAsBox(size.x/2, size.y/2);
-
-
-        FixtureDef fd = new FixtureDef();
-        fd.shape = cs;
-        fd.density = 0.0f;
-        fd.friction = 0.0f;
-        fd.restitution = 0.0f;
+        FixtureDef fd = super.getFixtureDef();
         fd.setSensor(true);
         return fd;
     }

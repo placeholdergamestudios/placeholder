@@ -74,13 +74,8 @@ public class ThrownBoomerang extends WeaponEntity
 	
 	public FixtureDef getFixtureDef()
     {
-		PolygonShape cs = new PolygonShape();
-		cs.setAsBox(size.x/2, size.y/2);
-
-    	FixtureDef fd = new FixtureDef();
-    	fd.shape = cs;
+    	FixtureDef fd = super.getFixtureDef();
     	fd.density = 0.5f;
-    	fd.friction = 0.0f;        
     	fd.restitution = 0.3f;
      	
     	return fd;

@@ -19,7 +19,7 @@ import org.md2.worldmanagement.WorldManager;
 public abstract class WorldObject extends GameObject
 {
     protected Body body;
-    protected Vec2 size; //the physical size of this object
+    protected Vec2 size; //the physical size of this object (given in half height and half width)
     public static WorldManager worldManager;
     
         
@@ -27,7 +27,7 @@ public abstract class WorldObject extends GameObject
     public WorldObject(Texture[] texture)
     {
     	super(texture);
-    	size = new Vec2(1F, 1F);
+    	size = new Vec2(0.5F, 0.5F);
     }
     
     /**

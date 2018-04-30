@@ -31,24 +31,6 @@ public class Apple extends Item
 
     }
     
-    public FixtureDef getFixtureDef()
-    {
-    	
-
-    	CircleShape cs = new CircleShape();
-    	cs.m_radius = 0.5f;  
-
-    	FixtureDef fd = new FixtureDef();
-    	fd.shape = cs;
-    	fd.density = 0.5f;
-    	fd.friction = 0.0f;        
-    	fd.restitution = 0.0f;
-    	fd.setSensor(true);
-    	
-    	return fd;
-    
-    }
-    
     
     
 

@@ -17,7 +17,7 @@ public class BowAnimation extends WeaponEntity
 	public BowAnimation(LivingEntity user, BowItem usedItem) 
 	{
 		super(user, usedItem);
-		size = new Vec2(0.8F, 0.4F);
+		size = new Vec2(0.4F, 0.2F);
 		liveTime = 0;
 		shadow.setStatic();
 		drawingTime = (int) (60/usedItem.getWeaponSpeed());
@@ -75,7 +75,6 @@ public class BowAnimation extends WeaponEntity
 	{
 		PolygonShape cs = new PolygonShape();
 		cs.setAsBox(0.0f, 0.0f);
-
 		FixtureDef fd = new FixtureDef();
 		fd.shape = cs;
 		fd.setSensor(true);

@@ -13,21 +13,7 @@ public class Dummy extends LivingEntity
 	public Dummy() 
 	{
 		super(new Texture[]{Texture.DUMMY}, 0, new Attributes(1,1,2,1));
-		size = new Vec2(0.6F, 0.3F);
-	}
-	
-	public FixtureDef getFixtureDef()
-	{
-		PolygonShape cs = new PolygonShape();
-		cs.setAsBox(this.size.x/2, this.size.y/2);  
-
-		FixtureDef fd = new FixtureDef();
-		fd.shape = cs;
-		fd.density = 1.0f;
-		fd.friction = 0.0f;        
-		fd.restitution = 0.0f;
-		
-		return fd;
+		size = new Vec2(0.3F, 0.2F);
 	}
 	
 	public BodyDef getBodyDef()

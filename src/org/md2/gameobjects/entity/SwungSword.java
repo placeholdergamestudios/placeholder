@@ -18,7 +18,7 @@ public class SwungSword extends WeaponEntity
 	public SwungSword(LivingEntity user, WeaponItem usedItem)
 	{
 		super(user, usedItem);
-		this.size = new Vec2(usedItem.getWeaponSize(), usedItem.getWeaponSize()/4);
+		this.size = new Vec2(usedItem.getWeaponSize()/2, usedItem.getWeaponSize()/8);
 		liveTime = 0;
 	}
 	
@@ -64,15 +64,7 @@ public class SwungSword extends WeaponEntity
 	
 	public FixtureDef getFixtureDef()
     {
-		PolygonShape cs = new PolygonShape();
-    	cs.setAsBox(size.x/2, size.y/2); 
-
-
-    	FixtureDef fd = new FixtureDef();
-    	fd.shape = cs;
-    	fd.density = 0.0f;
-    	fd.friction = 0.0f;        
-    	fd.restitution = 0.0f;
+		FixtureDef fd = super.getFixtureDef();
     	fd.setSensor(true);
     	return fd;
     }

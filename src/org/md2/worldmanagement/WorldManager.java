@@ -107,17 +107,12 @@ public class WorldManager implements ContactListener
     {
     	decoObjects.add(d);
     }
-    
-    private void setNewLevel()
-    {
 
-    }
-    
     public boolean isPositionBlocked(Vec2 coords)
     {
     	for(WorldObject o : worldObjects){
-    		if(vec2InsideRect(coords.x, coords.y, 0.5F, 0.5F, o.getPosition().x, o.getPosition().y) && o instanceof Structure){
-    			return !o.isSensor();
+    		if(!o.isSensor() && Tools.vec2InsideRect(o.getPosition(), o.getSize(), coords)){
+    			return true;
     		}
     	}
     	return false;
@@ -149,11 +144,7 @@ public class WorldManager implements ContactListener
 		
 	}
 
-    private static boolean vec2InsideRect(float rectX, float rectY, float rectHalfWidth, float rectHalfHeight, float Vec2x, float Vec2y)
-    {
-        return(Vec2x >= rectX-rectHalfWidth && Vec2x <= rectX+rectHalfWidth &&
-           Vec2y >= rectY-rectHalfHeight && Vec2y <= rectY+rectHalfHeight);
-    }
+
 
 	private ArrayList<GameObject> getAllObjects()
 	{
@@ -168,13 +159,13 @@ public class WorldManager implements ContactListener
 		return worldObjects;
 	}
 
-	public ArrayList<GameObject> getGameObjects(float centerX, float centerY, float xRenderRange, float yRenderRange)
+	public ArrayList<GameObject> getGameObjects(Vec2 center, Vec2 renderRange)
 	{
 		ArrayList<GameObject> objects = getAllObjects();
-		ArrayList<GameObject> ret = new ArrayList<GameObject>();
-		ArrayList<GameObject> d3 = new ArrayList<GameObject>();
+		ArrayList<GameObject> ret = new ArrayList<>();
+		ArrayList<GameObject> d3 = new ArrayList<>();
 		for(GameObject o: objects){
-			if(vec2InsideRect(centerX, centerY, xRenderRange, yRenderRange, o.getPosition().x, o.getPosition().y)){
+			if(Tools.vec2InsideRect(center, renderRange, o.getPosition())){
 				if(o.getRenderType() == GameObject.RENDER_TYPE_FLAT){
 					ret.add(o);
 				}

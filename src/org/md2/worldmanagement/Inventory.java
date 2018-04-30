@@ -1,199 +1,133 @@
 package org.md2.worldmanagement;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import org.jbox2d.common.Vec2;
-import org.joml.Vector2f;
-import org.joml.Vector2i;
-import org.joml.Vector4f;
-import org.md2.gameobjects.WorldObject;
 import org.md2.gameobjects.item.Item;
 
-public class Inventory 
+import java.util.ArrayList;
+
+public class Inventory
 {
+	private ArrayList<InventorySlot> allSlots;
+
+	private ArrayList<InventorySlot> normalSlots;
+	private ArrayList<InventorySlot> hotbarSlots;
+	private InventorySlot armourSlot;
+	private InventorySlot trinketSlot;
+
+	private InventorySlot cursor;
+	private Item heldInMouse;
+
+	public static final int NUMBER_OF_HOTBAR_SLOTS = 3;
+
+	private float sizeOfSlots = 1.5F;
+	private float gapBetweenSlots = 2;
+
 	private int size;
-	private float slotRenderSize;
-	private float slotRenderDistance;
-	private int hotbarItems;
-	private int cursorX;
-	private int cursorY;
-	private int slotsPerRow;
-	private Item[][] container;
-	private Item [] hotbar;
-	private Item mousePickUp;
-	
+	private float sideLength;
+
 	public Inventory(int size)
 	{
+		normalSlots = new ArrayList<>();
+		hotbarSlots = new ArrayList<>();
+		allSlots = new ArrayList<>();
 		this.size = size;
-		mousePickUp = null;
-		slotRenderSize = 1F;
-		slotRenderDistance = 2;
-		hotbarItems = 3;
-		slotsPerRow = (int)Math.ceil(Math.sqrt(size));
-		container = new Item[slotsPerRow+1][slotsPerRow];
-		cursorX = 0;
-		cursorY = 0;
+
+		float slotsPerRow = (float)Math.ceil(Math.sqrt(this.size));
+		sideLength = slotsPerRow*gapBetweenSlots;
+
+		Vec2 var1 =  new Vec2(sizeOfSlots/2, sizeOfSlots/2);
+		float var2 = sideLength/2-gapBetweenSlots/2;
+
+		int index = 0;
+		for(int y = 0; y < slotsPerRow; y++){
+			for(int x = 0; x < slotsPerRow; x++){
+				normalSlots.add(new InventorySlot(new Vec2(gapBetweenSlots*x-var2, -(gapBetweenSlots*y-var2)), var1, null));
+				index++;
+				if(index == size) break;
+			}
+		}
+
+		for(index = 0; index < NUMBER_OF_HOTBAR_SLOTS; index++)
+		{
+			hotbarSlots.add(new InventorySlot(new Vec2(var2+gapBetweenSlots, var2-index*gapBetweenSlots), var1, null));
+		}
+		armourSlot = new InventorySlot(new Vec2(var2+gapBetweenSlots, var2-3*gapBetweenSlots), var1, null);
+		trinketSlot = new InventorySlot(new Vec2(var2+gapBetweenSlots, var2-4*gapBetweenSlots), var1, null);
+		allSlots.addAll(normalSlots);
+		allSlots.addAll(hotbarSlots);
+		allSlots.add(armourSlot);
+		allSlots.add(trinketSlot);
 	}
-	
-	
-	
-	public Item[][] getContainer()
+
+	public ArrayList<InventorySlot> getAllSlots()
 	{
-		return container;
+		return allSlots;
 	}
-	
-	public void setMousePickUp(Item i)
+
+	public ArrayList<InventorySlot> getHotbar()
 	{
-		mousePickUp = i;
+		return hotbarSlots;
 	}
-	
-	public Item getMousePickUp()
+
+	public InventorySlot getCursor()
 	{
-		return mousePickUp;
+		return cursor;
 	}
-	
+
+	public void onClick()
+	{
+		for(InventorySlot invSlot: allSlots){
+			if(invSlot.wasClicked()){
+				if(cursor != null && cursor.equals(invSlot))
+					heldInMouse = invSlot.switchItem(heldInMouse);
+				else
+					cursor = invSlot;
+			}
+		}
+	}
+
 	public boolean add(Item i)
 	{
-		for(int y = 0; y < slotsPerRow; y++){
-			for(int x = 0; x < slotsPerRow; x++){
-				Item slot = container[x][y];
-				if(slot != null && slot.addItemToStack(i))
-					return true;
-			}
-    	}
-		for(int y = 0; y < slotsPerRow; y++){
-			for(int x = 0; x < slotsPerRow; x++){
-				Item slot = container[x][y];
-				if(slot == null){
-					container[x][y] = i;
-					return true;
-				}
-			}
-    	}
-    	return false;
-	}
-	
-	public int getSize()
-	{
-		return size;
-	}
-	
-	public float getInventoryRenderSize()
-	{
-		return slotRenderDistance*slotsPerRow;
-	}
-	
-	public Vector4f getInventorySlotTransformation(int slotX, int slotY)
-	{
-		float corner = (slotsPerRow-1)/2;
-		return new Vector4f(slotRenderDistance*(slotX-corner), -slotRenderDistance*(slotY-corner), 0, slotRenderSize);
-	}
-	
-	public boolean isValidPosition(int x, int y)
-	{
-		if(x >= container.length || y >= container[0].length || x < 0 || y < 0)
-			return false;
-		if(x == slotsPerRow && y >= hotbarItems)
-			return false;
-		return true;
-	}
-	
-	public Vector4f getCursorTransformation()
-	{
-		if(cursorX < 0)
-			return new Vector4f(0, 0, 0, 0);
-		return getInventorySlotTransformation(cursorX, cursorY);
-	}
-	
-	public boolean setCursorTo(Vec2 coords)
-	{
-		int oldX = cursorX;
-		int oldY = cursorY;
-		float corner = (slotsPerRow-1)/2;
-		int x = Math.round(coords.x/slotRenderDistance+corner);
-		int y = Math.round(-coords.y/slotRenderDistance+corner);
-		if(!isValidPosition(x, y)){
-				x = -1;
-				y = -1;
+		for(InventorySlot invSlot: normalSlots){
+			if(invSlot.addItem(i))
+				return true;
 		}
-		cursorX = x;
-		cursorY = y;
-		if(oldX == cursorX && oldY == cursorY)
-			return true;
 		return false;
 	}
-	
-	
-	public int getSlotsPerRow()
-	{
-		return slotsPerRow;
-	}
 
-	public void deleteCursorItem() 
-	{
-		if(cursorX < 0)
-			return;
-		container[cursorX][cursorY] = null;
-	}
-	
-	public void switchMouseWithCursor()
-	{
-		Item buffer = mousePickUp;
-		if(cursorX < 0)
-			return;
-		if(buffer != null && container[cursorX][cursorY] != null && container[cursorX][cursorY].addItemToStack(buffer)){
-			mousePickUp = null;
-			return;
-		}
-		mousePickUp = getCursorItem();	
-		container[cursorX][cursorY] = buffer;
-	}
-
-	public Item getCursorItem() 
-	{
-		if(cursorX < 0)
-			return null;
-		return container[cursorX][cursorY];
-		
-	}
-	
-	public Item getHotbarItem(int index)
-	{
-		if(index >= hotbarItems || index < 0)
-			return null;
-		return container[slotsPerRow][index];
-	}
-	
-	public Item[] getHotbar()
-	{
-		return container[slotsPerRow];
-	}
-
-	public void removeItem(Item i) 
-	{
-		for(int y = 0; y < container[1].length; y++){
-			for(int x = 0; x < container.length; x++){
-				Item slot = container[x][y];
-				if(slot == i){
-					container[x][y] = null;
-				}
-			}
-    	}
-	}
 	public boolean isItemInHotbar(Item i)
 	{
-		boolean r = false;
-		for(Item item : getHotbar())
+		for(InventorySlot invSlot: hotbarSlots)
 		{
-			if(item != null)
-			{
-				if(item.equals(i))
-				{
-					r = true;
-				}
+			if(i.equals(invSlot.getItem())){
+				return true;
 			}
 		}
-		return r;
+		return false;
+	}
+
+	public Item getHotbarItem(int index)
+	{
+		return hotbarSlots.get(index).getItem();
+	}
+
+	public float getInventoryRenderSize()
+	{
+		return sideLength;
+	}
+
+	public Item getHeldInMouse()
+	{
+		return heldInMouse;
+	}
+
+	public void removeItem(Item i)
+	{
+		for(InventorySlot invSlot: allSlots)
+		{
+			if(i.equals(invSlot.getItem())){
+				invSlot.removeItem();
+			}
+		}
 	}
 }

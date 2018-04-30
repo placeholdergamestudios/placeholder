@@ -1,4 +1,6 @@
 package org.md2.gameobjects.structure;
+import org.jbox2d.collision.shapes.PolygonShape;
+import org.jbox2d.dynamics.FixtureDef;
 import org.md2.rendering.RenderPrio;
 import org.md2.rendering.Texture;
 import org.md2.gameobjects.WorldObject;
@@ -19,7 +21,19 @@ abstract public class Structure extends WorldObject
         super(texture);
         renderPriorisation = RenderPrio.STRUCTURE;
     }
-    
-    
+
+    public FixtureDef getFixtureDef()
+    {
+        PolygonShape cs = new PolygonShape();
+        cs.setAsBox(size.x, size.y);
+
+        FixtureDef fd = new FixtureDef();
+        fd.shape = cs;
+        fd.density = 0.0f;
+        fd.friction = 0.0f;
+        fd.restitution = 0.0f;
+
+        return fd;
+    }
     
 }

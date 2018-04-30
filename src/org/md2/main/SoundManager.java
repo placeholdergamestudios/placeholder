@@ -97,7 +97,7 @@ public class SoundManager {
         for(WorldObject wo: worldObjects)
             if (wo instanceof Entity) {
                 if (((Entity) wo).isMoving())
-                    if (((Entity) wo).getwalkingSound() != null)
+                    if (((Entity) wo).getWalkingSound() != null)
                         playSoundID(SOUNDWALK);
             }
     }

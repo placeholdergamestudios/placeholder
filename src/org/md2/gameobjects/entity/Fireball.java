@@ -14,7 +14,7 @@ public class Fireball extends Missile
     public Fireball(LivingEntity user, WeaponItem usedItem, Texture[] textures)
     {
         super(user, usedItem, textures);
-        size = new Vec2(0.6F, 0.4F);
+        size = new Vec2(0.3F, 0.2F);
     }
 
     public void onCollision(WorldObject o)

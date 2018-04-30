@@ -35,7 +35,7 @@ public class Shadow extends DecoObject
 
 	public Vec2 getRenderSize()
 	{
-		return user.getSize();
+		return user.getSize().mul(2);
 	}
 
 	public void setStatic()

@@ -1,5 +1,6 @@
 package org.md2.gameobjects.structure;
 import org.jbox2d.collision.shapes.PolygonShape;
+import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.FixtureDef;
 import org.md2.rendering.RenderPrio;
 import org.md2.rendering.Texture;
@@ -14,6 +15,7 @@ public class Glue extends Structure
 	{
 		super(new Texture[]{Texture.GLUE});
 		renderPriorisation = RenderPrio.FLAT;
+		size = new Vec2(0.4F, 0.4F);
 	}
 	
 	@Override
@@ -25,20 +27,13 @@ public class Glue extends Structure
 		}
 			
 	}
-	
-	
-	public FixtureDef getFixtureDef()
-    {
-    	PolygonShape cs = new PolygonShape();
-    	cs.setAsBox(0.4f, 0.4f);  
 
-    	FixtureDef fd = new FixtureDef();
-    	fd.shape = cs;
-    	fd.density = 0.0f;
-    	fd.friction = 0.0f;        
-    	fd.restitution = 0.0f;
-    	fd.setSensor(true);
-    	
-    	return fd;
-    }
+	@Override
+	public FixtureDef getFixtureDef()
+	{
+		FixtureDef fd = super.getFixtureDef();
+		fd.setSensor(true);
+		return fd;
+	}
+
 }

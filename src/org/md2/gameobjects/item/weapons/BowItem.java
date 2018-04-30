@@ -50,21 +50,6 @@ public abstract class BowItem extends WeaponItem
 		return false;
 	}
 	
-	public FixtureDef getFixtureDef()
-    {
-    	PolygonShape cs = new PolygonShape();
-    	cs.setAsBox(0.5f, 0.5f);  
-
-    	FixtureDef fd = new FixtureDef();
-    	fd.shape = cs;
-    	fd.density = 0.0f;
-    	fd.friction = 0.0f;        
-    	fd.restitution = 0.0f;
-    	fd.setSensor(true);
-    	
-    	return fd;
-    }
-	
 	public Texture[] getAnimationTextures()
 	{
 		return animationTextures;

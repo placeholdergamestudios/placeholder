@@ -18,14 +18,14 @@ public class Player extends LivingEntity
     public Player()
     {
         super(new Texture[]{Texture.PLAYERFRONT}, 5, new Attributes(2,2,2,2));
-        size = new Vec2(0.9F, 0.5F);
+        size = new Vec2(0.5F, 0.3F);
         renderPriorisation = RenderPrio.PLAYER;
     }
 
 	public FixtureDef getFixtureDef()
     {
 		PolygonShape cs = new PolygonShape();
-		Vec2 [] vertices = {new Vec2(-this.size.x/2, 0), new Vec2(0, -this.size.y/2), new Vec2(this.size.x/2, 0), new Vec2(0, this.size.y/2)};
+		Vec2 [] vertices = {new Vec2(-this.size.x, 0), new Vec2(0, -this.size.y), new Vec2(this.size.x, 0), new Vec2(0, this.size.y)};
 		cs.set(vertices, 4);
 
     	FixtureDef fd = new FixtureDef();
@@ -56,7 +56,7 @@ public class Player extends LivingEntity
 	}
 
 	@Override
-	public Sound getwalkingSound()
+	public Sound getWalkingSound()
 	{
 		return Sound.WALK;
 	}

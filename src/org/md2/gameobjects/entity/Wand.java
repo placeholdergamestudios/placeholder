@@ -15,7 +15,7 @@ public class Wand extends WeaponEntity
     public Wand(LivingEntity user, WeaponItem usedItem)
     {
         super(user, usedItem);
-        this.size = new Vec2(usedItem.getWeaponSize(), usedItem.getWeaponSize()/2);
+        this.size = new Vec2(usedItem.getWeaponSize()/2, usedItem.getWeaponSize()/4);
         liveTime = 0;
         shadow.setStatic();
     }
@@ -47,7 +47,6 @@ public class Wand extends WeaponEntity
     {
         PolygonShape cs = new PolygonShape();
         cs.setAsBox(0.0f, 0.0f);
-
         FixtureDef fd = new FixtureDef();
         fd.shape = cs;
         fd.setSensor(true);

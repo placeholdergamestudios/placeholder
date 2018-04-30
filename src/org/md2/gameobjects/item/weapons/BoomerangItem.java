@@ -17,7 +17,7 @@ public abstract class BoomerangItem extends WeaponItem
 	public BoomerangItem(Texture[] texture)
 	{
 		super(texture, 0.8F, 15);
-		size = new Vec2(0.8F, 0.8F);
+		size = new Vec2(getWeaponSize()/2, getWeaponSize()/2);
 	}
 
 	@Override
@@ -27,7 +27,7 @@ public abstract class BoomerangItem extends WeaponItem
 			return false;
 		Vec2 mousePos = GraphicRendererV2.getMousePos();
 		mousePos.normalize();
-		Vec2 entityPos = user.getPosition().add(mousePos.mul(0.5F+0.5F*this.getWeaponSize()));
+		Vec2 entityPos = user.getPosition().add(mousePos.mul(0.6F+0.5F*this.getWeaponSize()));
 		if(worldManager.isPositionBlocked(entityPos))
 			return false;
 		WorldObject wo = new ThrownBoomerang(user, this);
@@ -35,19 +35,4 @@ public abstract class BoomerangItem extends WeaponItem
 		setCurrentlyInUse(true);
 		return true;
 	}
-
-	public FixtureDef getFixtureDef()
-    {
-    	PolygonShape cs = new PolygonShape();
-    	cs.setAsBox(size.x/2, size.y/2);
-
-    	FixtureDef fd = new FixtureDef();
-    	fd.shape = cs;
-    	fd.density = 0.0f;
-    	fd.friction = 0.0f;        
-    	fd.restitution = 0.0f;
-    	fd.setSensor(true);
-    	
-    	return fd;
-    }
 }

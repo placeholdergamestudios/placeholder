@@ -118,15 +118,12 @@ public class MechanicManager extends Thread
             	//inv.moveCursor(1, 0);
             }
             if(KeyboardInput.isPressed(KeyboardInput.ACTION_ENTER)){
-            	player.useItem(inv.getCursorItem(), Item.USAGE_TYPE_1);
             }
             if(KeyboardInput.isPressed(KeyboardInput.ACTION_BACK) || KeyboardInput.isPressed(KeyboardInput.ACTION_DELETE)){
-            	inv.setMousePickUp(null);
+
             }
             if(KeyboardInput.isPressed(KeyboardInput.ACTION_SELECT)){
-               if(inv.setCursorTo(GraphicRendererV2.getMousePos()) || inv.getMousePickUp() != null){
-            	   	inv.switchMouseWithCursor();
-               }
+               inv.onClick();
             }
         }
         else if(Game.getGame().getMenue() == Game.M_ESC){

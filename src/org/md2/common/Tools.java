@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
+import org.jbox2d.common.Vec2;
 import org.joml.Vector2i;
 import org.joml.Vector4f;
 import org.lwjgl.BufferUtils;
@@ -95,22 +96,12 @@ public class Tools
         }
         return result;
 	}
-	
-	public static ByteBuffer loadTexture(String fileName)
-	{
-		try{
-			PNGDecoder decoder = new PNGDecoder(Tools.class.getClass().getResourceAsStream(fileName));
-			ByteBuffer buffer = ByteBuffer.allocateDirect(4 * decoder.getWidth() * decoder.getHeight());
-			decoder.decode(buffer, decoder.getWidth() * 4, Format.RGBA);
-			buffer.flip();
-			return buffer;
-		}
-		catch(Exception e){
-			System.out.println("Loading texture at "+fileName+" failed");
-		}
-			return null;
-		
-	}
+
+    public static boolean vec2InsideRect(Vec2 center, Vec2 halfAxes, Vec2 vec2)
+    {
+        return(vec2.x >= center.x-halfAxes.x && vec2.x <= center.x+halfAxes.x &&
+                vec2.y >= center.y-halfAxes.y && vec2.y <= center.y+halfAxes.y);
+    }
 
 	
 	public static <T extends GameObject> T getNewInstance(T type)

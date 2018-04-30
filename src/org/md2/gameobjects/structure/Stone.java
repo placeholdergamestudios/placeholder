@@ -20,7 +20,7 @@ public class Stone extends Structure
 	public Stone()
     {
         super(new Texture[]{Texture.STONE});
-        //setDeltaY(0.25F);
+        size = new Vec2(1F, 1F);
     }
 
 	@Override
@@ -35,35 +35,5 @@ public class Stone extends Structure
 		return new Vec2(2,2);
 	}
 
-	//	protected void initRenderType()
-//	{
-//		renderType = RENDER_TYPE_3D;
-//	}
-	
-//	public float getRenderOrderPosition()
-//	{
-//		if(multistructure == null)
-//			return super.getRenderOrderPosition();
-//		Vec2 multiPos = new Vec2(0, multistructure.getRenderOrderPos());
-//		Vec2 thisPos = this.body.getPosition();
-//		Vec2 dif = multiPos.sub(thisPos);
-//		dif.negateLocal();
-//		dif.mulLocal(0.001F);
-//		return multiPos.addLocal(dif).y;
-//	}
-    
-    public FixtureDef getFixtureDef()
-    {
-    	PolygonShape cs = new PolygonShape();
-    	cs.setAsBox(1f, 1f);
-
-    	FixtureDef fd = new FixtureDef();
-    	fd.shape = cs;
-    	fd.density = 0.0f;
-    	fd.friction = 0.0f;        
-    	fd.restitution = 0.0f;
-  	
-    	return fd;
-  	}
 
 }

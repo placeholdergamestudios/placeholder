@@ -33,17 +33,19 @@ import org.md2.gameobjects.entity.living.LivingEntity;
 import org.md2.gameobjects.item.Item;
 import org.md2.input.KeyboardInput;
 import org.md2.worldmanagement.Inventory;
+import org.md2.worldmanagement.InventorySlot;
 
 
 public class GraphicRendererV2 extends Thread
 {
     
     private static int fps = 30; // Frames per second
-    public static int tpf = 1000/fps; //Time per Frame in ms
+    private static int tpf = 1000/fps; //Time per Frame in ms
     
     private static final int zNear = +10;
     private static final int zFar = -10;
-    
+
+	private static  Matrix4f standardProjection;
     private static Vector2i resolution;
     private boolean wasResized;
     
@@ -56,18 +58,21 @@ public class GraphicRendererV2 extends Thread
     
     private Vector2f cameraCenter;
     private int ppu;
+    private float hudSize;
     
     private HashMap<Character, TextureObject> fontChars;
     private HashMap<VAOType, VertexArrayObject> VAOs;
     private HashMap<Texture, TextureObject> TOs;
-    private Vector2f renderDistance;
+    public static Vector2f renderDistance;
     
     public GraphicRendererV2()
     {
     	
     	resolution = new Vector2i(1200, 900);
     	ppu = (int)(resolution.x/10F);
+    	hudSize = 1.5F;
     	renderDistance = new Vector2f(resolution.x/(float)ppu, resolution.y/(float)ppu);
+    	standardProjection = new Matrix4f().ortho(-renderDistance.x, renderDistance.x, -renderDistance.y, renderDistance.y, zNear, zFar);
     	mousePosition = new Vector2f();
     	System.out.println("Using LWJGL " + Version.getVersion() + "!");
     	setUpGLFW();
@@ -99,7 +104,8 @@ public class GraphicRendererV2 extends Thread
 			GL11.glViewport(0, 0, resolution.x, resolution.y);
 			ppu = (int)(resolution.x/10F);
 			renderDistance = new Vector2f(resolution.x/(float)ppu, resolution.y/(float)ppu);
-            wasResized = false;
+			standardProjection = new Matrix4f().ortho(-renderDistance.x, renderDistance.x, -renderDistance.y, renderDistance.y, zNear, zFar);
+			wasResized = false;
 		}
         if(Game.getGame().getMenue() == Game.M_INGAME){
             renderInGame();            
@@ -124,7 +130,7 @@ public class GraphicRendererV2 extends Thread
 		shaderProgram.bind();
 		GameObject focused = Game.getGame().getMechanicManager().getWorldManager().getPlayer();
 		Vec2 cameraPosition = focused.getPosition();
-		ArrayList<GameObject> GameObjects = Game.getGame().getMechanicManager().getWorldManager().getGameObjects(cameraPosition.x, cameraPosition.y, 20, 15);
+		ArrayList<GameObject> GameObjects = Game.getGame().getMechanicManager().getWorldManager().getGameObjects(cameraPosition , new Vec2(20, 15));
 		Game.requestLock();
 		for(GameObject o : GameObjects)
 			o.lockRenderPosition();
@@ -144,40 +150,43 @@ public class GraphicRendererV2 extends Thread
 	private void renderInventory()
 	{
 		Inventory inventory = Game.getGame().getMechanicManager().getWorldManager().getPlayer().getInventory();
-		Item[][] container = inventory.getContainer();
+		ArrayList<InventorySlot> slots = inventory.getAllSlots();
+
 		shaderProgram.bind();
-		shaderProgram.setUniform("projectionMatrix", new Matrix4f().ortho(-renderDistance.x, renderDistance.x, -renderDistance.y, renderDistance.y, zNear, zFar));
+		shaderProgram.setUniform("projectionMatrix", standardProjection);
+
 		Matrix4f matrix = getTransformationMatrix(new Vector2f(0, 0), 0, inventory.getInventoryRenderSize());
 		TextureObject to = TOs.get(Texture.INVENTORY);
 		VertexArrayObject vao = VAOs.get(VAOType.INVENTORY);
 		renderRectObject(vao, to, matrix);
-		for(int x = 0; x < container.length; x++){
-			for(int y = 0; y < container[1].length; y++){
-				if(!inventory.isValidPosition(x, y))
-					continue;
-				Item o = container[x][y];
-				matrix = getTransformationMatrix(inventory.getInventorySlotTransformation(x, y));
-				vao = VAOs.get(VAOType.INVENTORY_SLOT);
-				to = TOs.get(Texture.INVENTORY_SLOT);
-				renderRectObject(vao, to, matrix);
-				if(o == null)
-					continue;
-				vao = VAOs.get(VAOType.INVENTORY_ITEM);
-				Texture[] t = o.getTextures();
-				renderIngameObject(vao, t, matrix);
-				renderString(getItemStackCounterTrans(inventory.getInventorySlotTransformation(x, y)), o.getStackInformation());
-			}
+
+		vao = VAOs.get(VAOType.UNITSQUARE);
+
+		for(InventorySlot invSlot: slots){
+			matrix = getTransformationMatrix(new Vector2f(invSlot.getCoordinates().x, invSlot.getCoordinates().y), 0, invSlot.getSize().x*2);
+			Texture[] t = invSlot.getTexture();
+			renderIngameObject(vao, t, matrix);
+
+			Item i = invSlot.getItem();
+			if(i == null) continue;
+			Vector4f itemTrans = new Vector4f(new Vector2f(invSlot.getCoordinates().x, invSlot.getCoordinates().y), 0, invSlot.getSize().x*2*0.75F);
+			matrix = getTransformationMatrix(itemTrans);
+			t = invSlot.getItem().getTextures();
+			renderIngameObject(vao, t, matrix);
+			renderString(getItemStackCounterTrans(itemTrans), i.getStackInformation());
 		}
-		matrix = getTransformationMatrix(inventory.getCursorTransformation());
-		vao = VAOs.get(VAOType.INVENTORY_CURSOR);
-		to = TOs.get(Texture.INVENTORY_CURSOR);
-		renderRectObject(vao, to, matrix);
+
+		InventorySlot cursor = inventory.getCursor();
+		if(cursor != null) {
+			matrix = getTransformationMatrix(new Vector2f(cursor.getCoordinates().x, cursor.getCoordinates().y), 0, cursor.getSize().x * 2);
+			to = TOs.get(Texture.INVENTORY_CURSOR);
+			renderRectObject(vao, to, matrix);
+		}
 		
-		Item mouseItem = inventory.getMousePickUp();
+		Item mouseItem = inventory.getHeldInMouse();
 		if(mouseItem != null){
 			Vector4f itemTrans = new Vector4f(mousePosition, 0, 1.5F);
 			matrix = getTransformationMatrix(itemTrans);
-			vao = VAOs.get(VAOType.INVENTORY_ITEM);
 			Texture[] t = mouseItem.getTextures();
 			renderIngameObject(vao, t, matrix);
 			renderString(getItemStackCounterTrans(itemTrans), mouseItem.getStackInformation());
@@ -187,8 +196,6 @@ public class GraphicRendererV2 extends Thread
 	
 	private void renderString(Vector4f position, String text)
 	{
-		if(KeyboardInput.isPushed(KeyboardInput.ACTION_ENTER))
-			System.out.println(position.x+" "+position.y+" "+position.z+" "+position.w+" ");
 		char[] cText = text.toCharArray();
 		for(char c: cText){
 			Matrix4f matrix = getTransformationMatrix(position);
@@ -218,32 +225,34 @@ public class GraphicRendererV2 extends Thread
 		
 	}
 	
-	private void renderHotbar()
-	{
-		shaderProgram.bind();
-		shaderProgram.setUniform("projectionMatrix", new Matrix4f().ortho(-renderDistance.x, renderDistance.x, -renderDistance.y, renderDistance.y, zNear, zFar));
-		
-		
-		Item[] hotbar = Game.getGame().getMechanicManager().getWorldManager().getPlayer().getInventory().getHotbar();
-		for(int index = 0; index < hotbar.length; index++){
-			WorldObject o = hotbar[index];
-			if(o != null){
-				Matrix4f matrix = getTransformationMatrix(new Vector2f(-renderDistance.x+1+index*2, -renderDistance.y+1), 0, 1f);
-				TextureObject to = TOs.get(Texture.INVENTORY_SLOT);
-				VertexArrayObject vao = VAOs.get(VAOType.INVENTORY_SLOT);
-				renderRectObject(vao, to, matrix);
-				vao = VAOs.get(VAOType.INVENTORY_ITEM);
-				Texture[] t = o.getTextures();
-				renderIngameObject(vao, t, matrix);
-			}
+    private void renderHotbar()
+    {
+    	shaderProgram.bind();
+    	shaderProgram.setUniform("projectionMatrix", standardProjection);
+
+		VertexArrayObject vao = VAOs.get(VAOType.UNITSQUARE);
+		TextureObject to = TOs.get(Texture.INVENTORY_SLOT);
+		ArrayList<InventorySlot> hotbar = Game.getGame().getMechanicManager().getWorldManager().getPlayer().getInventory().getHotbar();
+		int index = 1;
+		for(InventorySlot slot: hotbar){
+			Item i = slot.getItem();
+			if(i == null) continue;
+			Matrix4f matrix = getTransformationMatrix(new Vector2f(-renderDistance.x+hudSize*index, -renderDistance.y+hudSize), 0, hudSize);
+			renderRectObject(vao, to, matrix);
+
+			Vector4f itemTrans = new Vector4f(new Vector2f(-renderDistance.x+hudSize*index, -renderDistance.y+hudSize), 0, hudSize*0.75F);
+			Texture[] t = i.getTextures();
+			renderIngameObject(vao, t, getTransformationMatrix(itemTrans));
+			renderString(getItemStackCounterTrans(itemTrans), i.getStackInformation());
+			index++;
 		}
-        shaderProgram.unbind();
-	}
+    	shaderProgram.unbind();
+    }
 	
 	private void renderCursor()
 	{
 		shaderProgram.bind();
-		shaderProgram.setUniform("projectionMatrix", new Matrix4f().ortho(-renderDistance.x, renderDistance.x, -renderDistance.y, renderDistance.y, zNear, zFar));
+		shaderProgram.setUniform("projectionMatrix", standardProjection);
 		Matrix4f matrix = getTransformationMatrix(mousePosition, 0, 3);
 		TextureObject to = TOs.get(Texture.CURSOR);
 		VertexArrayObject vao = VAOs.get(VAOType.CURSOR);
@@ -256,23 +265,21 @@ public class GraphicRendererV2 extends Thread
 		GameObject focused = Game.getGame().getMechanicManager().getWorldManager().getPlayer();
 		LivingEntity le;
 		//test whether there is health to be displayed
-		if(focused instanceof LivingEntity){
-			le = (LivingEntity) focused;
-		}
+		if(focused instanceof LivingEntity) le = (LivingEntity) focused;
 		else return;
 		float health = le.getPercentHealth();
-		float missingHealth = 1 - health;
+		float missingHealth = 1F - health;
+
 		shaderProgram.bind();
-		shaderProgram.setUniform("projectionMatrix", new Matrix4f().ortho(-1, 1, -1, 1, zNear, zFar));
-		//renders the healthbar in the upper right corner of the window
-		Matrix4f matrix = getTransformationMatrix(new Vector2f(-0.5f, 0.9f), 0, 1);
+		shaderProgram.setUniform("projectionMatrix", standardProjection);
+
+		Matrix4f matrix = getTransformationMatrix(new Vector2f(-renderDistance.x+5*hudSize, renderDistance.y-hudSize), 0, hudSize);
 		TextureObject to = TOs.get(Texture.HEALTHBAR);
 		VertexArrayObject vao = VAOs.get(VAOType.HEALTHBAR);
 		renderRectObject(vao, to, matrix);
-		//renders the health of the player in that healthbar
-		matrix = getTransformationMatrix(new Vector2f(-0.5f-missingHealth/2+missingHealth/10, 0.9f), 0, health, 1);
+
+		matrix = getTransformationMatrix(new Vector2f(-renderDistance.x+5*hudSize-missingHealth*5*hudSize, renderDistance.y-hudSize), 0, health*hudSize, hudSize);
 		to = TOs.get(Texture.LIVEBAR);
-		vao = VAOs.get(VAOType.LIVEBAR);
 		renderRectObject(vao, to, matrix);
 		shaderProgram.unbind();
 	}
