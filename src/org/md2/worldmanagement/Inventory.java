@@ -2,6 +2,9 @@ package org.md2.worldmanagement;
 
 import org.jbox2d.common.Vec2;
 import org.md2.gameobjects.item.Item;
+import org.md2.gameobjects.item.weapons.BowItem;
+import org.md2.main.Game;
+import org.md2.main.SoundManager;
 
 import java.util.ArrayList;
 
@@ -79,7 +82,11 @@ public class Inventory
 		for(InventorySlot invSlot: allSlots){
 			if(invSlot.wasClicked()){
 				if(cursor != null && cursor.equals(invSlot))
+				{
+					if(heldInMouse instanceof BowItem && isHotbarSlot(invSlot))
+						Game.getGame().getSoundManager().playSoundID(SoundManager.SOUNDBOWEQUIP);
 					heldInMouse = invSlot.switchItem(heldInMouse);
+				}
 				else
 					cursor = invSlot;
 			}
@@ -103,6 +110,13 @@ public class Inventory
 				return true;
 			}
 		}
+		return false;
+	}
+
+	public boolean isHotbarSlot(InventorySlot i)
+	{
+		for(InventorySlot invSlot: hotbarSlots)
+			if (i.equals(invSlot)) return true;
 		return false;
 	}
 
