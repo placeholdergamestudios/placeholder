@@ -1,7 +1,6 @@
 package org.md2.common;
 import java.io.InputStream;
 import java.lang.reflect.Constructor;
-import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
@@ -9,47 +8,17 @@ import java.util.Collections;
 import java.util.Scanner;
 
 import org.jbox2d.common.Vec2;
-import org.joml.Vector2i;
-import org.joml.Vector4f;
+import org.joml.Vector2f;
 import org.lwjgl.BufferUtils;
 import org.md2.gameobjects.GameObject;
-
-import de.matthiasmann.twl.utils.PNGDecoder;
-import de.matthiasmann.twl.utils.PNGDecoder.Format;
 
 
 public class Tools 
 {
-	
-	public static Vector4f getTransformationInventoryV1(int index, int maxIndex, float invSize, float slotSize)
-	{
-		int itemsPerRow = (int)Math.ceil(Math.sqrt(maxIndex));
-		float corner;
-		if ( (itemsPerRow & 1) == 0 )
-			corner = itemsPerRow/2- 0.5f;
-		else
-			corner = itemsPerRow/2;
-		float offset =  (invSize - slotSize*itemsPerRow)/(itemsPerRow+1) + slotSize;
-		
-		return new Vector4f((index-index/itemsPerRow*itemsPerRow-corner)*offset, (-index/itemsPerRow+corner)*offset, 0 , 1);
-	}
-	
-	public static Vector4f getTransformationInventory(int x, int y, int slotsPerRow)
-	{
-		float corner = (slotsPerRow-1)/2;
-		return new Vector4f(2*(x-corner), -2*(y-corner), 0, 1);
-	}
-	
-	public static Vector2i getRevTransformationInventory(float xPos, float yPos, int slotsPerRow)
-	{
-		float corner = (slotsPerRow-1)/2;
-		int x = Math.round(xPos/2+corner);
-		int y = Math.round(-yPos/2+corner);
-		
-		if(x >= slotsPerRow || y >= slotsPerRow || x < 0 || y < 0)
-			return new Vector2i();
-		return new Vector2i(x, y);
-	}
+	public static Vec2 vector2fToVec2(Vector2f vector)
+    {
+        return new Vec2(vector.x, vector.y);
+    }
 	
 	public static float[] createRectTextureVBO()
 	{

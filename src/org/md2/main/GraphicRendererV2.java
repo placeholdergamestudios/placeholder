@@ -28,7 +28,6 @@ import org.md2.common.Tools;
 import org.md2.rendering.VAOType;
 import org.md2.rendering.VertexArrayObject;
 import org.md2.gameobjects.GameObject;
-import org.md2.gameobjects.WorldObject;
 import org.md2.gameobjects.entity.living.LivingEntity;
 import org.md2.gameobjects.item.Item;
 import org.md2.input.KeyboardInput;
@@ -56,7 +55,7 @@ public class GraphicRendererV2 extends Thread
     private long window;
     private ShaderProgram shaderProgram;
     
-    private Vector2f cameraCenter;
+    public static Vector2f cameraCenter;
     private int ppu;
     private float hudSize;
     
@@ -73,6 +72,7 @@ public class GraphicRendererV2 extends Thread
     	hudSize = 1.5F;
     	renderDistance = new Vector2f(resolution.x/(float)ppu, resolution.y/(float)ppu);
     	standardProjection = new Matrix4f().ortho(-renderDistance.x, renderDistance.x, -renderDistance.y, renderDistance.y, zNear, zFar);
+    	cameraCenter = new Vector2f(0, 0);
     	mousePosition = new Vector2f();
     	System.out.println("Using LWJGL " + Version.getVersion() + "!");
     	setUpGLFW();
@@ -253,7 +253,7 @@ public class GraphicRendererV2 extends Thread
 	{
 		shaderProgram.bind();
 		shaderProgram.setUniform("projectionMatrix", standardProjection);
-		Matrix4f matrix = getTransformationMatrix(mousePosition, 0, 3);
+		Matrix4f matrix = getTransformationMatrix(mousePosition, 0, 2*hudSize);
 		TextureObject to = TOs.get(Texture.CURSOR);
 		VertexArrayObject vao = VAOs.get(VAOType.CURSOR);
 		renderRectObject(vao, to, matrix);
@@ -278,8 +278,9 @@ public class GraphicRendererV2 extends Thread
 		VertexArrayObject vao = VAOs.get(VAOType.HEALTHBAR);
 		renderRectObject(vao, to, matrix);
 
-		matrix = getTransformationMatrix(new Vector2f(-renderDistance.x+5*hudSize-missingHealth*5*hudSize, renderDistance.y-hudSize), 0, health*hudSize, hudSize);
+		matrix = getTransformationMatrix(new Vector2f(-renderDistance.x+5*hudSize-missingHealth*4*hudSize, renderDistance.y-hudSize), 0, health*hudSize, hudSize);
 		to = TOs.get(Texture.LIVEBAR);
+		vao = VAOs.get(VAOType.LIVEBAR);
 		renderRectObject(vao, to, matrix);
 		shaderProgram.unbind();
 	}
@@ -335,7 +336,7 @@ public class GraphicRendererV2 extends Thread
     
     private void createTOs()
     {
-    	TOs = new HashMap<Texture, TextureObject>();
+    	TOs = new HashMap<>();
     	for(Texture t: Texture.values()){
     		TextureObject to = new TextureObject(t.getTextureName());
     		TOs.put(t, to);
@@ -344,7 +345,7 @@ public class GraphicRendererV2 extends Thread
     
     private void createFontChars()
     {
-    	fontChars = new HashMap<Character, TextureObject>();
+    	fontChars = new HashMap<>();
     	String charString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
     	char[] chars = charString.toCharArray();
     	for(char c: chars){
@@ -385,16 +386,16 @@ public class GraphicRendererV2 extends Thread
         GL30.glBindVertexArray(0);
     }
     
-    public void renderIngameObject(VertexArrayObject vao, Texture[] textures, Matrix4f transMatrix)
+    private void renderIngameObject(VertexArrayObject vao, Texture[] textures, Matrix4f transMatrix)
     {
     	for(Texture t : textures)
     		if(t != null)
     			renderRectObject(vao, TOs.get(t), transMatrix);
     }
     
-    public void createVAOs()
+    private void createVAOs()
     {
-    	VAOs  = new HashMap<VAOType, VertexArrayObject>();
+    	VAOs  = new HashMap<>();
     	for(VAOType vt: VAOType.values()){
     		VertexArrayObject vao = new VertexArrayObject(
     				vt.getCoords(),
@@ -436,9 +437,8 @@ public class GraphicRendererV2 extends Thread
     	    throw new RuntimeException("Failed to create the GLFW window");
     	}
 		GLFW.glfwSetInputMode(window, GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_HIDDEN);
-    	@SuppressWarnings("unused")
-		GLFWWindowFocusCallback windowFocusCallback;
-    	GLFW.glfwSetWindowFocusCallback(window, windowFocusCallback = new GLFWWindowFocusCallback() {
+
+    	GLFW.glfwSetWindowFocusCallback(window, new GLFWWindowFocusCallback() {
             @Override
             public void invoke(long window, boolean focus) {
             	if(!focus){
@@ -446,10 +446,8 @@ public class GraphicRendererV2 extends Thread
             	}
             }           
     	});
-    	
-		@SuppressWarnings("unused")
-		GLFWWindowSizeCallback windowSizeCallback;
-    	GLFW.glfwSetWindowSizeCallback(window, windowSizeCallback = new GLFWWindowSizeCallback() {
+
+    	GLFW.glfwSetWindowSizeCallback(window, new GLFWWindowSizeCallback() {
             @Override
             public void invoke(long window, int width, int height) {
                 resolution.x = width;
@@ -457,20 +455,16 @@ public class GraphicRendererV2 extends Thread
                 wasResized = true;
             }           
     	});
-    	
-    	@SuppressWarnings("unused")
-    	GLFWCursorPosCallback cursorPosCallback;
-    	GLFW.glfwSetCursorPosCallback(window, cursorPosCallback = new GLFWCursorPosCallback() {
+
+    	GLFW.glfwSetCursorPosCallback(window, new GLFWCursorPosCallback() {
             @Override
         	public void invoke(long window, double xpos, double ypos) 
         	{
         		mousePosition.set(2*(float)xpos/ppu-renderDistance.x, -(2*(float)ypos/ppu-renderDistance.y));
         	}          
     	});
-    	
-    	@SuppressWarnings("unused")
-    	GLFWMouseButtonCallback mouseButtonCallback;
-    	GLFW.glfwSetMouseButtonCallback(window, mouseButtonCallback = new GLFWMouseButtonCallback() {
+
+    	GLFW.glfwSetMouseButtonCallback(window, new GLFWMouseButtonCallback() {
 
 			@Override
 			public void invoke(long window, int button, int action, int mods) {
@@ -488,11 +482,6 @@ public class GraphicRendererV2 extends Thread
     	//setting up openGL
         GL11.glClearColor(0.7f, 0.7f, 0.7f, 1.0f);
         GL11.glEnable(GL11.GL_BLEND);
-        //GL11.glEnable(GL11.GL_LINE_SMOOTH);
-		//GL11.glEnable(GL11.GL_POLYGON_SMOOTH);
-		//GL11.glHint( GL11.GL_LINE_SMOOTH_HINT, GL11.GL_NICEST );
-		//GL11.glHint( GL11.GL_POLYGON_SMOOTH_HINT, GL11.GL_NICEST );
-        //GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         GL11.glDepthRange(zNear, zFar);
     }

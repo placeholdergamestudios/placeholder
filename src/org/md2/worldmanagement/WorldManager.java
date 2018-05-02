@@ -12,13 +12,11 @@ import org.md2.common.Tools;
 import org.md2.gameobjects.DecoObject;
 import org.md2.gameobjects.GameObject;
 import org.md2.gameobjects.WorldObject;
-import org.md2.gameobjects.entity.Entity;
 import org.md2.gameobjects.entity.living.Player;
 import org.md2.gameobjects.item.weapons.Shortsword;
 import org.md2.gameobjects.item.weapons.WoodenBoomerang;
 import org.md2.gameobjects.item.weapons.WoodenBow;
 import org.md2.gameobjects.item.weapons.TestWand;
-import org.md2.gameobjects.structure.Structure;
 import org.md2.main.Game;
 import org.md2.main.MechanicManager;
 /**
@@ -43,7 +41,7 @@ public class WorldManager implements ContactListener
     	setup();
     }
 
-    public void setup()
+    private void setup()
 	{
 		Level lvl = new NormalLevel(1, 1, 1);
 		worldObjects = new ArrayList<>();
@@ -148,15 +146,20 @@ public class WorldManager implements ContactListener
 
 	private ArrayList<GameObject> getAllObjects()
 	{
-		ArrayList<GameObject>ret = new ArrayList<GameObject>();
+		ArrayList<GameObject>ret = new ArrayList<>();
 		ret.addAll(decoObjects);
 		ret.addAll(worldObjects);
 		return ret;
 	}
 
-	public ArrayList<WorldObject> getWorldObjects()
+	public ArrayList<WorldObject> getWorldObjects(Vec2 center, Vec2 renderRange)
 	{
-		return worldObjects;
+		ArrayList<WorldObject> ret = new ArrayList<>();
+		for(WorldObject o: worldObjects){
+			if(Tools.vec2InsideRect(center, renderRange, o.getPosition()))
+				ret.add(o);
+		}
+		return ret;
 	}
 
 	public ArrayList<GameObject> getGameObjects(Vec2 center, Vec2 renderRange)

@@ -1,11 +1,6 @@
 package org.md2.main;
-import java.awt.Toolkit;
 
-import org.jbox2d.common.Vec2;
-import org.joml.Vector2f;
-import org.joml.Vector4f;
 import org.md2.common.Tools;
-import org.md2.gameobjects.entity.living.LivingEntity;
 import org.md2.gameobjects.entity.living.Player;
 import org.md2.gameobjects.item.Item;
 import org.md2.input.KeyboardInput;
@@ -22,7 +17,7 @@ import org.md2.worldmanagement.WorldManager;
 public class MechanicManager extends Thread
 {
     private WorldManager worldManager;
-    public static final int tickRate = 60; // in ticks per second
+    private static final int tickRate = 60; // in ticks per second
     public static final int tickTime = 1000/tickRate; //time it takes to perform 1 tick in ms
     
     public MechanicManager()
@@ -42,7 +37,7 @@ public class MechanicManager extends Thread
         	getUserAction();
             if(Game.getGame().getMenue() == Game.M_INGAME){
                 worldManager.tick();
-                Game.getGame().getSoundManager().tick(worldManager.getWorldObjects());
+                Game.getGame().getSoundManager().tick(worldManager.getWorldObjects(Tools.vector2fToVec2(GraphicRendererV2.cameraCenter), Tools.vector2fToVec2(GraphicRendererV2.renderDistance)));
             }
             double timeDif = System.currentTimeMillis() - timeBefore;
             if(tickTime - (int)timeDif > 0){
@@ -61,7 +56,7 @@ public class MechanicManager extends Thread
     
 
     
-    public void getUserAction()
+    private void getUserAction()
     {
     	Player player = worldManager.getPlayer();
     	player.resetShoulds();
@@ -106,16 +101,16 @@ public class MechanicManager extends Thread
         		Game.getGame().setMenue(Game.M_INGAME);
             }
         	if(KeyboardInput.isPressed(KeyboardInput.ACTION_UP)){
-        		//inv.moveCursor(0, -1);
+
             }
             if(KeyboardInput.isPressed(KeyboardInput.ACTION_DOWN)){
-            	//inv.moveCursor(0, 1);
+
             }
             if(KeyboardInput.isPressed(KeyboardInput.ACTION_LEFT)){
-            	//inv.moveCursor(-1, 0);
+
             }
             if(KeyboardInput.isPressed(KeyboardInput.ACTION_RIGHT)){
-            	//inv.moveCursor(1, 0);
+
             }
             if(KeyboardInput.isPressed(KeyboardInput.ACTION_ENTER)){
             }
