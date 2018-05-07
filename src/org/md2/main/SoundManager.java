@@ -1,10 +1,8 @@
 package org.md2.main;
 
-import org.jbox2d.dynamics.World;
 import org.md2.common.Sound;
 import org.md2.gameobjects.WorldObject;
 import org.md2.gameobjects.entity.Entity;
-import org.md2.gameobjects.entity.living.Player;
 
 import java.io.*;
 import javax.sound.sampled.*;
