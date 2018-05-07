@@ -6,6 +6,7 @@ import java.util.Random;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
+import org.md2.gameobjects.entity.living.SimpleEnemy;
 import org.md2.rendering.Texture;
 import org.md2.common.Tools;
 import org.md2.gameobjects.DecoObject;
@@ -56,6 +57,7 @@ public abstract class Level
     	structureSpawnList.put(new Glue(), 1F);
     	//entities
     	entitySpawnList.put(new Dummy(), 1F);
+		entitySpawnList.put(new SimpleEnemy(), 1F);
 	}
 	
 	
