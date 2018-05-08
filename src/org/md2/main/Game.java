@@ -24,6 +24,7 @@ public class Game
     private MechanicManager mm;
     private SoundManager sm;
     private SaveManager svm;
+    private AIManager aim;
     private static Game game;
     
     private static boolean threadsLocked;
@@ -47,6 +48,7 @@ public class Game
         ki = new KeyboardInput();
         mm = new MechanicManager();
         svm = new SaveManager();
+        aim = new AIManager(mm.getWorldManager());
         //svm.save("test");
         svm.load("test");
         gr.setInput(ki);
@@ -105,6 +107,8 @@ public class Game
     }
 
     public SoundManager getSoundManager() {return sm;}
+
+    public AIManager getAIManager() {return aim;}
 
     public static Game getGame()
     {

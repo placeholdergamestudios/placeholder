@@ -1,18 +1,22 @@
 package org.md2.common;
 
+import org.jbox2d.dynamics.World;
 import org.md2.gameobjects.entity.living.LivingEntity;
+import org.md2.worldmanagement.WorldManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public abstract class AI {
-    private ArrayList <LivingEntity> controlled;
-    private HashMap<LivingEntity, Boolean> frozen;
+    protected ArrayList <LivingEntity> controlled;
+    protected HashMap<LivingEntity, Boolean> frozen;
+    protected WorldManager wm;
 
-    public AI()
+    public AI(WorldManager wm)
     {
         controlled = new ArrayList<LivingEntity>();
         frozen = new HashMap<LivingEntity, Boolean>();
+        this.wm = wm;
     }
 
     public void giveControl(LivingEntity le)
@@ -48,8 +52,10 @@ public abstract class AI {
         {
             if(!isfrozen(e))
             {
-                //  Processing
+                onTick(e);
             }
         }
     }
+
+    protected abstract void onTick(LivingEntity le);
 }
