@@ -49,7 +49,6 @@ public class SimpleEnemyAI extends AI {
 
     private void addEntities()
     {
-        System.out.println("Test2");
         for(WorldObject wo : wm.getAllWorldObjects())
         {
             if(wo instanceof SimpleEnemy)
