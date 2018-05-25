@@ -23,6 +23,7 @@ public class SimpleEnemyAI extends AI {
 
     protected void onTick(LivingEntity le)
     {
+        /*
         if(!le.willBeRemoved())
         {
             if(Math.random()*1000000 >= 999999)
@@ -32,6 +33,7 @@ public class SimpleEnemyAI extends AI {
                 le.useItem(new Shortsword(), Item.USAGE_TYPE_1);
             }
         }
+        */
     }
 
     @Override
