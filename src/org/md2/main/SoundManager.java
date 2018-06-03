@@ -25,7 +25,24 @@ public class SoundManager {
     public static final int SOUNDBOOMERANG = 9;
     public static final int SOUNDPICKUP = 10;
 
+    public static final int SOUNDSETTINGMUSIC = 100;
+    public static final int SOUNDSETTINGCOMBAT = 101;
+    public static final int SOUNDSETTINGMISC = 102;
 
+    private float musicvolume = 0.8f;     // SOUNDSETTINGMUSIC
+    private float combatvolume = 1f;    // SOUNDSETTINGCOMBAT
+    private float miscvolume = 0.3f;      // SOUNDSETTINGMISC
+
+    public float getModuleVolume(int i)
+    {
+        switch (i)
+        {
+            case 1:{return musicvolume;}
+            case 2:{return combatvolume;}
+            case 3:{return miscvolume;}
+            default:{return 0.0f;}
+        }
+    }
 
     public SoundManager()
     {
@@ -47,22 +64,22 @@ public class SoundManager {
     {
         switch(i)
         {
-            case SOUNDWALK:{playSound(Sound.WALK, 0.05f);break;}
-            case SOUNDBOWEQUIP:{playSound(Sound.BOWEQUIP, 0.2f);break;}
-            case SOUNDBOWTENSION:{playSound(Sound.BOWTENSION, 0.2f);break;}
-            case SOUNDBOWRELEASE:{playSound(Sound.BOWRELEASE, 0.2f);break;}
-            case SOUNDAUA:{playSound(Sound.AUA, 0.3f);break;}
-            case SOUNDSWORDSLASH:{playSound(Sound.SWORDSLASH, 0.2f);break;}
-            case SOUNDMUSIC:{playSound(Sound.MUSIC, 0.05f);break;}
-            case SOUNDFIREBALL:{playSound(Sound.FIREBALL, 0.2f);break;}
-            case SOUNDBOOMERANG:{playSound(Sound.BOOMERANG, 0.2f);break;}
-            case SOUNDPICKUP:{playSound(Sound.PICKUP, 0.2f);break;}
+            case SOUNDWALK:{playSound(Sound.WALK, 0.05f, getModuleVolume(SOUNDSETTINGMISC));break;}
+            case SOUNDBOWEQUIP:{playSound(Sound.BOWEQUIP, 0.2f, getModuleVolume(SOUNDSETTINGMISC));break;}
+            case SOUNDBOWTENSION:{playSound(Sound.BOWTENSION, 0.2f, getModuleVolume(SOUNDSETTINGCOMBAT));break;}
+            case SOUNDBOWRELEASE:{playSound(Sound.BOWRELEASE, 0.2f, getModuleVolume(SOUNDSETTINGCOMBAT));break;}
+            case SOUNDAUA:{playSound(Sound.AUA, 0.3f, getModuleVolume(SOUNDSETTINGCOMBAT));break;}
+            case SOUNDSWORDSLASH:{playSound(Sound.SWORDSLASH, 0.2f, getModuleVolume(SOUNDSETTINGCOMBAT));break;}
+            case SOUNDMUSIC:{playSound(Sound.MUSIC, 0.05f, getModuleVolume(SOUNDSETTINGMUSIC));break;}
+            case SOUNDFIREBALL:{playSound(Sound.FIREBALL, 0.2f, getModuleVolume(SOUNDSETTINGCOMBAT));break;}
+            case SOUNDBOOMERANG:{playSound(Sound.BOOMERANG, 0.2f, getModuleVolume(SOUNDSETTINGCOMBAT));break;}
+            case SOUNDPICKUP:{playSound(Sound.PICKUP, 0.2f, getModuleVolume(SOUNDSETTINGMISC));break;}
         }
     }
 
     private boolean playSound(Sound sound) {return playClip(clips.get(sound));}
 
-    private boolean playSound(Sound sound, float volume) {return playClip(clips.get(sound), volume); }
+    private boolean playSound(Sound sound, float volume, float modulevolume) {return playClip(clips.get(sound), volume, modulevolume); }
 
     private boolean isPlaying(Clip c)
     {
@@ -81,12 +98,12 @@ public class SoundManager {
 
     private boolean playClip(Clip c)
     {
-        return playClip(c, 1.0f);
+        return playClip(c, 1.0f, 1.0f);
     }
 
-    private boolean playClip(Clip c, Float volume)
+    private boolean playClip(Clip c, float volume, float modulevolume)
     {
-        toplay.add(new Soundentry(c, volume));
+        toplay.add(new Soundentry(c, volume, modulevolume));
         return true;
     }
 
@@ -158,11 +175,13 @@ public class SoundManager {
     private class Soundentry{
         private Clip clip;
         private float volume;
+        private float modulevolume;
 
-        public Soundentry(Clip clip, float volume)
+        public Soundentry(Clip clip, float volume, float modulevolume)
         {
             this.clip = clip;
             this.volume = volume;
+            this.modulevolume = modulevolume;
         }
 
         public Clip getClip()
@@ -173,6 +192,11 @@ public class SoundManager {
         public float getVolume()
         {
             return volume;
+        }
+
+        public float getModulevolume()
+        {
+            return modulevolume;
         }
 
         public void setVolume(float volume)
