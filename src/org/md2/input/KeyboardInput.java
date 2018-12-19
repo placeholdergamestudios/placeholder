@@ -20,7 +20,8 @@ public class KeyboardInput extends GLFWKeyCallback
     public static int ACTION_QUICKUSE3 = GLFW.GLFW_KEY_Q;
     public static int ACTION_SELECT = GLFW.GLFW_MOUSE_BUTTON_1;
     
-    
+    public static int M_ESC_BUTTON_BACK = 0;
+	public static int M_ESC_BUTTON_CLOSE_GAME = 1;
     
     private static boolean keyboardUnlocked;
 	private static boolean[] keyPushed = new boolean[348];

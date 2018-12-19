@@ -3,9 +3,12 @@ package org.md2.main;
 import org.md2.common.Tools;
 import org.md2.gameobjects.entity.living.Player;
 import org.md2.gameobjects.item.Item;
+import org.md2.input.Button;
 import org.md2.input.KeyboardInput;
 import org.md2.worldmanagement.Inventory;
 import org.md2.worldmanagement.WorldManager;
+
+import java.util.ArrayList;
 
 
 /**
@@ -19,6 +22,8 @@ public class MechanicManager extends Thread
     private WorldManager worldManager;
     private static final int tickRate = 60; // in ticks per second
     public static final int tickTime = 1000/tickRate; //time it takes to perform 1 tick in ms
+
+
     
     public MechanicManager()
     {
@@ -116,9 +121,6 @@ public class MechanicManager extends Thread
             }
             if(KeyboardInput.isPressed(KeyboardInput.ACTION_BACK) || KeyboardInput.isPressed(KeyboardInput.ACTION_DELETE)){
 
-            }
-            if(KeyboardInput.isPressed(KeyboardInput.ACTION_SELECT)){
-               inv.onClick();
             }
         }
         else if(Game.getGame().getMenue() == Game.M_ESC){

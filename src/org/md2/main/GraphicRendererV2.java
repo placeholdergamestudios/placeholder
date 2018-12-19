@@ -176,12 +176,12 @@ public class GraphicRendererV2 extends Thread
 			renderString(getItemStackCounterTrans(itemTrans), i.getStackInformation());
 		}
 
-		InventorySlot cursor = inventory.getCursor();
-		if(cursor != null) {
-			matrix = getTransformationMatrix(new Vector2f(cursor.getCoordinates().x, cursor.getCoordinates().y), 0, cursor.getSize().x * 2);
-			to = TOs.get(Texture.INVENTORY_CURSOR);
-			renderRectObject(vao, to, matrix);
-		}
+//		InventorySlot cursor = inventory.getCursor();
+//		if(cursor != null) {
+//			matrix = getTransformationMatrix(new Vector2f(cursor.getCoordinates().x, cursor.getCoordinates().y), 0, cursor.getSize().x * 2);
+//			to = TOs.get(Texture.INVENTORY_CURSOR);
+//			renderRectObject(vao, to, matrix);
+//		}
 		
 		Item mouseItem = inventory.getHeldInMouse();
 		if(mouseItem != null){

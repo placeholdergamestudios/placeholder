@@ -16,7 +16,7 @@ public abstract class GameObject
 	protected RenderPrio renderPriorisation;
 	
 	
-	private Vec2 renderPos;
+	private Vec2 renderPos; //everytime when the game is rendered, the objects position is "frozen" in here to avoid glitchy-looking gameplay
 	
 	private float deltaY; // set this to non-zero if the render object should appear elevated above the ground
 	

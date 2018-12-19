@@ -5,6 +5,7 @@ import org.md2.gameobjects.item.Item;
 import org.md2.gameobjects.item.weapons.BowItem;
 import org.md2.main.Game;
 import org.md2.main.SoundManager;
+import org.md2.rendering.Texture;
 
 import java.util.ArrayList;
 
@@ -17,7 +18,7 @@ public class Inventory
 	private InventorySlot armourSlot;
 	private InventorySlot trinketSlot;
 
-	private InventorySlot cursor;
+	//private InventorySlot cursor;
 	private Item heldInMouse;
 
 	public static final int NUMBER_OF_HOTBAR_SLOTS = 3;
@@ -34,32 +35,8 @@ public class Inventory
 		hotbarSlots = new ArrayList<>();
 		allSlots = new ArrayList<>();
 		this.size = size;
+		initInventorySlots();
 
-		float slotsPerRow = (float)Math.ceil(Math.sqrt(this.size));
-		sideLength = slotsPerRow*gapBetweenSlots;
-
-		Vec2 var1 =  new Vec2(sizeOfSlots/2, sizeOfSlots/2);
-		float var2 = sideLength/2-gapBetweenSlots/2;
-
-		int index = 0;
-		for(int y = 0; y < slotsPerRow; y++){
-			for(int x = 0; x < slotsPerRow; x++){
-				normalSlots.add(new InventorySlot(new Vec2(gapBetweenSlots*x-var2, -(gapBetweenSlots*y-var2)), var1, null));
-				index++;
-				if(index == size) break;
-			}
-		}
-
-		for(index = 0; index < NUMBER_OF_HOTBAR_SLOTS; index++)
-		{
-			hotbarSlots.add(new InventorySlot(new Vec2(var2+gapBetweenSlots, var2-index*gapBetweenSlots), var1, null));
-		}
-		armourSlot = new InventorySlot(new Vec2(var2+gapBetweenSlots, var2-3*gapBetweenSlots), var1, null);
-		trinketSlot = new InventorySlot(new Vec2(var2+gapBetweenSlots, var2-4*gapBetweenSlots), var1, null);
-		allSlots.addAll(normalSlots);
-		allSlots.addAll(hotbarSlots);
-		allSlots.add(armourSlot);
-		allSlots.add(trinketSlot);
 	}
 
 	public ArrayList<InventorySlot> getAllSlots()
@@ -72,26 +49,27 @@ public class Inventory
 		return hotbarSlots;
 	}
 
-	public InventorySlot getCursor()
-	{
-		return cursor;
-	}
+//	public InventorySlot getCursor()
+//	{
+//		return cursor;
+//	}
 
-	public void onClick()
-	{
-		for(InventorySlot invSlot: allSlots){
-			if(invSlot.wasClicked()){
-				if(cursor != null && cursor.equals(invSlot))
-				{
-					if(heldInMouse instanceof BowItem && isHotbarSlot(invSlot))
-						Game.getGame().getSoundManager().playSoundID(SoundManager.SOUNDBOWEQUIP);
-					heldInMouse = invSlot.switchItem(heldInMouse);
-				}
-				else
-					cursor = invSlot;
-			}
-		}
-	}
+//	public void onClick()
+//	{
+//		for(InventorySlot invSlot: allSlots){
+//			if(invSlot.wasClicked()){
+//				if(cursor != null && cursor.equals(invSlot))
+//				{
+//					//TODO: Move this to the specific item
+//					//if(heldInMouse instanceof BowItem && isHotbarSlot(invSlot))
+//					//	Game.getGame().getSoundManager().playSoundID(SoundManager.SOUNDBOWEQUIP);
+//					heldInMouse = invSlot.switchItem(heldInMouse);
+//				}
+//				else
+//					cursor = invSlot;
+//			}
+//		}
+//	}
 
 	public boolean add(Item i)
 	{
@@ -113,7 +91,7 @@ public class Inventory
 		return false;
 	}
 
-	public boolean isHotbarSlot(InventorySlot i)
+	private boolean isHotbarSlot(InventorySlot i)
 	{
 		for(InventorySlot invSlot: hotbarSlots)
 			if (i.equals(invSlot)) return true;
@@ -144,4 +122,33 @@ public class Inventory
 			}
 		}
 	}
+
+	public void initInventorySlots()
+    {
+        float slotsPerRow = (float)Math.ceil(Math.sqrt(this.size));
+        sideLength = slotsPerRow*gapBetweenSlots;
+
+        Vec2 var1 =  new Vec2(sizeOfSlots/2, sizeOfSlots/2);
+        float var2 = sideLength/2-gapBetweenSlots/2;
+
+        int index = 0;
+        for(int y = 0; y < slotsPerRow; y++){
+            for(int x = 0; x < slotsPerRow; x++){
+                normalSlots.add(new InventorySlot(new Vec2(gapBetweenSlots*x-var2, -(gapBetweenSlots*y-var2)), var1, Texture.INVENTORY_SLOT));
+                index++;
+                if(index == size) break;
+            }
+        }
+
+        for(index = 0; index < NUMBER_OF_HOTBAR_SLOTS; index++)
+        {
+            hotbarSlots.add(new InventorySlot(new Vec2(var2+gapBetweenSlots, var2-index*gapBetweenSlots), var1, Texture.INVENTORY_SLOT));
+        }
+        armourSlot = new InventorySlot(new Vec2(var2+gapBetweenSlots, var2-3*gapBetweenSlots), var1, Texture.INVENTORY_SLOT);
+        trinketSlot = new InventorySlot(new Vec2(var2+gapBetweenSlots, var2-4*gapBetweenSlots), var1, Texture.INVENTORY_SLOT);
+        allSlots.addAll(normalSlots);
+        allSlots.addAll(hotbarSlots);
+        allSlots.add(armourSlot);
+        allSlots.add(trinketSlot);
+    }
 }

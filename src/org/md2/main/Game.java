@@ -24,6 +24,7 @@ public class Game
     private MechanicManager mm;
     private SoundManager sm;
     private SaveManager svm;
+    private ButtonManager bm;
     private static Game game;
     
     private static boolean threadsLocked;
@@ -47,6 +48,7 @@ public class Game
         ki = new KeyboardInput();
         mm = new MechanicManager();
         svm = new SaveManager();
+        bm = new ButtonManager();
         //svm.save("test");
         svm.load("test");
         gr.setInput(ki);
@@ -97,6 +99,11 @@ public class Game
     public GraphicRendererV2 getGraphicRenderer()
     {
         return gr;
+    }
+
+    public ButtonManager getButtonManager()
+    {
+        return bm;
     }
 
     public MechanicManager getMechanicManager()

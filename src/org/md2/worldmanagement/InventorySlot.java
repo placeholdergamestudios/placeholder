@@ -4,41 +4,24 @@ import org.jbox2d.common.Vec2;
 import org.joml.Vector4f;
 import org.md2.common.Tools;
 import org.md2.gameobjects.item.Item;
+import org.md2.input.Button;
+import org.md2.main.Game;
 import org.md2.main.GraphicRendererV2;
 import org.md2.rendering.Texture;
 
-public class InventorySlot
+public class InventorySlot extends Button
 {
-    private Vec2 coordinates;
-    private Vec2 size;
-    private Texture[] textures;
+
     private Item storedItem;
 
-    public InventorySlot(Vec2 coordinates, Vec2 size, Texture specialTexture)
+    public InventorySlot(Vec2 coordinates, Vec2 size, Texture slotTexture)
     {
-        this.coordinates = coordinates;
-        this.size = size;
-        textures = new Texture[]{Texture.INVENTORY_SLOT};
+        super(coordinates, size, Game.M_INVENTORY,  new Texture[]{Texture.INVENTORY_SLOT});
     }
 
-    public Texture[] getTexture()
-    {
-        return textures;
-    }
+    @Override
+    protected void performAction() {
 
-    public Vec2 getCoordinates()
-    {
-        return coordinates;
-    }
-
-    public Vec2 getSize()
-    {
-        return size;
-    }
-
-    public boolean wasClicked()
-    {
-        return Tools.vec2InsideRect(coordinates, size, GraphicRendererV2.getMousePos());
     }
 
     public boolean addItem(Item i)
