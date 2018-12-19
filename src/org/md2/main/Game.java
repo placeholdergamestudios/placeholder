@@ -24,6 +24,7 @@ public class Game
     private MechanicManager mm;
     private SoundManager sm;
     private SaveManager svm;
+    private AIManager aim;
     private ButtonManager bm;
     private static Game game;
     
@@ -48,6 +49,7 @@ public class Game
         ki = new KeyboardInput();
         mm = new MechanicManager();
         svm = new SaveManager();
+        aim = new AIManager(mm.getWorldManager());
         bm = new ButtonManager();
         //svm.save("test");
         svm.load("test");
@@ -112,6 +114,8 @@ public class Game
     }
 
     public SoundManager getSoundManager() {return sm;}
+
+    public AIManager getAIManager() {return aim;}
 
     public static Game getGame()
     {

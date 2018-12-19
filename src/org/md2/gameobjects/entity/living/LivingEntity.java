@@ -190,6 +190,14 @@ public abstract class LivingEntity extends Entity
 			useItem(i, usageType);
 			
 	}
+
+	public void setShouldMove(int shouldMoveY) {
+		this.shouldMoveY = shouldMoveY;
+	}
+
+	public void setShouldRotate(int shouldMoveX) {
+		this.shouldMoveX = -shouldMoveX;
+	}
 	
 	public void setCurrentlyUsing(Vec2 v)
 	{

@@ -36,15 +36,6 @@ public class Player extends LivingEntity
     	
     	return fd;
     }
-    
-    public void setShouldMove(int shouldMoveY) {
-		this.shouldMoveY = shouldMoveY;
-	}
-
-	public void setShouldRotate(int shouldMoveX) {
-		this.shouldMoveX = -shouldMoveX;
-	}
-
 
 	@Override
 	public void initWalkingSprites() {

@@ -162,6 +162,11 @@ public class WorldManager implements ContactListener
 		return ret;
 	}
 
+	public ArrayList<WorldObject> getAllWorldObjects()
+	{
+		return worldObjects;
+	}
+
 	public ArrayList<GameObject> getGameObjects(Vec2 center, Vec2 renderRange)
 	{
 		ArrayList<GameObject> objects = getAllObjects();
