@@ -1,6 +1,4 @@
 [submodule "org.l33tlabs.twl.pngdecoder"]
 	path = org.l33tlabs.twl.pngdecoder
 	url = https://github.com/iamtakingiteasy/org.l33tlabs.twl.pngdecoder.git
-[submodule "jbox2d"]
-	path = jbox2d
-	url = https://github.com/jbox2d/jbox2d.git
+
